@@ -1,0 +1,28 @@
+import { createBrowserRouter } from "react-router-dom";
+
+import Home from "../pages/Home";
+import Downloads from "../pages/Downloads";
+import Families from "../pages/Families";
+import PageNotFound from "../components/PageNotFound,";
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  },
+  {
+    path: "/downloads",
+    element: <Downloads />
+  },
+  {
+    path: "/families",
+    element: <Families />
+  },
+  {
+    path: "*",
+    element: <PageNotFound/>
+  }
+]);
+
+export default router;
