@@ -3,10 +3,10 @@ import Review from "./Review";
 import RevitPurchase from "./RevitPurchase";
 
 const DownloadHero = () => {
-    return <div className="">
+    return <div>
         <div className="flex-col justify-center items-center mt-8 p-5">
-            <p className="text-4xl font-bold text-center uppercase ">Smarter Revit Structural Design Starts Here.</p>
-            <p className="mt-2 lg:mt-0 text-2xl font-semibold text-center">Built on 25 years of hands-on global project delivery. Made for Revit. Made for engineers.</p>
+            <p className="text-2xl md:text-4xl font-bold text-center uppercase ">Smarter Revit Structural Design Starts Here.</p>
+            <p className="mt-2 lg:mt-0 text-xl md:text-2xl font-semibold text-center">Built on 25 years of hands-on global project delivery. Made for Revit. Made for engineers.</p>
         </div>
         <div className="my-13 shadow-2xl p-5">
             <img src={ribbon} alt="Ribbon Image" />

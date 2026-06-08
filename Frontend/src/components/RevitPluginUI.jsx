@@ -25,41 +25,51 @@ const RevitPluginUI = () => {
             </h1>
 
         </div>
-        <div className="flex justify-between items-center px-15 py-5 text-lg">
-            <div className="flex-col gap-1 items-start w-[20%]">
-                <p>Coordinates</p>
-                <p>Pile Rehost</p>
-                <p>Pile Counts</p>
-                <p>CutOff Depths</p>
-                <p>Minimum Distance</p>
-                <p>Filters Pile</p>
-                <p>Pile Numbering</p>
-                <p>Switch Join Piles</p>
-                <p>Switch Join Pile Cap</p>
-                <p>Pile Cap Raft Top Checks</p>
-                <p>Foundation Family Checks</p>
-                <p>Filters Foundation</p>
-                <p>Clashes MEP Equip</p>
-                <p>Clashes Door Window</p>
-                <p>Foundation Reports</p></div>
-            <div className="flex-col gap-1 items-center">
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
+
+        <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
+
+
+            <div className="w-[95%] sm:w-[65%] flex flex-row justify-between items-center">
+                <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
+                    <p>Coordinates</p>
+                    <p>Pile Rehost</p>
+                    <p>Pile Counts</p>
+                    <p>CutOff Depths</p>
+                    <p>Minimum Distance</p>
+                    <p>Filters Pile</p>
+                    <p>Pile Numbering</p>
+                    <p>Switch Join Piles</p>
+                    <p>Switch Join Pile Cap</p>
+                    <p>Pile Cap Raft Top Checks</p>
+                    <p>Foundation Family Checks</p>
+                    <p>Filters Foundation</p>
+                    <p>Clashes MEP Equip</p>
+                    <p>Clashes Door Window</p>
+                    <p>Foundation Reports</p></div>
+
+                <div className="flex-col gap-1 items-center text-sm sm:text-lg">
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                </div>
             </div>
-            <img src={FOUNDATION} alt="Revit Plugin Image" className="w-50" />
+
+
+            <img src={FOUNDATION} alt="Revit Plugin Image" className="w-[40vw] sm:w-35 md:w-40 lg:w-50" />
+
+
         </div>
 
 
@@ -83,30 +93,38 @@ const RevitPluginUI = () => {
             </h1>
 
         </div>
-        <div className="flex justify-between items-center px-15 py-5 text-lg">
-            <div className="flex-col gap-1 items-start w-[20%]">
-                <p>Switch Drops</p>
-                <p>Switch Floors To</p>
-                <p>Filter Floors</p>
-                <p>Drop Dim</p>
-                <p>Trace Arch</p>
-                <p>Copy Linked</p>
-                <p>Arch Clashes</p>
-                <p>MEP Clashes</p>
-                <p>Floor Reports</p>
+        <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
+
+
+            <div className="w-[95%] sm:w-[65%] flex flex-row justify-between items-center">
+                <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
+                    <p>Switch Drops</p>
+                    <p>Switch Floors To</p>
+                    <p>Filter Floors</p>
+                    <p>Drop Dim</p>
+                    <p>Trace Arch</p>
+                    <p>Copy Linked</p>
+                    <p>Arch Clashes</p>
+                    <p>MEP Clashes</p>
+                    <p>Floor Reports</p></div>
+
+                <div className="flex-col gap-1 items-center text-sm sm:text-lg">
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                </div>
             </div>
-            <div className="flex-col gap-1 items-center">
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-            </div>
-            <img src={FLOORS} alt="Revit Plugin Image" className="w-50" />
+
+
+            <img src={FLOORS} alt="Revit Plugin Image" className="w-[40vw] sm:w-35 md:w-40 lg:w-50" />
+
+
         </div>
 
 
@@ -129,25 +147,36 @@ const RevitPluginUI = () => {
             </h1>
 
         </div>
-        <div className="flex justify-between items-center px-15 py-5 text-lg">
-            <div className="flex-col gap-1 items-start w-[20%]">
-                <p>Arch Clashes</p>
-                <p>MEP Clashes</p>
-                <p>Top Level Check</p>
-                <p>Filter Beams</p>
-                <p>Length Match</p>
-                <p>Beam Report</p>
+        <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
+
+
+            <div className="w-[95%] sm:w-[65%] flex flex-row justify-between items-center">
+                <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
+                    <p>Arch Clashes</p>
+                    <p>MEP Clashes</p>
+                    <p>Top Level Check</p>
+                    <p>Filter Beams</p>
+                    <p>Length Match</p>
+                    <p>Beam Report</p>
+
+                </div>
+
+                <div className="flex-col gap-1 items-center text-sm sm:text-lg">
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                </div>
             </div>
-            <div className="flex-col gap-1 items-center">
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-            </div>
-            <img src={BEAMS} alt="Revit Plugin Image" className="w-50" />
+
+
+            <img src={BEAMS} alt="Revit Plugin Image" className="w-[40vw] sm:w-35 md:w-40 lg:w-50" />
+
+
         </div>
+
 
         <br></br>
         <br></br>
@@ -167,24 +196,33 @@ const RevitPluginUI = () => {
             </h1>
 
         </div>
-        <div className="flex justify-between items-center px-15 py-5 text-lg">
-            <div className="flex-col gap-1 items-start w-[20%]">
-                <p>Arch Clashes ColWall</p>
-                <p>MEP Clashes ColWall</p>
-                <p>Col Wall Tags</p>
-                <p>Wall Length Match</p>
-                <p>Col Wall Report</p>
-                <p>Col Wall Layouts</p>
+        <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
+
+
+            <div className="w-[95%] sm:w-[65%] flex flex-row justify-between items-center">
+                <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
+                    <p>Arch Clashes ColWall</p>
+                    <p>MEP Clashes ColWall</p>
+                    <p>Col Wall Tags</p>
+                    <p>Wall Length Match</p>
+                    <p>Col Wall Report</p>
+                    <p>Col Wall Layouts</p>
+                </div>
+
+                <div className="flex-col gap-1 items-center text-sm sm:text-lg">
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                </div>
             </div>
-            <div className="flex-col gap-1 items-center">
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-            </div>
-            <img src={COLUMNWALL} alt="Revit Plugin Image" className="w-50" />
+
+
+            <img src={COLUMNWALL} alt="Revit Plugin Image" className="w-[40vw] sm:w-35 md:w-40 lg:w-50" />
+
+
         </div>
 
 
@@ -207,17 +245,27 @@ const RevitPluginUI = () => {
             </h1>
 
         </div>
-        <div className="flex justify-between items-center px-15 py-5 text-lg">
-            <div className="flex-col gap-1 items-start w-[17%]">
-                <p>Beam Info</p>
-                <p>Col Wall Info</p>
+        <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
+
+
+            <div className="w-[95%] sm:w-[65%] flex flex-row justify-between items-center">
+                <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
+                    <p>Beam Info</p>
+                    <p>Col Wall Info</p>
+                </div>
+
+                <div className="flex-col gap-1 items-center text-sm sm:text-lg">
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                </div>
             </div>
-            <div className="flex-col gap-1 items-center">
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-            </div>
-            <img src={INFO} alt="Revit Plugin Image" className="w-40" />
+
+
+            <img src={FOUNDATION} alt="Revit Plugin Image" className="w-[40vw] sm:w-35 md:w-40 lg:w-50" />
+
+
         </div>
+
 
         <br></br>
         <br></br>
@@ -238,23 +286,33 @@ const RevitPluginUI = () => {
             </h1>
 
         </div>
-        <div className="flex justify-between items-center px-15 py-5 text-lg">
-            <div className="flex-col gap-1 items-start w-[20%]">
-                <p>Excel To Revit</p>
-                <p>Excel Apply To</p>
-                <p>Excel Apply Upto</p>
-                <p>DWG Excel</p>
-                <p>Excel Apply</p>
+        <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
+
+            <div className="w-[95%] sm:w-[65%] flex flex-row justify-between items-center">
+                <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
+
+                    <p>Excel To Revit</p>
+                    <p>Excel Apply To</p>
+                    <p>Excel Apply Upto</p>
+                    <p>DWG Excel</p>
+                    <p>Excel Apply</p>
+                </div>
+
+                <div className="flex-col gap-1 items-center text-sm sm:text-lg">
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                    <p>YouTube Link</p>
+                </div>
             </div>
-            <div className="flex-col gap-1 items-center">
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-                <p>YouTube Link</p>
-            </div>
-            <img src={EXCEL} alt="Revit Plugin Image" className="w-50" />
+
+
+            <img src={FOUNDATION} alt="Revit Plugin Image" className="w-[40vw] sm:w-35 md:w-40 lg:w-50" />
+
+
         </div>
+
 
         <br></br>
         <br></br>

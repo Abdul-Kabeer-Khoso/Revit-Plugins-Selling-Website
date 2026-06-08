@@ -2,9 +2,9 @@ import ribbon from "./../assets/ribbon.png"
 
 const HomeHero = () => {
     return <div className=" p-5">
-        <div className="flex-col justify-center items-center mt-8">
-            <p className="text-4xl font-bold text-center uppercase ">Smarter Revit Structural Design Starts Here.</p>
-            <p className="mt-2 lg:mt-0 text-2xl font-semibold text-center">Built on 25 years of hands-on global project delivery. Made for Revit. Made for engineers.</p>
+        <div className="flex-col justify-center items-center mt-8 p-5">
+            <p className="text-2xl md:text-4xl font-bold text-center uppercase ">Smarter Revit Structural Design Starts Here.</p>
+            <p className="mt-2 lg:mt-0 text-xl md:text-2xl font-semibold text-center">Built on 25 years of hands-on global project delivery. Made for Revit. Made for engineers.</p>
         </div>
         <br></br>
         <div className="border-l-2 pl-2">
