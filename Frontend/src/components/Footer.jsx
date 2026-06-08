@@ -1,9 +1,8 @@
 export default function Footer() {
     return (
-        <footer className="relative w-full overflow-hidden bg-[#100B00] text-white">
+        <footer className="relative w-full overflow-hidden bg-gray-400 text-black">
 
-            {/* Background Glow */}
-            <div className="absolute inset-0 bg-[#100B00] blur-3xl"></div>
+
 
             <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10">
 
@@ -16,7 +15,7 @@ export default function Footer() {
                             Contact Us
                         </h2>
 
-                        <p className="text-sm text-white/60 hover:text-white transition">
+                        <p className="text-sm text-black hover:cursor-pointer hover:underline transition">
                             Help Us to Improve
                         </p>
                     </div>
@@ -26,16 +25,16 @@ export default function Footer() {
 
                         <a
                             href="mailto:info@hamstruk.com"
-                            className="block text-sm sm:text-base text-white/70 
-              hover:text-cyan-400 transition duration-300 hover:translate-x-1"
+                            className="block text-sm sm:text-base text-black
+              hover:underline transition duration-300 hover:translate-x-1"
                         >
                             info@hamstruk.com
                         </a>
 
                         <a
                             href="mailto:suggestions@hamstruk.com"
-                            className="block text-sm sm:text-base text-white/70 
-              hover:text-pink-400 transition duration-300 hover:translate-x-1"
+                            className="block text-sm sm:text-base text-black
+              hover:underline transition duration-300 hover:translate-x-1"
                         >
                             suggestions@hamstruk.com
                         </a>
