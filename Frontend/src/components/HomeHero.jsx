@@ -1,6 +1,6 @@
 import ribbon from "./../assets/ribbon.png"
 
-const Hero = () => {
+const HomeHero = () => {
     return <div className=" p-5">
         <div className="flex-col justify-center items-center mt-8">
             <p className="text-4xl font-bold text-center uppercase ">Smarter Revit Structural Design Starts Here.</p>
@@ -23,4 +23,4 @@ const Hero = () => {
     </div>
 }
 
-export default Hero;
+export default HomeHero;
