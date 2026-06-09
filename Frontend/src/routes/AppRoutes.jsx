@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import Downloads from "../pages/Downloads";
 import Families from "../pages/Families";
 import PageNotFound from "../components/PageNotFound,";
+import AdminLogin from "../pages/AdminLogin";
+import AdminDashboard from "../pages/AdminDashboard";
 
 
 const router = createBrowserRouter([
@@ -20,8 +22,16 @@ const router = createBrowserRouter([
     element: <Families />
   },
   {
+    path: "/adminlogin",
+    element: <AdminLogin />
+  },
+  {
+    path: "/admindashboard",
+    element: <AdminDashboard />
+  },
+  {
     path: "*",
-    element: <PageNotFound/>
+    element: <PageNotFound />
   }
 ]);
 
