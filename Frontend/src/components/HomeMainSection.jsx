@@ -1,170 +1,42 @@
+import { useState, useEffect } from "react";
 import Card from "./Card";
 import RevitPluginUI from "./RevitPluginUI";
+import axios from "axios";
+// import XL from "../../../Backend/models/xlModel";
 
 const HomeMainSection = () => {
-    const items = [
-        {
-            title: "Coordinates",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Pile Rehost",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Pile Counts",
-            link: "https://youtube.com",
-        },
-        {
-            title: "CutOff Depths",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Minimum Distance",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Filters Pile",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Pile Numbering",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Switch Join Piles",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Switch Join Pile Cap",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Pile Cap Raft Top Checks",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Foundation Family Checks",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Filters Foundation",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Clashes MEP Equip",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Clashes Door Window",
-            link: "https://youtube.com",
-        },
-        {
-            title: "Foundation Reports",
-            link: "https://youtube.com",
-        },
-    ];
+
+    const [foundation, setFoundation] = useState([]);
+    const [structural, setStructural] = useState([]);
+    const [floor, setFloor] = useState([]);
+    const [beams, setBeams] = useState([]);
+    const [information, setInformation] = useState([]);
+    const [xl, setXl] = useState([]);
 
 
-    const items2 = [
-        {
-            title: "Switch Drops",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Switch Floors",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Filter Floors",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Drop Dim",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Trace Arch",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Copy Linked",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Arch Clashes",
-            link: "https://youtube.com"
-        },
-        {
-            title: "MEP Clashes",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Floor Reports",
-            link: "https://youtube.com"
-        }
-    ];
+    const setData = (data) => {
+        setFoundation(data.foundation);
+        setStructural(data.structural);
+        setFloor(data.floor);
+        setBeams(data.beams);
+        setInformation(data.information);
+        setXl(data.xl);
+        console.log(data);
+    }
 
-    const items3 = [
-        {
-            title: "Arch Clashes ColWall",
-            link: "https://youtube.com"
-        },
-        {
-            title: "MEP Clashes ColWall",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Col Wall Tags",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Wall Length Match",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Col Wall Report",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Col Wall Layouts",
-            link: "https://youtube.com"
-        }
-    ];
 
-    const items4 = [
-        {
-            title: "Beam Info",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Col Wall Info",
-            link: "https://youtube.com"
-        }
-    ]
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000/api/")
+            .then((res) => {
+                // console.log(res.data.foundation);
+                setData(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
 
-    const items5 = [
-        {
-            title: "Excel To Revit",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Excel Apply To",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Excel Apply Upto",
-            link: "https://youtube.com"
-        },
-        {
-            title: "DWG Excel",
-            link: "https://youtube.com"
-        },
-        {
-            title: "Excel Apply",
-            link: "https://youtube.com"
-        }
-    ];
 
     return <div>
         <div className="text-2xl font-bold px-5">Designed for Architects, Engineers, Contractors, Fabricators & BIM Professionals</div>
@@ -185,22 +57,7 @@ const HomeMainSection = () => {
         <br></br>
 
 
-        <RevitPluginUI />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <RevitPluginUI foundation={foundation} beams={beams} structural={structural} information={information} floor={floor} xl={xl} />
 
     </div>
 }

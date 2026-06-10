@@ -4,6 +4,8 @@ import HomeMainSection from "../components/HomeMainSection";
 import Navbar from "../components/Navbar";
 
 const Home = () => {
+
+
     return <div className="w-full h-full">
         <Navbar />
         <div className="h-auto bg-white">
