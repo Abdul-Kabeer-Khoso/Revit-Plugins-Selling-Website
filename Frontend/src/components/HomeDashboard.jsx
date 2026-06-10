@@ -1,7 +1,25 @@
+import { useState } from "react";
 import AdminList from "./AdminList";
+import DashboardForm from "./DashboardForm";
 
 
 const HomeDashboard = () => {
+    const [addRecord, setAddRecord] = useState(false);
+    const [editRecord, setEditRecord] = useState(false);
+    const [showRecords, setShowRecords] = useState(true);
+
+    const handleAddRecord = () => {
+        setShowRecords(false);
+        setAddRecord(true);
+    }
+
+
+    const hanldeEditRecord = ({ show, edit }) => {
+        console.log("Handle Edit record is working")
+        setShowRecords(show);
+        setEditRecord(edit)
+    }
+
     return <div>
         <div className="w-full h-auto p-2 rounded-md bg-amber-200 text-lg font-semibold flex justify-center items-center mb-4 ">
             HOME DASHBOARD
@@ -20,23 +38,34 @@ const HomeDashboard = () => {
                 </select>
             </form>
 
-            <div className="bg-green-500 flex justify-between items-center p-2 rounded-lg font-semibold text-white hover:cursor-pointer">
+            <div
+                onClick={() => handleAddRecord()}
+                className="bg-green-500 flex justify-between items-center p-2 rounded-lg font-semibold text-white hover:cursor-pointer">
                 <p>Add New</p>
             </div>
 
         </div>
 
-        <div className="flex flex-col justify-center items-center gap-4 mt-10">
-            <AdminList description="Coordinates" link="Youtube Link" />
-            <AdminList description="Pile Rehost" link="Youtube Link" />
-            <AdminList description="Pile Counts" link="Youtube Link" />
-            <AdminList description="CutOff Depths" link="Youtube Link" />
-            <AdminList description="Minimum Distance" link="Youtube Link" />
-            <AdminList description="Filters Pile" link="Youtube Link" />
-            <AdminList description="Foundation Family Checks" link="Youtube Link" />
 
+        {showRecords == true &&
+            <div className="flex flex-col justify-center items-center gap-4 mt-10">
+                <AdminList description="Coordinates" secondDisc="Youtube Link" handleEditRecord={hanldeEditRecord} />
+                <AdminList description="Pile Rehost" secondDisc="Youtube Link" handleEditRecord={hanldeEditRecord} />
+                <AdminList description="Pile Counts" secondDisc="Youtube Link" handleEditRecord={hanldeEditRecord} />
+                <AdminList description="CutOff Depths" secondDisc="Youtube Link" handleEditRecord={hanldeEditRecord} />
+                <AdminList description="Minimum Distance" secondDisc="Youtube Link" handleEditRecord={hanldeEditRecord} />
+                <AdminList description="Filters Pile" secondDisc="Youtube Link" handleEditRecord={hanldeEditRecord} />
+                <AdminList description="Foundation Family Checks" secondDisc="Youtube Link" handleEditRecord={hanldeEditRecord} />
+            </div>
+        }
 
-        </div>
+        {addRecord == true &&
+            <DashboardForm title="ADD NEW RECORD" placeholder1="Enter Description" placeholder2="Enter Youtube Link" buttonName="Add Record" />
+        }
+
+        {editRecord == true &&
+            <DashboardForm title="EDIT RECORD" placeholder1="Enter Description" placeholder2="Enter Youtube Link" buttonName="Update Record" />
+        }
     </div>
 }
 
