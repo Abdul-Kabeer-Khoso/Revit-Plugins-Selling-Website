@@ -1,8 +1,28 @@
+import { useEffect, useState } from "react";
 import ribbon from "./../assets/ribbon.png"
 import Review from "./Review";
 import RevitPurchase from "./RevitPurchase";
+import axios from "axios"
 
 const DownloadHero = () => {
+
+
+    const [revit, setRevit] = useState([]);
+
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000/api/download")
+            .then((res) => {
+                console.log(res.data);
+                setRevit(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
+
+
     return <div>
         <div className="flex-col justify-center items-center mt-8 p-5">
             <p className="text-2xl md:text-4xl font-bold text-center uppercase ">Smarter Revit Structural Design Starts Here.</p>
@@ -11,11 +31,10 @@ const DownloadHero = () => {
         <div className="my-13 shadow-2xl p-5">
             <img src={ribbon} alt="Ribbon Image" />
         </div>
-        <RevitPurchase version="2024" price="125" />
-        <RevitPurchase version="2025" price="125" />
-        <RevitPurchase version="2026" price="125" />
-        <RevitPurchase version="2027" price="125" />
-        <RevitPurchase version="2028" price="125" />
+
+        {revit.map((elem, idx) => (
+            <RevitPurchase key={idx} description={elem.description} price={elem.price} />
+        ))}
 
 
         <div className="px-4 my-12 mx-5">

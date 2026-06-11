@@ -1,7 +1,34 @@
+import { useEffect, useState } from "react"
 import search from "../assets/search.png"
 import Family from "./Family"
 import YoutubeTutorial from "./YoutubeTutorial"
+import axios from "axios"
+
 const FamiliesHero = () => {
+
+    const [families, setFamilies] = useState([]);
+    const [youtubeTutorials, setYoutubeTutorials] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000/api/families")
+            .then((res) => {
+                setFamilies(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+        axios
+            .get("http://localhost:3000/api/youtubeTutorials")
+            .then((res) => {
+                setYoutubeTutorials(res.data.allYoutubeTutorials);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
+
     return <div>
         <div className="flex-col justify-center items-center mt-8 p-5">
             <p className="text-2xl md:text-4xl font-bold text-center uppercase ">Smarter Revit Structural Design Starts Here.</p>
@@ -25,24 +52,12 @@ const FamiliesHero = () => {
         <hr></hr>
 
         <div className="mt-10 mb-10">
-            <Family name="GRID" price="1000" />
-            <Family name="LEVEL TRIANGLE" price="1200" />
-            <Family name="COLUMN WALL REINF SEC" price="1500" />
-            <Family name="GRID" price="1000" />
-            <Family name="LEVEL TRIANGLE" price="1200" />
-            <Family name="COLUMN WALL REINF SEC" price="1500" />
-            <Family name="GRID" price="1000" />
-            <Family name="LEVEL TRIANGLE" price="1200" />
-            <Family name="COLUMN WALL REINF SEC" price="1500" />
-            <Family name="GRID" price="1000" />
-            <Family name="LEVEL TRIANGLE" price="1200" />
-            <Family name="COLUMN WALL REINF SEC" price="1500" />
-            <Family name="GRID" price="1000" />
-            <Family name="LEVEL TRIANGLE" price="1200" />
-            <Family name="COLUMN WALL REINF SEC" price="1500" />
-            <Family name="GRID" price="1000" />
-            <Family name="LEVEL TRIANGLE" price="1200" />
-            <Family name="COLUMN WALL REINF SEC" price="1500" />
+
+            {families.map((elem, idx) => (
+                <Family key={idx} name={elem.family} price={elem.price} />
+            ))}
+
+
         </div>
 
 
@@ -60,28 +75,9 @@ const FamiliesHero = () => {
         </div>
 
         <div className="mt-10 mb-10">
-            <YoutubeTutorial name="How To Place a Structural Column" />
-            <YoutubeTutorial name="How To Place a Structural Framing" />
-            <YoutubeTutorial name="How To Place a Floor" />
-            <YoutubeTutorial name="How To Place a Structural Column" />
-            <YoutubeTutorial name="How To Place a Structural Framing" />
-            <YoutubeTutorial name="How To Place a Floor" />
-
-            <YoutubeTutorial name="How To Place a Structural Column" />
-            <YoutubeTutorial name="How To Place a Structural Framing" />
-            <YoutubeTutorial name="How To Place a Floor" />
-
-            <YoutubeTutorial name="How To Place a Structural Column" />
-            <YoutubeTutorial name="How To Place a Structural Framing" />
-            <YoutubeTutorial name="How To Place a Floor" />
-
-            <YoutubeTutorial name="How To Place a Structural Column" />
-            <YoutubeTutorial name="How To Place a Structural Framing" />
-            <YoutubeTutorial name="How To Place a Floor" />
-
-            <YoutubeTutorial name="How To Place a Structural Column" />
-            <YoutubeTutorial name="How To Place a Structural Framing" />
-            <YoutubeTutorial name="How To Place a Floor" />
+            {youtubeTutorials.map((elem, idx) => (
+                <YoutubeTutorial key={idx} name={elem.tutorial} link={elem.link} />
+            ))}
 
 
         </div>
