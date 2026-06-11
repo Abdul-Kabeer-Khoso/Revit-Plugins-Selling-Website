@@ -147,6 +147,7 @@ const HomeDashboard = () => {
         try {
             axios.post("http://localhost:3000/api/foundation", data)
             toast.success("Record Added Succesfully");
+
         } catch (err) {
             toast.error(err);
         }
@@ -307,22 +308,24 @@ const HomeDashboard = () => {
 
         <div className="w-full flex justify-between items-center py-2 ">
 
-
-            <form >
-                <select
-                    onChange={(e) => setCurrentRecord(parseInt(e.target.value))}
-                    className="p-2 border outline-none rounded-lg hover:cursor-pointer">
-                    <option value="1">Foundation Isolated Pile Caps / Foundation Slab Raft / Piling</option>
-                    <option value="2">Floor Slabs / Structural Floor</option>
-                    <option value="3">Beams / Structural Framings</option>
-                    <option value="4">Structural Columns & Walls</option>
-                    <option value="5">Information</option>
-                    <option value="6">XL Master</option>
-                </select>
-            </form>
-
-
             {editRecord == false &&
+                <form >
+                    <select
+                        onChange={(e) => setCurrentRecord(parseInt(e.target.value))}
+                        className="p-2 border outline-none rounded-lg hover:cursor-pointer">
+                        <option value="1">Foundation Isolated Pile Caps / Foundation Slab Raft / Piling</option>
+                        <option value="2">Floor Slabs / Structural Floor</option>
+                        <option value="3">Beams / Structural Framings</option>
+                        <option value="4">Structural Columns & Walls</option>
+                        <option value="5">Information</option>
+                        <option value="6">XL Master</option>
+                    </select>
+                </form>
+
+            }
+
+
+            {editRecord == false && addRecord == false &&
 
                 <div
                     onClick={() => handleAddRecord()}
@@ -330,8 +333,10 @@ const HomeDashboard = () => {
                     <p>Add New</p>
                 </div>
 
-
             }
+
+
+
 
         </div>
 

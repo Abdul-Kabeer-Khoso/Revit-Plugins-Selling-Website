@@ -9,7 +9,25 @@ const AdminList = ({ id, description, secondDisc, current, setFunc, handleEditRe
         console.log(id);
         console.log(current);
 
+
+        // special case for deleting download record
+
+        {
+            current == 0 &&
+                axios
+                    .delete(`http://localhost:3000/api/download/${id}`)
+                    .then((res) => {
+                        toast.error('Record deleted')
+                        setFunc(res.data.downloadData);
+                    })
+                    .catch((err) => {
+                        toast.error(err);
+                    })
+        }
+
+
         // Delete Records
+
         {
             current == 1 &&
                 axios
