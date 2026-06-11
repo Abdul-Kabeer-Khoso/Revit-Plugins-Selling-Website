@@ -16,6 +16,8 @@ const DownloadDashboard = () => {
 
     const [revitData, setRevitData] = useState([]);
 
+    const [editId, setEditId] = useState('');
+
 
 
 
@@ -26,12 +28,11 @@ const DownloadDashboard = () => {
     }
 
     const getEditData = (id) => {
+        setEditId(id)
         try {
             axios
                 .get(`http://localhost:3000/api/download/${id}`)
                 .then((res) => {
-                    console.log(res.data.data.description);
-                    console.log(res.data.data.price);
                     setFirstInputValue(res.data.data.description);
                     setSecondInputValue(res.data.data.price);
                 })
@@ -74,6 +75,18 @@ const DownloadDashboard = () => {
         }
     }
 
+    const updateDownload = (data) => {
+        try {
+            axios
+                .put(`http://localhost:3000/api/download/${editId}`, data)
+            toast.success("Record Updated Successfully")
+        } catch (err) {
+            toast.error(err);
+        }
+    }
+
+
+
     return <div>
         <div className="w-full h-auto p-2 rounded-md bg-amber-200 text-lg font-semibold flex justify-center items-center">
             DOWNLOAD DASHBOARD
@@ -109,7 +122,7 @@ const DownloadDashboard = () => {
         }
 
         {editRecord == true &&
-            <DashboardForm title="EDIT RECORD" placeholder1="Enter Description" placeholder2="Enter Price" buttonName="Update Record" addFormData={addDownload} firstValue={firstInputValue} secondValue={secondInputValue} />
+            <DashboardForm title="EDIT RECORD" placeholder1="Enter Description" placeholder2="Enter Price" buttonName="Update Record" addFormData={updateDownload} firstValue={firstInputValue} secondValue={secondInputValue} />
         }
 
     </div>
