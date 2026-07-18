@@ -11,8 +11,8 @@ const router = express.Router();
 
 router.get("/download", getAllDownload);
 router.get("/download/:id", getDownload);
-router.post("/download", verifyAdmin, addDownload);
-router.delete("/download/:id", verifyAdmin, deleteDownload);
-router.put("/download/:id", verifyAdmin, editDownload);
+router.post("/download", addDownload);
+router.delete("/download/:id", deleteDownload);
+router.put("/download/:id", editDownload);
 
 export default router;
