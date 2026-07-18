@@ -10,34 +10,28 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendPurchaseEmail = async (order, plugin) => {
+export const sendPurchaseEmail = async (order, plugin, licenses) => {
   try {
     const html = purchaseEmailTemplate({
       customerEmail: order.customerEmail,
       pluginName: plugin.description,
       price: plugin.price,
-
-      // Dummy key for now
-      licenseKey: "RVT-AB12-CD34-EF56",
-
-      // Replace later with your frontend download route
+      licenses,
       downloadLink: `http://localhost:5173/download/${plugin._id}`,
     });
 
     await transporter.sendMail({
       from: `"Revit Plugins" <${process.env.EMAIL_USER}>`,
-
       to: order.customerEmail,
-
       subject: "Your Revit Plugin Purchase",
-
       html,
     });
 
-    console.log("✅ Purchase email sent.");
+    console.log(
+      `✅ Purchase email sent to ${order.customerEmail} with ${licenses.length} license(s).`,
+    );
   } catch (err) {
     console.error("❌ Email Error:", err);
-
     throw err;
   }
 };

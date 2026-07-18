@@ -2,8 +2,6 @@ import axios from "axios";
 
 const RevitPurchase = ({ description, price, id }) => {
   const handlePurchase = async () => {
-    console.log("handle purchase is working");
-
     const res = await axios.post(
       "http://localhost:3000/api/createCheckoutSession",
       {
