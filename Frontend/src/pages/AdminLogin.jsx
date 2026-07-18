@@ -48,7 +48,7 @@ const AdminLogin = () => {
         <p className="text-2xl font-bold mb-2">Welcome Back</p>
 
         <p className="text-md mb-10 text-center">
-          Enter your username and password to access admin dashboard
+          Enter your username and password
         </p>
 
         {error && (
