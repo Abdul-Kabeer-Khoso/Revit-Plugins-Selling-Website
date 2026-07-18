@@ -25,14 +25,14 @@ const router = createBrowserRouter([
     path: "/adminlogin",
     element: <AdminLogin />,
   },
-  // {
-  //   path: "/admindashboard",
-  //   element: (
-  //     <ProtectedRoute>
-  //       <AdminDashboard />
-  //     </ProtectedRoute>
-  //   ),
-  // },
+  {
+    path: "/admindashboard",
+    element: (
+      <ProtectedRoute>
+        <AdminDashboard />
+      </ProtectedRoute>
+    ),
+  },
   // {
   //   path: "*",
   //   element: <PageNotFound />,

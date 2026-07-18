@@ -16,7 +16,6 @@ const AdminLogin = () => {
 
     setLoading(true);
     setError("");
-    console.log("handle Submit is working");
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/admin/login`,
@@ -48,7 +47,7 @@ const AdminLogin = () => {
         <p className="text-2xl font-bold mb-2">Welcome Back</p>
 
         <p className="text-md mb-10 text-center">
-          Enter your username and password
+          Enter your username and password to access admin dashboard
         </p>
 
         {error && (
@@ -69,7 +68,7 @@ const AdminLogin = () => {
           />
 
           <input
-            type="Enter password secretly"
+            type="password"
             placeholder="Enter Password"
             required
             value={password}
