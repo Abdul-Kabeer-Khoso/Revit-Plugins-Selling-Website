@@ -1,32 +1,32 @@
-import Order from "../models/orderModel.js";
+// import Order from "../models/orderModel.js";
 
-export const saveOrder = async (session, plugin) => {
-  try {
-    const order = new Order({
-      customerEmail: session.customer_details.email,
+// export const saveOrder = async (session, plugin) => {
+//   try {
+//     const order = new Order({
+//       customerEmail: session.customer_details.email,
 
-      pluginId: plugin._id,
-      pluginName: plugin.description,
-      price: plugin.price,
+//       pluginId: plugin._id,
+//       pluginName: plugin.description,
+//       price: plugin.price,
 
-      currency: session.currency,
+//       currency: session.currency,
 
-      stripeSessionId: session.id,
+//       stripeSessionId: session.id,
 
-      paymentIntentId: session.payment_intent,
+//       paymentIntentId: session.payment_intent,
 
-      paymentStatus: "paid",
+//       paymentStatus: "paid",
 
-      licenseKey: "",
+//       licenseKey: "",
 
-      downloadCount: 0,
-    });
+//       downloadCount: 0,
+//     });
 
-    const savedOrder = await order.save();
+//     const savedOrder = await order.save();
 
-    return savedOrder;
-  } catch (err) {
-    console.error("Error saving order:", err);
-    throw err;
-  }
-};
+//     return savedOrder;
+//   } catch (err) {
+//     console.error("Error saving order:", err);
+//     throw err;
+//   }
+// };
