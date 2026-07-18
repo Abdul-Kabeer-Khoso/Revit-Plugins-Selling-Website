@@ -8,36 +8,35 @@ import AdminLogin from "../pages/AdminLogin";
 import AdminDashboard from "../pages/AdminDashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: <Home />,
   },
   {
     path: "/downloads",
-    element: <Downloads />
+    element: <Downloads />,
   },
   {
     path: "/families",
-    element: <Families />
+    element: <Families />,
   },
   {
     path: "/adminlogin",
-    element: <AdminLogin />
+    element: <AdminLogin />,
   },
- {
-  path="/admindashboard",
-  lement: (
-  <ProtectedRoute>
-    <AdminDashboard />
-  </ProtectedRoute>
-),
-},
+  {
+    path: "/admindashboard",
+    element: (
+      <ProtectedRoute>
+        <AdminDashboard />
+      </ProtectedRoute>
+    ),
+  },
   {
     path: "*",
-    element: <PageNotFound />
-  }
+    element: <PageNotFound />,
+  },
 ]);
 
 export default router;
