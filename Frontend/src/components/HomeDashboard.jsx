@@ -36,7 +36,7 @@ const HomeDashboard = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3000/api/")
+            .get(`${import.meta.env.VITE_API_URL}/api/`)
             .then((res) => {
                 hanldeData(res.data)
             })
@@ -58,7 +58,7 @@ const HomeDashboard = () => {
         if (currentRecord == 1) {
             try {
                 axios
-                    .get(`http://localhost:3000/api/foundation/${id}`)
+                    .get(`${import.meta.env.VITE_API_URL}/api/foundation/${id}`)
                     .then((res) => {
                         setFirstInputValue(res.data.data.description);
                         setSecondInputValue(res.data.data.link);
@@ -70,7 +70,7 @@ const HomeDashboard = () => {
         } else if (currentRecord == 2) {
             try {
                 axios
-                    .get(`http://localhost:3000/api/floor/${id}`)
+                    .get(`${import.meta.env.VITE_API_URL}/api/floor/${id}`)
                     .then((res) => {
                         setFirstInputValue(res.data.data.description);
                         setSecondInputValue(res.data.data.link);
@@ -82,7 +82,7 @@ const HomeDashboard = () => {
         } else if (currentRecord == 3) {
             try {
                 axios
-                    .get(`http://localhost:3000/api/beams/${id}`)
+                    .get(`${import.meta.env.VITE_API_URL}/api/beams/${id}`)
                     .then((res) => {
                         setFirstInputValue(res.data.data.description);
                         setSecondInputValue(res.data.data.link);
@@ -94,7 +94,7 @@ const HomeDashboard = () => {
         } else if (currentRecord == 4) {
             try {
                 axios
-                    .get(`http://localhost:3000/api/structural/${id}`)
+                    .get(`${import.meta.env.VITE_API_URL}/api/structural/${id}`)
                     .then((res) => {
                         setFirstInputValue(res.data.data.description);
                         setSecondInputValue(res.data.data.link);
@@ -106,7 +106,7 @@ const HomeDashboard = () => {
         } else if (currentRecord == 5) {
             try {
                 axios
-                    .get(`http://localhost:3000/api/information/${id}`)
+                    .get(`${import.meta.env.VITE_API_URL}/api/information/${id}`)
                     .then((res) => {
                         setFirstInputValue(res.data.data.description);
                         setSecondInputValue(res.data.data.link);
@@ -118,7 +118,7 @@ const HomeDashboard = () => {
         } else if (currentRecord == 6) {
             try {
                 axios
-                    .get(`http://localhost:3000/api/xl/${id}`)
+                    .get(`${import.meta.env.VITE_API_URL}/api/xl/${id}`)
                     .then((res) => {
                         setFirstInputValue(res.data.data.description);
                         setSecondInputValue(res.data.data.link);
@@ -145,7 +145,7 @@ const HomeDashboard = () => {
 
     const addFoundation = (data) => {
         try {
-            axios.post("http://localhost:3000/api/foundation", data)
+            axios.post(`${import.meta.env.VITE_API_URL}/api/foundation`, data)
             toast.success("Record Added Succesfully");
 
         } catch (err) {
@@ -155,7 +155,7 @@ const HomeDashboard = () => {
 
     const addFloor = (data) => {
         try {
-            axios.post("http://localhost:3000/api/floor", data)
+            axios.post(`${import.meta.env.VITE_API_URL}/api/floor`, data)
             toast.success("Record Added Succesfully");
         } catch (err) {
             toast.error(err);
@@ -164,7 +164,7 @@ const HomeDashboard = () => {
 
     const addBeams = (data) => {
         try {
-            axios.post("http://localhost:3000/api/beams", data)
+            axios.post(`${import.meta.env.VITE_API_URL}/api/beams`, data)
             toast.success("Record Added Succesfully");
         } catch (err) {
             toast.error(err);
@@ -173,7 +173,7 @@ const HomeDashboard = () => {
 
     const addStructural = (data) => {
         try {
-            axios.post("http://localhost:3000/api/structural", data)
+            axios.post(`${import.meta.env.VITE_API_URL}/api/structural`, data)
             toast.success("Record Added Succesfully");
         } catch (err) {
             toast.error(err);
@@ -183,7 +183,7 @@ const HomeDashboard = () => {
 
     const addInformation = (data) => {
         try {
-            axios.post("http://localhost:3000/api/information", data)
+            axios.post(`${import.meta.env.VITE_API_URL}/api/information`, data)
             toast.success("Record Added Succesfully");
         } catch (err) {
             toast.error(err);
@@ -192,7 +192,7 @@ const HomeDashboard = () => {
 
     const addXL = (data) => {
         try {
-            axios.post("http://localhost:3000/api/xl", data)
+            axios.post(`${import.meta.env.VITE_API_URL}/api/xl`, data)
             toast.success("Record Added Succesfully");
         } catch (err) {
             toast.error(err);
@@ -209,7 +209,7 @@ const HomeDashboard = () => {
             link: input2,
         }
         try {
-            axios.put(`http://localhost:3000/api/foundation/${editId}`, updatedData)
+            axios.put(`${import.meta.env.VITE_API_URL}/api/foundation/${editId}`, updatedData)
             toast.success("Record Updated Succesfully");
         } catch (err) {
             toast.error(err);
@@ -224,7 +224,7 @@ const HomeDashboard = () => {
             link: input2,
         }
         try {
-            axios.put(`http://localhost:3000/api/floor/${editId}`, updatedData)
+            axios.put(`${import.meta.env.VITE_API_URL}/api/floor/${editId}`, updatedData)
             toast.success("Record Updated Succesfully");
         } catch (err) {
             toast.error(err);
@@ -239,7 +239,7 @@ const HomeDashboard = () => {
             link: input2,
         }
         try {
-            axios.put(`http://localhost:3000/api/beams/${editId}`, updatedData)
+            axios.put(`${import.meta.env.VITE_API_URL}/api/beams/${editId}`, updatedData)
             toast.success("Record Updated Succesfully");
         } catch (err) {
             toast.error(err);
@@ -255,7 +255,7 @@ const HomeDashboard = () => {
             link: input2,
         }
         try {
-            axios.put(`http://localhost:3000/api/structural/${editId}`, updatedData)
+            axios.put(`${import.meta.env.VITE_API_URL}/api/structural/${editId}`, updatedData)
             toast.success("Record Updated Succesfully");
         } catch (err) {
             toast.error(err);
@@ -271,7 +271,7 @@ const HomeDashboard = () => {
             link: input2,
         }
         try {
-            axios.put(`http://localhost:3000/api/information/${editId}`, updatedData)
+            axios.put(`${import.meta.env.VITE_API_URL}/api/information/${editId}`, updatedData)
             toast.success("Record Updated Succesfully");
         } catch (err) {
             toast.error(err);
@@ -288,7 +288,7 @@ const HomeDashboard = () => {
             link: input2,
         }
         try {
-            axios.put(`http://localhost:3000/api/xl/${editId}`, updatedData)
+            axios.put(`${import.meta.env.VITE_API_URL}/api/xl/${editId}`, updatedData)
             toast.success("Record Updated Succesfully");
         } catch (err) {
             toast.error(err);

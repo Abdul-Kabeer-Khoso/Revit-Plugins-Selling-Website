@@ -9,7 +9,7 @@ const DownloadHero = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/download")
+      .get(`${import.meta.env.VITE_API_URL}/api/download`)
       .then((res) => {
         console.log(res.data);
         setRevit(res.data);

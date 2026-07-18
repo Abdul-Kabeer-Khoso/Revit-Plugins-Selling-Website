@@ -15,7 +15,7 @@ const AdminList = ({ id, description, secondDisc, current, setFunc, handleEditRe
         {
             current == 0 &&
                 axios
-                    .delete(`http://localhost:3000/api/download/${id}`)
+                    .delete(`${import.meta.env.VITE_API_URL}/api/download/${id}`)
                     .then((res) => {
                         toast.error('Record deleted')
                         setFunc(res.data.downloadData);
@@ -31,7 +31,7 @@ const AdminList = ({ id, description, secondDisc, current, setFunc, handleEditRe
         {
             current == 1 &&
                 axios
-                    .delete(`http://localhost:3000/api/foundation/${id}`)
+                    .delete(`${import.meta.env.VITE_API_URL}/api/foundation/${id}`)
                     .then((res) => {
                         toast.error('Record deleted')
                         setFunc(res.data.foundationData);
@@ -44,7 +44,7 @@ const AdminList = ({ id, description, secondDisc, current, setFunc, handleEditRe
         {
             current == 2 &&
                 axios
-                    .delete(`http://localhost:3000/api/floor/${id}`)
+                    .delete(`${import.meta.env.VITE_API_URL}/api/floor/${id}`)
                     .then((res) => {
                         toast.error('Record deleted')
                         setFunc(res.data.floorData);
@@ -57,7 +57,7 @@ const AdminList = ({ id, description, secondDisc, current, setFunc, handleEditRe
         {
             current == 3 &&
                 axios
-                    .delete(`http://localhost:3000/api/beams/${id}`)
+                    .delete(`${import.meta.env.VITE_API_URL}/api/beams/${id}`)
                     .then((res) => {
                         toast.error('Record deleted')
                         setFunc(res.data.beamsData);
@@ -70,7 +70,7 @@ const AdminList = ({ id, description, secondDisc, current, setFunc, handleEditRe
         {
             current == 4 &&
                 axios
-                    .delete(`http://localhost:3000/api/structural/${id}`)
+                    .delete(`${import.meta.env.VITE_API_URL}/api/structural/${id}`)
                     .then((res) => {
                         toast.error('Record deleted')
                         setFunc(res.data.structuralData);
@@ -84,7 +84,7 @@ const AdminList = ({ id, description, secondDisc, current, setFunc, handleEditRe
         {
             current == 5 &&
                 axios
-                    .delete(`http://localhost:3000/api/information/${id}`)
+                    .delete(`${import.meta.env.VITE_API_URL}/api/information/${id}`)
                     .then((res) => {
                         toast.error('Record deleted')
                         setFunc(res.data.informationData);
@@ -98,7 +98,7 @@ const AdminList = ({ id, description, secondDisc, current, setFunc, handleEditRe
         {
             current == 6 &&
                 axios
-                    .delete(`http://localhost:3000/api/xl/${id}`)
+                    .delete(`${import.meta.env.VITE_API_URL}/api/xl/${id}`)
                     .then((res) => {
                         toast.error('Record deleted')
                         setFunc(res.data.xlData);
