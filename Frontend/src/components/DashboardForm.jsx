@@ -45,9 +45,7 @@ const DashboardForm = ({
       <p className="text-lg font-semibold">{title}</p>
 
       <div
-        onClick={() =>
-          (window.location.href = `${import.meta.env.VITE_API_URL}/admindashboard`)
-        }
+        onClick={() => (window.location.href = `hamstruk.com/admindashboard`)}
         className="absolute flex justify-center items-center p-2 rounded-lg bg-green-600 hover:cursor-pointer bottom-60 right-218"
       >
         <FaLongArrowAltLeft size="20px" color="white" />
