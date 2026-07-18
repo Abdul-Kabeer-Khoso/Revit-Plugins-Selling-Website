@@ -69,7 +69,7 @@ const AdminLogin = () => {
           />
 
           <input
-            type="password"
+            type="Enter password secretly"
             placeholder="Enter Password"
             required
             value={password}
