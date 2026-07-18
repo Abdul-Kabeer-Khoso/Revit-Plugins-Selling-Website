@@ -3,9 +3,10 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import Downloads from "../pages/Downloads";
 import Families from "../pages/Families";
-import PageNotFound from "../components/PageNotFound,";
+import PageNotFound from "../components/PageNotFound";
 import AdminLogin from "../pages/AdminLogin";
 import AdminDashboard from "../pages/AdminDashboard";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 
 const router = createBrowserRouter([
@@ -25,10 +26,14 @@ const router = createBrowserRouter([
     path: "/adminlogin",
     element: <AdminLogin />
   },
-  {
-    path: "/admindashboard",
-    element: <AdminDashboard />
-  },
+ {
+  path="/admindashboard",
+  lement: (
+  <ProtectedRoute>
+    <AdminDashboard />
+  </ProtectedRoute>
+),
+},
   {
     path: "*",
     element: <PageNotFound />
