@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AdminList from "./AdminList";
 import DashboardForm from "./DashboardForm";
-import axios from "axios";
+import api from "../api/api.";
 import { toast } from "react-toastify";
 
 const DownloadDashboard = () => {
@@ -26,7 +26,7 @@ const DownloadDashboard = () => {
   const getEditData = (id) => {
     setEditId(id);
     try {
-      axios
+      api
         .get(`${import.meta.env.VITE_API_URL}/api/download/${id}`)
         .then((res) => {
           setFirstInputValue(res.data.data.description);
@@ -45,7 +45,7 @@ const DownloadDashboard = () => {
 
   // Fetch Data
   useEffect(() => {
-    axios
+    api
       .get(`${import.meta.env.VITE_API_URL}/api/download`)
       .then((res) => {
         console.log(res.data);
@@ -58,7 +58,7 @@ const DownloadDashboard = () => {
 
   const addDownload = (data) => {
     try {
-      axios.post(`${import.meta.env.VITE_API_URL}/api/download`, data);
+      api.post(`${import.meta.env.VITE_API_URL}/api/download`, data);
       toast.success("Record Added Successfully");
     } catch (err) {
       toast.error(err);
@@ -67,7 +67,7 @@ const DownloadDashboard = () => {
 
   const updateDownload = (data) => {
     try {
-      axios.put(`${import.meta.env.VITE_API_URL}/api/download/${editId}`, data);
+      api.put(`${import.meta.env.VITE_API_URL}/api/download/${editId}`, data);
       toast.success("Record Updated Successfully");
     } catch (err) {
       toast.error(err);

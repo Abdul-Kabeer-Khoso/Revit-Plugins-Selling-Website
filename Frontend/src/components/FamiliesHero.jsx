@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import search from "../assets/search.png";
 import Family from "./Family";
 import YoutubeTutorial from "./YoutubeTutorial";
-import axios from "axios";
+import api from "../api/api.";
 
 const FamiliesHero = () => {
   const [families, setFamilies] = useState([]);
   const [youtubeTutorials, setYoutubeTutorials] = useState([]);
 
   useEffect(() => {
-    axios
+    api
       .get(`${import.meta.env.VITE_API_URL}/api/families`)
       .then((res) => {
         setFamilies(res.data);
@@ -18,7 +18,7 @@ const FamiliesHero = () => {
         console.log(err);
       });
 
-    axios
+    api
       .get(`${import.meta.env.VITE_API_URL}/api/youtubeTutorials`)
       .then((res) => {
         setYoutubeTutorials(res.data.allYoutubeTutorials);

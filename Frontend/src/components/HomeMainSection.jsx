@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "./Card";
 import RevitPluginUI from "./RevitPluginUI";
-import axios from "axios";
+import api from "../api/api.";
 // import XL from "../../../Backend/models/xlModel";
 
 const HomeMainSection = () => {
@@ -23,7 +23,7 @@ const HomeMainSection = () => {
   };
 
   useEffect(() => {
-    axios
+    api
       .get(`${import.meta.env.VITE_API_URL}/api/`)
       .then((res) => {
         // console.log(res.data.foundation);

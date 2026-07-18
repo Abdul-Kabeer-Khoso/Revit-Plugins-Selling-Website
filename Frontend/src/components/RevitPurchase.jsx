@@ -1,8 +1,8 @@
-import axios from "axios";
+import api from "../api/axios";
 
 const RevitPurchase = ({ description, price, id }) => {
   const handlePurchase = async () => {
-    const res = await axios.post(
+    const res = await api.post(
       `${import.meta.env.VITE_API_URL}/api/createCheckoutSession`,
       {
         id,

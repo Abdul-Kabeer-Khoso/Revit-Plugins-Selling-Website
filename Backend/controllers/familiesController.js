@@ -1,125 +1,294 @@
 import Families from "../models/familiesModel.js";
 import YoutubeTutorial from "../models/youtubeTutorialModel.js";
 
+// =============================
+// GET ALL FAMILIES
+// =============================
 export const getFamilies = async (req, res) => {
-    try {
-        const allFamilies = await Families.find();
-        res.json(allFamilies);
-    } catch (err) {
-        console.log("Error in getFamilies Controller");
-    }
-}
+  try {
+    const families = await Families.find();
 
+    return res.status(200).json(families);
+  } catch (err) {
+    console.error("Error in getFamilies:", err);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch families.",
+    });
+  }
+};
+
+// =============================
+// GET ALL YOUTUBE TUTORIALS
+// =============================
 export const getYoutubeTutorials = async (req, res) => {
-    try {
-        const allYoutubeTutorials = await YoutubeTutorial.find();
-        res.json({ allYoutubeTutorials });
-    } catch (err) {
-        console.log("Error in getYoutubeTutorials Controller");
-    }
-}
+  try {
+    const tutorials = await YoutubeTutorial.find();
 
+    return res.status(200).json(tutorials);
+  } catch (err) {
+    console.error("Error in getYoutubeTutorials:", err);
 
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch tutorials.",
+    });
+  }
+};
+
+// =============================
+// GET FAMILY BY ID
+// =============================
 export const getFamilyById = async (req, res) => {
-    try {
-        const family = await Families.findById(req.params.id);
-        res.json({ family });
-    } catch (err) {
-        console.log("Error in getFamilyById controller");
+  try {
+    const family = await Families.findById(req.params.id);
+
+    if (!family) {
+      return res.status(404).json({
+        success: false,
+        message: "Family not found.",
+      });
     }
-}
 
+    return res.status(200).json(family);
+  } catch (err) {
+    console.error("Error in getFamilyById:", err);
 
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch family.",
+    });
+  }
+};
+
+// =============================
+// GET YOUTUBE TUTORIAL BY ID
+// =============================
 export const getYoutubeTutorialById = async (req, res) => {
-    try {
-        const youtubeTutorial = await YoutubeTutorial.findById(req.params.id);
-        res.json({ youtubeTutorial });
-    } catch (err) {
-        console.log("Error in getYoutubeTutorialById controller")
+  try {
+    const tutorial = await YoutubeTutorial.findById(req.params.id);
+
+    if (!tutorial) {
+      return res.status(404).json({
+        success: false,
+        message: "Tutorial not found.",
+      });
     }
-}
 
+    return res.status(200).json(tutorial);
+  } catch (err) {
+    console.error("Error in getYoutubeTutorialById:", err);
 
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch tutorial.",
+    });
+  }
+};
+
+// =============================
+// GET BOTH COLLECTIONS
+// =============================
 export const allFamilies = async (req, res) => {
-    try {
-        const families = await Families.find();
-        const youtubeTutorials = await YoutubeTutorial.find();
-        res.json({ families, youtubeTutorials })
-    } catch (err) {
-        console.log("Error in allFamilies Controller");
-    }
-}
+  try {
+    const families = await Families.find();
+    const youtubeTutorials = await YoutubeTutorial.find();
 
+    return res.status(200).json({
+      families,
+      youtubeTutorials,
+    });
+  } catch (err) {
+    console.error("Error in allFamilies:", err);
 
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch records.",
+    });
+  }
+};
+
+// =============================
+// ADD FAMILY
+// =============================
 export const addFamilies = async (req, res) => {
-    const data = {
-        family: req.body.input1,
-        price: req.body.input2
-    }
-    try {
-        await Families.insertOne(data);
+  try {
+    const family = await Families.create({
+      family: req.body.input1,
+      price: req.body.input2,
+    });
 
-    } catch (err) {
-        console.log("Error in addFamilies Controller");
-    }
-}
+    return res.status(201).json({
+      success: true,
+      message: "Family added successfully.",
+      family,
+    });
+  } catch (err) {
+    console.error("Error in addFamilies:", err);
 
+    return res.status(500).json({
+      success: false,
+      message: "Failed to add family.",
+    });
+  }
+};
 
+// =============================
+// ADD YOUTUBE TUTORIAL
+// =============================
 export const addYoutubeTutorials = async (req, res) => {
-    const data = {
-        tutorial: req.body.input1,
-        link: req.body.input2
-    }
-    try {
-        await YoutubeTutorial.insertOne(data);
-    } catch (err) {
-        console.log("Error in addYoutubeTutorials controller");
-    }
-}
+  try {
+    const tutorial = await YoutubeTutorial.create({
+      tutorial: req.body.input1,
+      link: req.body.input2,
+    });
 
+    return res.status(201).json({
+      success: true,
+      message: "Tutorial added successfully.",
+      tutorial,
+    });
+  } catch (err) {
+    console.error("Error in addYoutubeTutorials:", err);
 
+    return res.status(500).json({
+      success: false,
+      message: "Failed to add tutorial.",
+    });
+  }
+};
+
+// =============================
+// DELETE FAMILY
+// =============================
 export const deleteFamily = async (req, res) => {
-    try {
-        await Families.findByIdAndDelete(req.params.id);
-        const families = await Families.find();
-        res.json({ families })
-    } catch (err) {
-        console.log("Error in deleteFamily controller")
+  try {
+    const deletedFamily = await Families.findByIdAndDelete(req.params.id);
+
+    if (!deletedFamily) {
+      return res.status(404).json({
+        success: false,
+        message: "Family not found.",
+      });
     }
-}
 
+    return res.status(200).json({
+      success: true,
+      message: "Family deleted successfully.",
+    });
+  } catch (err) {
+    console.error("Error in deleteFamily:", err);
 
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete family.",
+    });
+  }
+};
+
+// =============================
+// DELETE YOUTUBE TUTORIAL
+// =============================
 export const deleteYoutubeTutorial = async (req, res) => {
-    try {
-        await YoutubeTutorial.findByIdAndDelete(req.params.id);
-        const youtubeTutorials = await YoutubeTutorial.find();
-        res.json({ youtubeTutorials })
-    } catch (err) {
+  try {
+    const deletedTutorial = await YoutubeTutorial.findByIdAndDelete(
+      req.params.id,
+    );
 
+    if (!deletedTutorial) {
+      return res.status(404).json({
+        success: false,
+        message: "Tutorial not found.",
+      });
     }
-}
 
+    return res.status(200).json({
+      success: true,
+      message: "Tutorial deleted successfully.",
+    });
+  } catch (err) {
+    console.error("Error in deleteYoutubeTutorial:", err);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete tutorial.",
+    });
+  }
+};
+
+// =============================
+// UPDATE FAMILY
+// =============================
 export const updateFamily = async (req, res) => {
-    const updatedData = {
+  try {
+    const family = await Families.findByIdAndUpdate(
+      req.params.id,
+      {
         family: req.body.input1,
-        price: req.body.input2
-    }
-    try {
-        const data = await Families.findByIdAndUpdate(req.params.id, updatedData);
-    } catch (err) {
-        console.log("Error in updateFamily controller")
-    }
-}
+        price: req.body.input2,
+      },
+      {
+        new: true,
+      },
+    );
 
+    if (!family) {
+      return res.status(404).json({
+        success: false,
+        message: "Family not found.",
+      });
+    }
 
+    return res.status(200).json({
+      success: true,
+      message: "Family updated successfully.",
+      family,
+    });
+  } catch (err) {
+    console.error("Error in updateFamily:", err);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update family.",
+    });
+  }
+};
+
+// =============================
+// UPDATE YOUTUBE TUTORIAL
+// =============================
 export const updateYoutubeTutorial = async (req, res) => {
-    const updatedData = {
+  try {
+    const tutorial = await YoutubeTutorial.findByIdAndUpdate(
+      req.params.id,
+      {
         tutorial: req.body.input1,
-        link: req.body.input2
+        link: req.body.input2,
+      },
+      {
+        new: true,
+      },
+    );
+
+    if (!tutorial) {
+      return res.status(404).json({
+        success: false,
+        message: "Tutorial not found.",
+      });
     }
-    try {
-        const data = await YoutubeTutorial.findByIdAndUpdate(req.params.id, updatedData);
-    } catch (err) {
-        console.log("Error in updateFamily controller")
-    }
-}
+
+    return res.status(200).json({
+      success: true,
+      message: "Tutorial updated successfully.",
+      tutorial,
+    });
+  } catch (err) {
+    console.error("Error in updateYoutubeTutorial:", err);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update tutorial.",
+    });
+  }
+};

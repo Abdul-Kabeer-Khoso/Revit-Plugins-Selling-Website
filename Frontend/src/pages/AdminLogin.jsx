@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api/axios";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const AdminLogin = () => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.post(
+      const res = await api.post(
         `${import.meta.env.VITE_API_URL}/api/admin/login`,
         {
           username,

@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import ribbon from "./../assets/ribbon.png";
 import Review from "./Review";
 import RevitPurchase from "./RevitPurchase";
-import axios from "axios";
+import api from "../api/api.";
 
 const DownloadHero = () => {
   const [revit, setRevit] = useState([]);
 
   useEffect(() => {
-    axios
+    api
       .get(`${import.meta.env.VITE_API_URL}/api/download`)
       .then((res) => {
         console.log(res.data);
