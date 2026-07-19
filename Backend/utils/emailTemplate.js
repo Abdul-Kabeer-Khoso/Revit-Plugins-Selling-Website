@@ -1,179 +1,179 @@
-// export const purchaseEmailTemplate = ({
-//   customerEmail,
-//   pluginName,
-//   price,
-//   licenses,
-//   downloadLink,
-// }) => {
-//   const licenseList = licenses
-//     .map(
-//       (license, index) => `
-//         <div
-//           style="
-//             background:#f7f7f7;
-//             padding:12px;
-//             border-radius:6px;
-//             font-weight:bold;
-//             font-size:16px;
-//             margin-bottom:10px;
-//             border-left:4px solid #1976d2;
-//             word-break:break-all;
-//           "
-//         >
-//           License ${index + 1}: ${license.licenseKey}
-//         </div>
-//       `,
-//     )
-//     .join("");
+export const purchaseEmailTemplate = ({
+  customerEmail,
+  pluginName,
+  price,
+  licenses,
+  downloadLink,
+}) => {
+  const licenseList = licenses
+    .map(
+      (license, index) => `
+        <div
+          style="
+            background:#f7f7f7;
+            padding:12px;
+            border-radius:6px;
+            font-weight:bold;
+            font-size:16px;
+            margin-bottom:10px;
+            border-left:4px solid #1976d2;
+            word-break:break-all;
+          "
+        >
+          License ${index + 1}: ${license.licenseKey}
+        </div>
+      `,
+    )
+    .join("");
 
-//   return `
-// <!DOCTYPE html>
-// <html>
+  return `
+<!DOCTYPE html>
+<html>
 
-// <head>
-// <meta charset="UTF-8">
-// <title>Purchase Confirmation</title>
-// </head>
+<head>
+<meta charset="UTF-8">
+<title>Purchase Confirmation</title>
+</head>
 
-// <body
-// style="
-// font-family:Arial,sans-serif;
-// background:#f4f4f4;
-// padding:30px;
-// ">
+<body
+style="
+font-family:Arial,sans-serif;
+background:#f4f4f4;
+padding:30px;
+">
 
-// <div
-// style="
-// max-width:700px;
-// margin:auto;
-// background:#ffffff;
-// border-radius:10px;
-// padding:35px;
-// ">
+<div
+style="
+max-width:700px;
+margin:auto;
+background:#ffffff;
+border-radius:10px;
+padding:35px;
+">
 
-// <h2 style="color:#2c3e50;">
-// 🎉 Thank you for your purchase!
-// </h2>
+<h2 style="color:#2c3e50;">
+🎉 Thank you for your purchase!
+</h2>
 
-// <p>Hello <strong>${customerEmail}</strong>,</p>
+<p>Hello <strong>${customerEmail}</strong>,</p>
 
-// <p>
-// Your payment has been received successfully.
-// Thank you for choosing our Revit Plugin.
-// </p>
+<p>
+Your payment has been received successfully.
+Thank you for choosing our Revit Plugin.
+</p>
 
-// <hr>
+<hr>
 
-// <h3 style="color:#1976d2;">Purchase Details</h3>
+<h3 style="color:#1976d2;">Purchase Details</h3>
 
-// <p><strong>Plugin:</strong> ${pluginName}</p>
+<p><strong>Plugin:</strong> ${pluginName}</p>
 
-// <p><strong>Price:</strong> $${price}</p>
+<p><strong>Price:</strong> $${price}</p>
 
-// <p><strong>Total Licenses:</strong> ${licenses.length}</p>
+<p><strong>Total Licenses:</strong> ${licenses.length}</p>
 
-// <hr>
+<hr>
 
-// <h3 style="color:#1976d2;">
-// Your License Key${licenses.length > 1 ? "s" : ""}
-// </h3>
+<h3 style="color:#1976d2;">
+Your License Key${licenses.length > 1 ? "s" : ""}
+</h3>
 
-// ${licenseList}
+${licenseList}
 
-// <br>
+<br>
 
-// <a
-// href="${downloadLink}"
-// style="
-// display:inline-block;
-// background:#1976d2;
-// color:white;
-// padding:14px 24px;
-// text-decoration:none;
-// border-radius:6px;
-// font-weight:bold;
-// "
-// >
-// Download Plugin
-// </a>
+<a
+href="${downloadLink}"
+style="
+display:inline-block;
+background:#1976d2;
+color:white;
+padding:14px 24px;
+text-decoration:none;
+border-radius:6px;
+font-weight:bold;
+"
+>
+Download Plugin
+</a>
 
-// <hr style="margin-top:35px;">
+<hr style="margin-top:35px;">
 
-// <h3 style="color:#1976d2;">
-// Installation Instructions
-// </h3>
+<h3 style="color:#1976d2;">
+Installation Instructions
+</h3>
 
-// <ul>
-// <li>The <strong>.exe</strong> installer is a per-user installer. Do <strong>NOT</strong> run it as Administrator.</li>
+<ul>
+<li>The <strong>.exe</strong> installer is a per-user installer. Do <strong>NOT</strong> run it as Administrator.</li>
 
-// <li>The <strong>.msi</strong> installer is a per-machine installer and requires Administrator privileges.</li>
+<li>The <strong>.msi</strong> installer is a per-machine installer and requires Administrator privileges.</li>
 
-// <li>Both installers support the <strong>-quiet</strong> switch for silent installation.</li>
-// </ul>
+<li>Both installers support the <strong>-quiet</strong> switch for silent installation.</li>
+</ul>
 
-// <hr>
+<hr>
 
-// <h3 style="color:#1976d2;">
-// Activation Instructions
-// </h3>
+<h3 style="color:#1976d2;">
+Activation Instructions
+</h3>
 
-// <ol>
+<ol>
 
-// <li>Install the plugin.</li>
+<li>Install the plugin.</li>
 
-// <li>Open Autodesk Revit.</li>
+<li>Open Autodesk Revit.</li>
 
-// <li>Open the plugin ribbon.</li>
+<li>Open the plugin ribbon.</li>
 
-// <li>Click <strong>Licensing / Activation</strong>.</li>
+<li>Click <strong>Licensing / Activation</strong>.</li>
 
-// <li>Enter your Email Address.</li>
+<li>Enter your Email Address.</li>
 
-// <li>Enter one of the License Keys above.</li>
+<li>Enter one of the License Keys above.</li>
 
-// <li>Click Activate.</li>
+<li>Click Activate.</li>
 
-// </ol>
+</ol>
 
-// <hr>
+<hr>
 
-// <h3 style="color:#1976d2;">
-// Important Notes
-// </h3>
+<h3 style="color:#1976d2;">
+Important Notes
+</h3>
 
-// <ul>
+<ul>
 
-// <li>Each license can be activated on <strong>one computer only.</strong></li>
+<li>Each license can be activated on <strong>one computer only.</strong></li>
 
-// <li>Licenses are valid for <strong>one year</strong> from activation.</li>
+<li>Licenses are valid for <strong>one year</strong> from activation.</li>
 
-// <li>Each purchased Revit version requires its own compatible plugin license.</li>
+<li>Each purchased Revit version requires its own compatible plugin license.</li>
 
-// <li>Please keep your license key secure and do not share it.</li>
+<li>Please keep your license key secure and do not share it.</li>
 
-// <li>If you replace your computer, contact support to transfer your license.</li>
+<li>If you replace your computer, contact support to transfer your license.</li>
 
-// </ul>
+</ul>
 
-// <hr>
+<hr>
 
-// <p>
+<p>
 
-// If you have any questions or need assistance,
-// simply reply to this email.
+If you have any questions or need assistance,
+simply reply to this email.
 
-// </p>
+</p>
 
-// <p>
+<p>
 
-// Thank you for choosing our Revit Plugins!
+Thank you for choosing our Revit Plugins!
 
-// </p>
+</p>
 
-// </div>
+</div>
 
-// </body>
+</body>
 
-// </html>
-// `;
-// };
+</html>
+`;
+};
