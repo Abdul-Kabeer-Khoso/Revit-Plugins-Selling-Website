@@ -9,8 +9,8 @@ import homeRoutes from "./routes/homeRoutes.js";
 import downloadRoutes from "./routes/downloadRoutes.js";
 import familiesRoutes from "./routes/familiesRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
-import stripeRoutes from "./routes/stripeRoutes.js";
-import licenseRoutes from "./routes/licenseRoutes.js";
+// import stripeRoutes from "./routes/stripeRoutes.js";
+// import licenseRoutes from "./routes/licenseRoutes.js";
 
 const app = express();
 
