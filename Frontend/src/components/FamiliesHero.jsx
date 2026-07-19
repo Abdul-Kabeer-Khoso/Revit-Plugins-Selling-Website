@@ -61,9 +61,13 @@ const FamiliesHero = () => {
       <hr></hr>
 
       <div className="mt-10 mb-10">
-        {families.map((elem, idx) => (
-          <Family key={idx} name={elem.family} price={elem.price} />
-        ))}
+        {families.length > 0 ? (
+          families.map((elem) => (
+            <Family key={elem._id} name={elem.family} price={elem.price} />
+          ))
+        ) : (
+          <p>No family exists.</p>
+        )}
       </div>
 
       <hr></hr>
