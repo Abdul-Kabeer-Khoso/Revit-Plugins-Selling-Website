@@ -127,7 +127,7 @@ const RevitPluginUI = ({
           ))}
         </div>
 
-        <div className="flex flex-col gap-1 items-center text-sm sm:text-lg">
+        <div className="flex flex-col gap-2 items-start text-sm sm:text-lg">
           {beams.map((elem) => (
             <a
               key={elem._id}
@@ -171,7 +171,7 @@ const RevitPluginUI = ({
           ))}
         </div>
 
-        <div className="flex flex-col gap-1 items-center text-sm sm:text-lg">
+        <div className="flex flex-col gap-2 items-start text-sm sm:text-lg">
           {structural.map((elem) => (
             <a
               key={elem._id}
@@ -215,7 +215,7 @@ const RevitPluginUI = ({
           ))}
         </div>
 
-        <div className="flex-col gap-1 items-center text-sm sm:text-lg">
+        <div className="flex flex-col gap-2 items-start text-sm sm:text-lg">
           {information.map((elem) => (
             <a
               key={elem._id}
@@ -259,7 +259,7 @@ const RevitPluginUI = ({
           ))}
         </div>
 
-        <div className="flex flex-col gap-1 items-center text-sm sm:text-lg">
+        <div className="flex flex-col gap-2 items-start text-sm sm:text-lg">
           {xl.map((elem) => (
             <a
               key={elem._id}
