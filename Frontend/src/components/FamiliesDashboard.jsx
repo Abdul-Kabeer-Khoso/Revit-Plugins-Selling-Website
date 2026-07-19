@@ -6,43 +6,111 @@ import AdminList from "./AdminList";
 import DashboardForm from "./DashboardForm";
 
 const FamiliesDashboard = () => {
+  // -----------------------------
+  // DATA
+  // -----------------------------
+
   const [families, setFamilies] = useState([]);
+  const [youtubeTutorials, setYoutubeTutorials] = useState([]);
+
+  // -----------------------------
+  // SELECT MODE
+  // family | youtube
+  // -----------------------------
+
+  const [selectedType, setSelectedType] = useState("family");
+
+  // -----------------------------
+  // UI STATES
+  // -----------------------------
 
   const [showRecords, setShowRecords] = useState(true);
   const [addRecord, setAddRecord] = useState(false);
   const [editRecord, setEditRecord] = useState(false);
+
+  // -----------------------------
+  // EDIT STATES
+  // -----------------------------
 
   const [editId, setEditId] = useState("");
 
   const [firstValue, setFirstValue] = useState("");
   const [secondValue, setSecondValue] = useState("");
 
+  // -----------------------------
+  // LOAD DATA
+  // -----------------------------
+
   useEffect(() => {
-    fetchFamilies();
-  }, []);
+    if (selectedType === "family") {
+      fetchFamilies();
+    } else {
+      fetchYoutubeTutorials();
+    }
+  }, [selectedType]);
+
+  // -----------------------------
+  // FETCH FAMILIES
+  // -----------------------------
 
   const fetchFamilies = async () => {
     try {
       const res = await api.get("/families");
+
       setFamilies(res.data);
     } catch (err) {
       console.log(err);
+      toast.error("Unable to fetch families");
     }
   };
+
+  // -----------------------------
+  // FETCH YOUTUBE TUTORIALS
+  // -----------------------------
+
+  const fetchYoutubeTutorials = async () => {
+    try {
+      const res = await api.get("/youtubeTutorials");
+
+      setYoutubeTutorials(res.data);
+    } catch (err) {
+      console.log(err);
+      toast.error("Unable to fetch tutorials");
+    }
+  };
+
+  // -----------------------------
+  // ADD BUTTON
+  // -----------------------------
 
   const handleAddRecord = () => {
     setShowRecords(false);
     setAddRecord(true);
     setEditRecord(false);
+
+    setFirstValue("");
+    setSecondValue("");
   };
+
+  // -----------------------------
+  // EDIT BUTTON
+  // -----------------------------
 
   const handleEditRecord = ({ show, edit, id }) => {
     setShowRecords(show);
     setEditRecord(edit);
     setAddRecord(false);
 
-    getFamily(id);
+    if (selectedType === "family") {
+      getFamily(id);
+    } else {
+      getYoutubeTutorial(id);
+    }
   };
+
+  // -----------------------------
+  // GET SINGLE FAMILY
+  // -----------------------------
 
   const getFamily = async (id) => {
     setEditId(id);
@@ -50,42 +118,115 @@ const FamiliesDashboard = () => {
     try {
       const res = await api.get(`/family/${id}`);
 
-      setFirstValue(res.data.family.family);
-      setSecondValue(res.data.family.price);
+      setFirstValue(res.data.family);
+      setSecondValue(res.data.price);
     } catch (err) {
       console.log(err);
+      toast.error("Unable to load family");
     }
   };
+
+  // -----------------------------
+  // GET SINGLE YOUTUBE TUTORIAL
+  // -----------------------------
+
+  const getYoutubeTutorial = async (id) => {
+    setEditId(id);
+
+    try {
+      const res = await api.get(`/youtubetutorial/${id}`);
+
+      setFirstValue(res.data.tutorial);
+      setSecondValue(res.data.link);
+    } catch (err) {
+      console.log(err);
+      toast.error("Unable to load tutorial");
+    }
+  };
+
+  // =============================
+  // ADD FAMILY
+  // =============================
 
   const addFamily = async (data) => {
     try {
       await api.post("/addFamilies", data);
 
-      toast.success("Family Added");
+      toast.success("Family Added Successfully");
 
       fetchFamilies();
 
       setShowRecords(true);
       setAddRecord(false);
     } catch (err) {
-      toast.error("Unable to add");
+      console.log(err);
+      toast.error("Unable to add family");
     }
   };
+
+  // =============================
+  // UPDATE FAMILY
+  // =============================
 
   const updateFamily = async (data) => {
     try {
       await api.put(`/family/${editId}`, data);
 
-      toast.success("Family Updated");
+      toast.success("Family Updated Successfully");
 
       fetchFamilies();
 
       setShowRecords(true);
       setEditRecord(false);
     } catch (err) {
-      toast.error("Unable to update");
+      console.log(err);
+      toast.error("Unable to update family");
     }
   };
+
+  // =============================
+  // ADD YOUTUBE TUTORIAL
+  // =============================
+
+  const addYoutubeTutorial = async (data) => {
+    try {
+      await api.post("/addYoutubeTutorial", data);
+
+      toast.success("Tutorial Added Successfully");
+
+      fetchYoutubeTutorials();
+
+      setShowRecords(true);
+      setAddRecord(false);
+    } catch (err) {
+      console.log(err);
+      toast.error("Unable to add tutorial");
+    }
+  };
+
+  // =============================
+  // UPDATE YOUTUBE TUTORIAL
+  // =============================
+
+  const updateYoutubeTutorial = async (data) => {
+    try {
+      await api.put(`/youtubetutorial/${editId}`, data);
+
+      toast.success("Tutorial Updated Successfully");
+
+      fetchYoutubeTutorials();
+
+      setShowRecords(true);
+      setEditRecord(false);
+    } catch (err) {
+      console.log(err);
+      toast.error("Unable to update tutorial");
+    }
+  };
+
+  // =============================
+  // JSX
+  // =============================
 
   return (
     <div>
@@ -95,9 +236,20 @@ const FamiliesDashboard = () => {
 
       <div className="w-full flex justify-between items-center py-2 mt-4">
         <form>
-          <select className="p-2 border outline-none rounded-lg hover:cursor-pointer">
-            <option>Free Families</option>
-            <option>Youtube Tutorial Links</option>
+          <select
+            value={selectedType}
+            onChange={(e) => {
+              setSelectedType(e.target.value);
+
+              setShowRecords(true);
+              setAddRecord(false);
+              setEditRecord(false);
+            }}
+            className="p-2 border outline-none rounded-lg hover:cursor-pointer"
+          >
+            <option value="family">Free Families</option>
+
+            <option value="youtube">Youtube Tutorial Links</option>
           </select>
         </form>
 
@@ -113,37 +265,71 @@ const FamiliesDashboard = () => {
 
       {showRecords && (
         <div className="flex flex-col justify-center items-center gap-4 mt-10">
-          {families.map((item) => (
-            <AdminList
-              key={item._id}
-              id={item._id}
-              description={item.family}
-              secondDisc={`$${item.price}`}
-              current={7}
-              setFunc={setFamilies}
-              handleEditRecord={handleEditRecord}
-            />
-          ))}
+          {selectedType === "family"
+            ? families.map((item) => (
+                <AdminList
+                  key={item._id}
+                  id={item._id}
+                  description={item.family}
+                  secondDisc={`$${item.price}`}
+                  current={7}
+                  setFunc={fetchFamilies}
+                  handleEditRecord={handleEditRecord}
+                />
+              ))
+            : youtubeTutorials.map((item) => (
+                <AdminList
+                  key={item._id}
+                  id={item._id}
+                  description={item.tutorial}
+                  secondDisc={item.link}
+                  current={8}
+                  setFunc={fetchYoutubeTutorials}
+                  handleEditRecord={handleEditRecord}
+                />
+              ))}
         </div>
       )}
 
       {addRecord && (
         <DashboardForm
-          title="ADD NEW RECORD"
-          placeholder1="Enter Family Name"
-          placeholder2="Enter Price"
+          title={
+            selectedType === "family"
+              ? "ADD NEW FAMILY"
+              : "ADD NEW YOUTUBE TUTORIAL"
+          }
+          placeholder1={
+            selectedType === "family"
+              ? "Enter Family Name"
+              : "Enter Tutorial Name"
+          }
+          placeholder2={
+            selectedType === "family" ? "Enter Price" : "Enter Youtube Link"
+          }
           buttonName="Add Record"
-          addFormData={addFamily}
+          addFormData={
+            selectedType === "family" ? addFamily : addYoutubeTutorial
+          }
         />
       )}
 
       {editRecord && (
         <DashboardForm
-          title="EDIT RECORD"
-          placeholder1="Enter Family Name"
-          placeholder2="Enter Price"
+          title={
+            selectedType === "family" ? "EDIT FAMILY" : "EDIT YOUTUBE TUTORIAL"
+          }
+          placeholder1={
+            selectedType === "family"
+              ? "Enter Family Name"
+              : "Enter Tutorial Name"
+          }
+          placeholder2={
+            selectedType === "family" ? "Enter Price" : "Enter Youtube Link"
+          }
           buttonName="Update Record"
-          addFormData={updateFamily}
+          addFormData={
+            selectedType === "family" ? updateFamily : updateYoutubeTutorial
+          }
           firstValue={firstValue}
           secondValue={secondValue}
         />

@@ -114,9 +114,9 @@ const AdminList = ({
       current == 7 &&
         api
           .delete(`/family/${id}`)
-          .then((res) => {
-            toast.success("Record deleted");
-            setFunc(res.data.families);
+          .then(() => {
+            toast.success("Family deleted successfully");
+            setFunc();
           })
           .catch((err) => {
             toast.error(err.response?.data?.message || "Delete failed");
@@ -127,9 +127,9 @@ const AdminList = ({
       current == 8 &&
         api
           .delete(`/youtubetutorial/${id}`)
-          .then((res) => {
-            toast.success("Record deleted");
-            setFunc(res.data.youtubeTutorials);
+          .then(() => {
+            toast.success("Tutorial deleted successfully");
+            setFunc();
           })
           .catch((err) => {
             toast.error(err.response?.data?.message || "Delete failed");

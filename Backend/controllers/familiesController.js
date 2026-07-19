@@ -51,6 +51,8 @@ export const getFamilyById = async (req, res) => {
       });
     }
 
+    console.log(family);
+
     return res.status(200).json(family);
   } catch (err) {
     console.error("Error in getFamilyById:", err);
