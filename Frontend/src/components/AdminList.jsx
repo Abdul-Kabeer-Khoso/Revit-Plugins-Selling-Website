@@ -138,21 +138,26 @@ const AdminList = ({
   };
 
   return (
-    <div className="w-full flex justify-between items-center  px-4  py-2 rounded-lg border border-gray-400">
-      <p className="font-semibold w-[40%]">{description}</p>
-      <p className=" w-[20%] font-semibold">{secondDisc}</p>
-      <div className="flex justify-between items-center gap-2">
+    <div className="w-full flex justify-between items-start px-4 py-3 rounded-lg border border-gray-400">
+      <p className="w-[40%] font-semibold break-words">{description}</p>
+
+      <p className="w-[20%] font-semibold break-all whitespace-normal">
+        {secondDisc}
+      </p>
+
+      <div className="flex gap-2 pt-1">
         <FaPen
-          onClick={() => {
+          onClick={() =>
             handleEditRecord({
               show: false,
               edit: true,
-              id: id,
-            });
-          }}
-          className="mr-4 hover:cursor-pointer"
+              id,
+            })
+          }
+          className="hover:cursor-pointer"
           color="green"
         />
+
         <FaTrash
           onClick={() => handleDelete(id)}
           className="hover:cursor-pointer"
