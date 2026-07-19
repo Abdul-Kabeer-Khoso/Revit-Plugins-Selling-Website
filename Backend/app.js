@@ -19,7 +19,7 @@ connectDB();
 app.use(cors());
 
 // Stripe webhook MUST come before express.json()
-app.post("/api/webhook", express.raw({ type: "application/json" }));
+// app.post("/api/webhook", express.raw({ type: "application/json" }));
 
 // Parse JSON for every other route
 app.use(express.json());
@@ -29,8 +29,8 @@ app.use("/api", adminRoutes);
 app.use("/api", homeRoutes);
 app.use("/api", downloadRoutes);
 app.use("/api", familiesRoutes);
-app.use("/api", stripeRoutes);
-app.use("/api", licenseRoutes);
+// app.use("/api", stripeRoutes);
+// app.use("/api", licenseRoutes);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
