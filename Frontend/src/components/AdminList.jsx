@@ -1,6 +1,6 @@
 import { FaTrash } from "react-icons/fa";
 import { FaPen } from "react-icons/fa";
-import api from "../api/api";
+import api from "../api/axios";
 import { toast } from "react-toastify";
 
 const AdminList = ({

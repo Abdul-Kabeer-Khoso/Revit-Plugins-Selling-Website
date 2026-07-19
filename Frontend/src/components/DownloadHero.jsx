@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ribbon from "./../assets/ribbon.png";
 import Review from "./Review";
 import RevitPurchase from "./RevitPurchase";
-import api from "../api/api.";
+import api from "../api/axios";
 
 const DownloadHero = () => {
   const [revit, setRevit] = useState([]);

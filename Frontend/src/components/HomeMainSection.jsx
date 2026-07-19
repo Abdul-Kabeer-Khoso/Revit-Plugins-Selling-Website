@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "./Card";
 import RevitPluginUI from "./RevitPluginUI";
-import api from "../api/api.";
+import api from "../api/axios";
 // import XL from "../../../Backend/models/xlModel";
 
 const HomeMainSection = () => {

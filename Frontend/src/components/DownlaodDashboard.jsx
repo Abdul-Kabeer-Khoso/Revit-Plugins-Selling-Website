@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AdminList from "./AdminList";
 import DashboardForm from "./DashboardForm";
-import api from "../api/api.";
+import api from "../api/axios";
 import { toast } from "react-toastify";
 
 const DownloadDashboard = () => {

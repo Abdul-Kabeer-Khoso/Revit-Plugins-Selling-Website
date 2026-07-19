@@ -61,7 +61,7 @@ const FamiliesHero = () => {
       <hr></hr>
 
       <div className="mt-10 mb-10">
-        {families.length > 0 ? (
+        {Array.isArray(families) ? (
           families.map((elem) => (
             <Family key={elem._id} name={elem.family} price={elem.price} />
           ))
@@ -93,12 +93,16 @@ const FamiliesHero = () => {
       </div>
 
       <div className="mt-10 mb-10">
-        {youtubeTutorials.length > 0 ? (
-          youtubeTutorials.map((elem, idx) => (
-            <YoutubeTutorial key={idx} name={elem.tutorial} link={elem.link} />
+        {Array.isArray(youtubeTutorials) ? (
+          youtubeTutorials.map((elem) => (
+            <YoutubeTutorial
+              key={elem._id}
+              name={elem.tutorial}
+              link={elem.link}
+            />
           ))
         ) : (
-          <p>No youtubeTutorials exists.</p>
+          <p>No Youtube Tutorials.</p>
         )}
       </div>
     </div>
