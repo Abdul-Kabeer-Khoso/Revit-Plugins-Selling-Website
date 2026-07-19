@@ -20,9 +20,10 @@ const FamiliesHero = () => {
       });
 
     api
-      .get(`${import.meta.env.VITE_API_URL}/api/youtubeTutorials`)
+      .get("/youtubeTutorials")
       .then((res) => {
-        setYoutubeTutorials(res.data.allYoutubeTutorials);
+        console.log("Tutorials:", res.data);
+        setYoutubeTutorials(res.data);
       })
       .catch((err) => {
         console.log(err);
