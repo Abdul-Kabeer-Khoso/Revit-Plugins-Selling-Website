@@ -12,6 +12,7 @@ const FamiliesHero = () => {
     api
       .get(`${import.meta.env.VITE_API_URL}/api/families`)
       .then((res) => {
+        console.log("Families:", res.data);
         setFamilies(res.data);
       })
       .catch((err) => {
