@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import search from "../assets/search.png";
 import Family from "./Family";
 import YoutubeTutorial from "./YoutubeTutorial";
-import api from "../api/api";
+import api from "../api/axios";
 
 const FamiliesHero = () => {
   const [families, setFamilies] = useState([]);
