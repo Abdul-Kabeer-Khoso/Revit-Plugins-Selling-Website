@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import search from "../assets/search.png";
 import Family from "./Family";
 import YoutubeTutorial from "./YoutubeTutorial";
-import api from "../api/api.";
+import api from "../api/api";
 
 const FamiliesHero = () => {
   const [families, setFamilies] = useState([]);
@@ -61,14 +61,13 @@ const FamiliesHero = () => {
       <hr></hr>
 
       <div className="mt-10 mb-10">
-        {/* {families.length > 0 ? (
+        {families.length > 0 ? (
           families.map((elem) => (
             <Family key={elem._id} name={elem.family} price={elem.price} />
           ))
         ) : (
           <p>No family exists.</p>
-        )} */}
-        No Family
+        )}
       </div>
 
       <hr></hr>
@@ -94,9 +93,13 @@ const FamiliesHero = () => {
       </div>
 
       <div className="mt-10 mb-10">
-        {youtubeTutorials.map((elem, idx) => (
-          <YoutubeTutorial key={idx} name={elem.tutorial} link={elem.link} />
-        ))}
+        {youtubeTutorials.length > 0 ? (
+          youtubeTutorials.map((elem, idx) => (
+            <YoutubeTutorial key={idx} name={elem.tutorial} link={elem.link} />
+          ))
+        ) : (
+          <p>No youtubeTutorials exists.</p>
+        )}
       </div>
     </div>
   );
