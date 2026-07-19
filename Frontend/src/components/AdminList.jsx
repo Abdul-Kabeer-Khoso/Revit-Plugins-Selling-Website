@@ -141,7 +141,7 @@ const AdminList = ({
     <div className="w-full flex justify-between items-start px-4 py-3 rounded-lg border border-gray-400">
       <p className="w-[40%] font-semibold break-words">{description}</p>
 
-      <p className="w-[20%] font-semibold break-all whitespace-normal">
+      <p className="w-[33%] font-semibold break-all whitespace-normal">
         {secondDisc}
       </p>
 
