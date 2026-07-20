@@ -104,6 +104,9 @@ const DownloadDashboard = () => {
 
   const addDownload = async (data) => {
     try {
+      console.log("Received data:", data);
+      console.log("Received file:", data.file);
+
       const upload = await uploadToCloudinary(data.file);
 
       console.log("Upload:", upload);
