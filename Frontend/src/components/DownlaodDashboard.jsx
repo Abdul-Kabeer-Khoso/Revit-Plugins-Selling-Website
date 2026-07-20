@@ -83,10 +83,9 @@ const DownloadDashboard = () => {
 
       const result = await response.json();
 
-      return {
-        secure_url: result.secure_url,
-        public_id: result.public_id,
-      };
+      console.log("Cloudinary Response:", result);
+
+      return result;
     } catch (err) {
       console.error(err);
       throw err;
@@ -107,7 +106,7 @@ const DownloadDashboard = () => {
     try {
       const upload = await uploadToCloudinary(data.file);
 
-      console.log(upload);
+      console.log("Upload:", upload);
 
       toast.success("Uploaded successfully!");
     } catch (err) {
