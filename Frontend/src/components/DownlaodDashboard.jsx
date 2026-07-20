@@ -56,13 +56,63 @@ const DownloadDashboard = () => {
       });
   }, []);
 
-  const addDownload = (data) => {
-    console.log(data);
+  const uploadToCloudinary = async (file) => {
     try {
-      api.post(`${import.meta.env.VITE_API_URL}/api/download`, data);
-      toast.success("Record Added Successfully");
+      // 1. Get signature from backend
+      const { data } = await api.get("/cloudinary/signature");
+
+      // 2. Prepare form data
+      const formData = new FormData();
+
+      formData.append("file", file);
+      formData.append("api_key", data.apiKey);
+      formData.append("timestamp", data.timestamp);
+      formData.append("signature", data.signature);
+
+      // Optional: organize uploads in a folder
+      formData.append("folder", "revit-downloads");
+
+      // 3. Upload directly to Cloudinary
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${data.cloudName}/auto/upload`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      const result = await response.json();
+
+      return {
+        secure_url: result.secure_url,
+        public_id: result.public_id,
+      };
     } catch (err) {
-      toast.error(err);
+      console.error(err);
+      throw err;
+    }
+  };
+
+  // const addDownload = (data) => {
+  //   console.log(data);
+  //   try {
+  //     api.post(`${import.meta.env.VITE_API_URL}/api/download`, data);
+  //     toast.success("Record Added Successfully");
+  //   } catch (err) {
+  //     toast.error(err);
+  //   }
+  // };
+
+  const addDownload = async (data) => {
+    try {
+      const upload = await uploadToCloudinary(data.file);
+
+      console.log(upload);
+
+      toast.success("Uploaded successfully!");
+    } catch (err) {
+      console.log(err);
+      toast.error("Upload failed");
     }
   };
 
