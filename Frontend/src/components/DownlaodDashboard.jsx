@@ -92,29 +92,21 @@ const DownloadDashboard = () => {
     }
   };
 
-  // const addDownload = (data) => {
-  //   console.log(data);
-  //   try {
-  //     api.post(`${import.meta.env.VITE_API_URL}/api/download`, data);
-  //     toast.success("Record Added Successfully");
-  //   } catch (err) {
-  //     toast.error(err);
-  //   }
-  // };
-
   const addDownload = async (data) => {
     try {
-      console.log("Received data:", data);
-      console.log("Received file:", data.file);
+      const uploadResult = await uploadToCloudinary(data.file);
 
-      const upload = await uploadToCloudinary(data.file);
+      await api.post("/download", {
+        input1: data.input1,
+        input2: data.input2,
+        fileUrl: uploadResult.secure_url,
+        publicId: uploadResult.public_id,
+      });
 
-      console.log("Upload:", upload);
-
-      toast.success("Uploaded successfully!");
+      toast.success("Record Added Successfully");
     } catch (err) {
       console.log(err);
-      toast.error("Upload failed");
+      toast.error("Unable to add record");
     }
   };
 
