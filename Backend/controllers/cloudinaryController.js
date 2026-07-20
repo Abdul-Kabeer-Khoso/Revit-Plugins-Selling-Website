@@ -6,6 +6,7 @@ export const generateSignature = async (req, res) => {
 
     const signature = cloudinary.utils.api_sign_request(
       {
+        folder: "revit-downloads",
         timestamp,
       },
       process.env.CLOUDINARY_API_SECRET,
