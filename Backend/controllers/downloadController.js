@@ -72,14 +72,49 @@ export const deleteDownload = async (req, res) => {
 };
 
 export const editDownload = async (req, res) => {
-  const data = {
-    description: req.body.input1,
-    price: req.body.input2,
-  };
   try {
-    const updatedData = await Download.findByIdAndUpdate(req.params.id, data);
-    console.log("Updated Data");
+    // Find existing record
+    const download = await Download.findById(req.params.id);
+
+    if (!download) {
+      return res.status(404).json({
+        message: "Download not found",
+      });
+    }
+
+    // Prepare updated data
+    const updatedData = {
+      description: req.body.input1,
+      price: req.body.input2,
+    };
+
+    // If a new file was uploaded
+    if (req.body.fileUrl && req.body.publicId) {
+      // Delete old file from Cloudinary
+      if (download.publicId) {
+        await cloudinary.uploader.destroy(download.publicId, {
+          resource_type: "raw",
+        });
+      }
+
+      // Save new Cloudinary values
+      updatedData.fileUrl = req.body.fileUrl;
+      updatedData.publicId = req.body.publicId;
+    }
+
+    // Update MongoDB
+    const updatedDownload = await Download.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      { new: true },
+    );
+
+    return res.status(200).json(updatedDownload);
   } catch (err) {
-    console.log("Error in editDownload controller");
+    console.log(err);
+
+    return res.status(500).json({
+      message: "Unable to update download",
+    });
   }
 };

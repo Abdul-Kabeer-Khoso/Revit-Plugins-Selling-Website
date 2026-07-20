@@ -76,14 +76,19 @@ const DashboardForm = ({
         placeholder={placeholder2}
       />
 
-      {showFileInput && (
+      <div className="w-120">
         <input
           type="file"
           onChange={(e) => setFile(e.target.files[0])}
-          className="w-120 rounded-lg px-4 py-2 border border-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-          placeholder={thirdPlaceholder}
+          className="w-full rounded-lg px-4 py-2 border border-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
         />
-      )}
+
+        {file && (
+          <p className="mt-2 text-sm text-green-600">
+            Selected File: {file.name}
+          </p>
+        )}
+      </div>
 
       <button
         type="submit"

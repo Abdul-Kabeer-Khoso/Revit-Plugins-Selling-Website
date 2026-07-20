@@ -12,6 +12,8 @@ const DownloadDashboard = () => {
   const [firstInputValue, setFirstInputValue] = useState("");
   const [secondInputValue, setSecondInputValue] = useState("");
 
+  const [currentFileUrl, setCurrentFileUrl] = useState("");
+
   const [current, setCurrent] = useState(0);
 
   const [revitData, setRevitData] = useState([]);
@@ -31,6 +33,7 @@ const DownloadDashboard = () => {
         .then((res) => {
           setFirstInputValue(res.data.data.description);
           setSecondInputValue(res.data.data.price);
+          setCurrentFileUrl(res.data.data.fileUrl);
         });
     } catch (err) {
       toast.error(err);
@@ -110,12 +113,34 @@ const DownloadDashboard = () => {
     }
   };
 
-  const updateDownload = (data) => {
+  const updateDownload = async (data) => {
     try {
-      api.put(`${import.meta.env.VITE_API_URL}/api/download/${editId}`, data);
+      let payload = {
+        input1: data.input1,
+        input2: data.input2,
+      };
+
+      // Only upload a new file if admin selected one
+      if (data.file) {
+        const uploadResult = await uploadToCloudinary(data.file);
+
+        payload.fileUrl = uploadResult.secure_url;
+        payload.publicId = uploadResult.public_id;
+      }
+
+      await api.put(`/download/${editId}`, payload);
+
       toast.success("Record Updated Successfully");
+
+      // Refresh records
+      const res = await api.get("/download");
+      setRevitData(res.data);
+
+      setShowRecords(true);
+      setEditRecord(false);
     } catch (err) {
-      toast.error(err);
+      console.log(err);
+      toast.error("Unable to update record");
     }
   };
 
@@ -172,6 +197,7 @@ const DownloadDashboard = () => {
           addFormData={updateDownload}
           firstValue={firstInputValue}
           secondValue={secondInputValue}
+          currentFileUrl={currentFileUrl}
           showFileInput={true}
         />
       )}
