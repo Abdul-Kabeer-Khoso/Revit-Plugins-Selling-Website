@@ -9,6 +9,7 @@ import homeRoutes from "./routes/homeRoutes.js";
 import downloadRoutes from "./routes/downloadRoutes.js";
 import familiesRoutes from "./routes/familiesRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import cloudinaryRoutes from "./routes/cloudinaryRoutes.js";
 // import stripeRoutes from "./routes/stripeRoutes.js";
 // import licenseRoutes from "./routes/licenseRoutes.js";
 
@@ -29,6 +30,7 @@ app.use("/api", adminRoutes);
 app.use("/api", homeRoutes);
 app.use("/api", downloadRoutes);
 app.use("/api", familiesRoutes);
+app.use("/api", cloudinaryRoutes);
 // app.use("/api", stripeRoutes);
 // app.use("/api", licenseRoutes);
 
