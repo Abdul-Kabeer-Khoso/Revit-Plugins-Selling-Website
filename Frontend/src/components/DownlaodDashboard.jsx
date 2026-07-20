@@ -57,6 +57,7 @@ const DownloadDashboard = () => {
   }, []);
 
   const addDownload = (data) => {
+    console.log(data);
     try {
       api.post(`${import.meta.env.VITE_API_URL}/api/download`, data);
       toast.success("Record Added Successfully");
@@ -114,6 +115,7 @@ const DownloadDashboard = () => {
           placeholder2="Enter Price"
           buttonName="Add Record"
           addFormData={addDownload}
+          showFileInput={true}
         />
       )}
 
@@ -126,6 +128,7 @@ const DownloadDashboard = () => {
           addFormData={updateDownload}
           firstValue={firstInputValue}
           secondValue={secondInputValue}
+          showFileInput={true}
         />
       )}
     </div>

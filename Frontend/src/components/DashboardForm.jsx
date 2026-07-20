@@ -10,11 +10,14 @@ const DashboardForm = ({
   addFormData,
   firstValue,
   secondValue,
+  showFileInput = false,
+  thirdPlaceholder = "Choose File",
 }) => {
   const navigate = useNavigate();
 
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     setInput1(firstValue || "");
@@ -29,12 +32,14 @@ const DashboardForm = ({
     const data = {
       input1,
       input2,
+      file,
     };
 
     addFormData(data);
 
     setInput1("");
     setInput2("");
+    setFile(null);
   };
 
   return (
@@ -70,6 +75,15 @@ const DashboardForm = ({
         className="w-120 rounded-lg px-4 py-2 border border-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
         placeholder={placeholder2}
       />
+
+      {showFileInput && (
+        <input
+          type="file"
+          onChange={(e) => setFile(e.target.files[0])}
+          className="w-120 rounded-lg px-4 py-2 border border-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+          placeholder={thirdPlaceholder}
+        />
+      )}
 
       <button
         type="submit"
