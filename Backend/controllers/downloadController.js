@@ -1,4 +1,5 @@
 import Download from "../models/downloadModel.js";
+import cloudinary from "../config/cloudinary.js";
 
 export const getAllDownload = async (req, res) => {
   try {
@@ -39,11 +40,34 @@ export const addDownload = async (req, res) => {
 
 export const deleteDownload = async (req, res) => {
   try {
+    // Find download first
+    const download = await Download.findById(req.params.id);
+
+    if (!download) {
+      return res.status(404).json({
+        message: "Download not found",
+      });
+    }
+
+    // Delete file from Cloudinary
+    if (download.publicId) {
+      await cloudinary.uploader.destroy(download.publicId, {
+        resource_type: "raw",
+      });
+    }
+
+    // Delete MongoDB record
     await Download.findByIdAndDelete(req.params.id);
+
     const downloadData = await Download.find();
-    res.json({ downloadData });
+
+    return res.json({ downloadData });
   } catch (err) {
-    console.log("Error in deleteDownload controller");
+    console.log(err);
+
+    return res.status(500).json({
+      message: "Unable to delete download",
+    });
   }
 };
 
