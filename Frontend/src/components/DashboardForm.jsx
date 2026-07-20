@@ -11,6 +11,7 @@ const DashboardForm = ({
   firstValue,
   secondValue,
   showFileInput = false,
+  currentFileUrl,
   thirdPlaceholder = "Choose File",
 }) => {
   const navigate = useNavigate();
@@ -76,19 +77,41 @@ const DashboardForm = ({
         placeholder={placeholder2}
       />
 
-      <div className="w-120">
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-          className="w-full rounded-lg px-4 py-2 border border-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-        />
+      {showFileInput && (
+        <div className="w-120">
+          {/* Show current uploaded file */}
+          {currentFileUrl && (
+            <div className="mb-4">
+              <p className="font-semibold text-gray-700">Current File</p>
 
-        {file && (
-          <p className="mt-2 text-sm text-green-600">
-            Selected File: {file.name}
+              <a
+                href={currentFileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
+                Download Current File
+              </a>
+            </div>
+          )}
+
+          <p className="font-semibold mb-2 text-gray-700">
+            Choose New File (Optional)
           </p>
-        )}
-      </div>
+
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            className="w-full rounded-lg px-4 py-2 border border-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+          />
+
+          {file && (
+            <p className="mt-2 text-green-600 text-sm">
+              Selected File: {file.name}
+            </p>
+          )}
+        </div>
+      )}
 
       <button
         type="submit"
