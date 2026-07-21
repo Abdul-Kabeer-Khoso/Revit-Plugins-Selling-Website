@@ -13,6 +13,7 @@ const DashboardForm = ({
   showFileInput = false,
   currentFileUrl,
   thirdPlaceholder = "Choose File",
+  formMarginTop = "mt-20",
   fileRequired = false,
 }) => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const DashboardForm = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full flex flex-col justify-center items-center gap-5 mt-20 relative"
+      className={`w-full flex flex-col justify-center items-center gap-5 ${formMarginTop} relative`}
     >
       <p className="text-lg font-semibold">{title}</p>
 
@@ -80,12 +81,12 @@ const DashboardForm = ({
       />
 
       {showFileInput && (
-        <div className="w-120 flex flex-col gap-5">
+        <div className="w-120 flex flex-col gap-3">
           {/* ================= ZIP ================= */}
 
           {currentFileUrl?.zipUrl && (
-            <div>
-              <p className="font-semibold text-gray-700">Current Plugin ZIP</p>
+            <div className="flex items-center gap-3">
+              <p className=" text-gray-500">Current Plugin ZIP</p>
 
               <a
                 href={currentFileUrl.zipUrl}
@@ -123,10 +124,8 @@ const DashboardForm = ({
           {/* ================= TXT ================= */}
 
           {currentFileUrl?.txtUrl && (
-            <div>
-              <p className="font-semibold text-gray-700">
-                Current Instruction TXT
-              </p>
+            <div className="flex items-center gap-3">
+              <p className=" text-gray-500">Current Instruction TXT</p>
 
               <a
                 href={currentFileUrl.txtUrl}

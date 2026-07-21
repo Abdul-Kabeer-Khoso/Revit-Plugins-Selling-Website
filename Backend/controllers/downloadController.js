@@ -53,9 +53,16 @@ export const deleteDownload = async (req, res) => {
       });
     }
 
-    // Delete file from Cloudinary
-    if (download.publicId) {
-      await cloudinary.uploader.destroy(download.publicId, {
+    // Delete ZIP
+    if (download.zipPublicId) {
+      await cloudinary.uploader.destroy(download.zipPublicId, {
+        resource_type: "raw",
+      });
+    }
+
+    // Delete TXT
+    if (download.txtPublicId) {
+      await cloudinary.uploader.destroy(download.txtPublicId, {
         resource_type: "raw",
       });
     }
