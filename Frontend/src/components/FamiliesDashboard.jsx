@@ -215,7 +215,20 @@ const FamiliesDashboard = () => {
 
   const updateFamily = async (data) => {
     try {
-      await api.put(`/family/${editId}`, data);
+      let body = {
+        input1: data.input1,
+        input2: data.input2,
+      };
+
+      // Admin selected a new file
+      if (data.file) {
+        const uploadResult = await uploadToCloudinary(data.file);
+
+        body.fileUrl = uploadResult.secure_url;
+        body.publicId = uploadResult.public_id;
+      }
+
+      await api.put(`/family/${editId}`, body);
 
       toast.success("Family Updated Successfully");
 

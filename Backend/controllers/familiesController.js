@@ -226,16 +226,7 @@ export const deleteYoutubeTutorial = async (req, res) => {
 // =============================
 export const updateFamily = async (req, res) => {
   try {
-    const family = await Families.findByIdAndUpdate(
-      req.params.id,
-      {
-        family: req.body.input1,
-        price: req.body.input2,
-      },
-      {
-        new: true,
-      },
-    );
+    const family = await Families.findById(req.params.id);
 
     if (!family) {
       return res.status(404).json({
@@ -243,6 +234,26 @@ export const updateFamily = async (req, res) => {
         message: "Family not found.",
       });
     }
+
+    // Update text fields
+    family.family = req.body.input1;
+    family.price = req.body.input2;
+
+    // Admin uploaded a new file
+    if (req.body.fileUrl && req.body.publicId) {
+      // Delete old Cloudinary file
+      if (family.publicId) {
+        await cloudinary.uploader.destroy(family.publicId, {
+          resource_type: "raw",
+        });
+      }
+
+      // Save new Cloudinary details
+      family.fileUrl = req.body.fileUrl;
+      family.publicId = req.body.publicId;
+    }
+
+    await family.save();
 
     return res.status(200).json({
       success: true,
