@@ -248,13 +248,14 @@ export const updateFamily = async (req, res) => {
       // Delete old Cloudinary file
       if (family.publicId) {
         await cloudinary.uploader.destroy(family.publicId, {
-          resource_type: "raw",
+          resource_type: family.resourceType,
         });
       }
 
       // Save new Cloudinary details
       family.fileUrl = req.body.fileUrl;
       family.publicId = req.body.publicId;
+      family.resourceType = req.body.resourceType;
     }
 
     await family.save();

@@ -227,6 +227,7 @@ const FamiliesDashboard = () => {
 
         body.fileUrl = uploadResult.secure_url;
         body.publicId = uploadResult.public_id;
+        body.resourceType = uploadResult.resource_type;
       }
       console.log("Body:", body);
 
