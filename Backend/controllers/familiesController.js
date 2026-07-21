@@ -169,21 +169,37 @@ export const addYoutubeTutorials = async (req, res) => {
 // =============================
 export const deleteFamily = async (req, res) => {
   try {
-    const deletedFamily = await Families.findByIdAndDelete(req.params.id);
+    const family = await Families.findById(req.params.id);
 
-    if (!deletedFamily) {
+    if (!family) {
       return res.status(404).json({
         success: false,
         message: "Family not found.",
       });
     }
 
+    // Delete Cloudinary file
+    if (family.publicId) {
+      try {
+        const result = await cloudinary.uploader.destroy(family.publicId, {
+          resource_type: family.resourceType,
+        });
+
+        console.log("Delete Result:", result);
+      } catch (err) {
+        console.error("Unable to delete Cloudinary file:", err.message);
+      }
+    }
+
+    // Delete MongoDB document
+    await Families.findByIdAndDelete(req.params.id);
+
     return res.status(200).json({
       success: true,
       message: "Family deleted successfully.",
     });
   } catch (err) {
-    console.error("Error in deleteFamily:", err);
+    console.error(err);
 
     return res.status(500).json({
       success: false,
