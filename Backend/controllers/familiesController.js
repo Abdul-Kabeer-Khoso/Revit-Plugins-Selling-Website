@@ -226,7 +226,10 @@ export const deleteYoutubeTutorial = async (req, res) => {
 // =============================
 export const updateFamily = async (req, res) => {
   try {
+    console.log("Request Body:", req.body);
     const family = await Families.findById(req.params.id);
+
+    console.log("Family Found:", family);
 
     if (!family) {
       return res.status(404).json({
@@ -265,7 +268,7 @@ export const updateFamily = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: "Failed to update family.",
+      message: err.message,
     });
   }
 };

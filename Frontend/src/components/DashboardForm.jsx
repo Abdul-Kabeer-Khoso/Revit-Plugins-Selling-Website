@@ -50,6 +50,7 @@ const DashboardForm = ({
         txtFile,
       };
     }
+    console.log("Submitting Data:", data);
 
     addFormData(data);
 
@@ -118,7 +119,10 @@ const DashboardForm = ({
           <input
             type="file"
             required={fileRequired}
-            onChange={(e) => setFile(e.target.files[0])}
+            onChange={(e) => {
+              console.log("Selected File:", e.target.files[0]);
+              setFile(e.target.files[0]);
+            }}
             className="w-full rounded-lg px-4 py-2 border border-gray-400"
           />
 

@@ -227,6 +227,7 @@ const FamiliesDashboard = () => {
         body.fileUrl = uploadResult.secure_url;
         body.publicId = uploadResult.public_id;
       }
+      console.log("Body:", body);
 
       await api.put(`/family/${editId}`, body);
 
