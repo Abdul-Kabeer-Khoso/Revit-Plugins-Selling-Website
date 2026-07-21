@@ -1,5 +1,6 @@
 import Families from "../models/familiesModel.js";
 import YoutubeTutorial from "../models/youtubeTutorialModel.js";
+import { cloudinary } from "../config/cloudinary.js";
 
 // =============================
 // GET ALL FAMILIES
@@ -228,9 +229,8 @@ export const deleteYoutubeTutorial = async (req, res) => {
 export const updateFamily = async (req, res) => {
   try {
     console.log("Request Body:", req.body);
-    const family = await Families.findById(req.params.id);
 
-    console.log("Family Found:", family);
+    const family = await Families.findById(req.params.id);
 
     if (!family) {
       return res.status(404).json({
@@ -239,43 +239,41 @@ export const updateFamily = async (req, res) => {
       });
     }
 
+    // Keep old Cloudinary info
+    const oldPublicId = family.publicId;
+    const oldResourceType = family.resourceType;
+
     // Update text fields
     family.family = req.body.input1;
     family.price = req.body.input2;
 
-    // Admin uploaded a new file
+    // Update file info only if a new file was uploaded
     if (req.body.fileUrl && req.body.publicId) {
-      // Delete old Cloudinary file
-      // if (family.publicId) {
-      //   await cloudinary.uploader.destroy(family.publicId, {
-      //     resource_type: family.resourceType,
-      //   });
-      // }
-
-      const oldPublicId = family.publicId;
-      const oldResourceType = family.resourceType;
-
-      // Save new Cloudinary details
       family.fileUrl = req.body.fileUrl;
       family.publicId = req.body.publicId;
       family.resourceType = req.body.resourceType;
-
-      if (oldPublicId) {
-        try {
-          const result = await cloudinary.uploader.destroy(oldPublicId, {
-            resource_type: oldResourceType,
-          });
-
-          console.log("Delete Result:", result);
-
-          console.log("Old file deleted successfully.");
-        } catch (err) {
-          console.error("Unable to delete old file:", err.message);
-        }
-      }
     }
 
+    // Save MongoDB first
     await family.save();
+
+    // Delete old Cloudinary file only after successful save
+    if (
+      req.body.fileUrl &&
+      req.body.publicId &&
+      oldPublicId &&
+      oldPublicId !== req.body.publicId
+    ) {
+      try {
+        const result = await cloudinary.uploader.destroy(oldPublicId, {
+          resource_type: oldResourceType,
+        });
+
+        console.log("Delete Result:", result);
+      } catch (err) {
+        console.error("Unable to delete old file:", err.message);
+      }
+    }
 
     return res.status(200).json({
       success: true,
@@ -285,8 +283,6 @@ export const updateFamily = async (req, res) => {
   } catch (err) {
     console.error("========== UPDATE FAMILY ERROR ==========");
     console.error(err);
-    console.error("Message:", err.message);
-    console.error("Stack:", err.stack);
 
     return res.status(500).json({
       success: false,
