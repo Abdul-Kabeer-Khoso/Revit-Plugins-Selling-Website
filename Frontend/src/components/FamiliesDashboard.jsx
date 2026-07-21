@@ -36,6 +36,7 @@ const FamiliesDashboard = () => {
 
   const [firstValue, setFirstValue] = useState("");
   const [secondValue, setSecondValue] = useState("");
+  const [currentFileUrl, setCurrentFileUrl] = useState("");
 
   // -----------------------------
   // LOAD DATA
@@ -156,6 +157,7 @@ const FamiliesDashboard = () => {
 
       setFirstValue(res.data.family);
       setSecondValue(res.data.price);
+      setCurrentFileUrl(res.data.fileUrl);
     } catch (err) {
       console.log(err);
       toast.error("Unable to load family");
@@ -378,6 +380,9 @@ const FamiliesDashboard = () => {
           }
           firstValue={firstValue}
           secondValue={secondValue}
+          showFileInput={selectedType === "family"}
+          fileMode="single"
+          currentFileUrl={currentFileUrl}
         />
       )}
     </div>
