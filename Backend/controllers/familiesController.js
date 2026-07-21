@@ -1,7 +1,6 @@
 import Families from "../models/familiesModel.js";
 import YoutubeTutorial from "../models/youtubeTutorialModel.js";
-import { cloudinary } from "../config/cloudinary.js";
-
+import cloudinary from "../config/cloudinary.js";
 // =============================
 // GET ALL FAMILIES
 // =============================
