@@ -252,13 +252,28 @@ export const updateFamily = async (req, res) => {
       //   });
       // }
 
+      const oldPublicId = family.publicId;
+      const oldResourceType = family.resourceType;
+
       // Save new Cloudinary details
       family.fileUrl = req.body.fileUrl;
       family.publicId = req.body.publicId;
       family.resourceType = req.body.resourceType;
-    }
 
-    await family.save();
+      await family.save();
+
+      if (oldPublicId) {
+        try {
+          await cloudinary.uploader.destroy(oldPublicId, {
+            resource_type: oldResourceType,
+          });
+
+          console.log("Old file deleted successfully.");
+        } catch (err) {
+          console.error("Unable to delete old file:", err.message);
+        }
+      }
+    }
 
     return res.status(200).json({
       success: true,
