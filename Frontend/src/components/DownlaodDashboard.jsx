@@ -12,6 +12,9 @@ const DownloadDashboard = () => {
   const [firstInputValue, setFirstInputValue] = useState("");
   const [secondInputValue, setSecondInputValue] = useState("");
 
+  const [zipUrl, setZipUrl] = useState("");
+  const [txtUrl, setTxtUrl] = useState("");
+
   const [currentFileUrl, setCurrentFileUrl] = useState("");
 
   const [current, setCurrent] = useState(0);
@@ -31,9 +34,13 @@ const DownloadDashboard = () => {
       api
         .get(`${import.meta.env.VITE_API_URL}/api/download/${id}`)
         .then((res) => {
-          setFirstInputValue(res.data.data.description);
-          setSecondInputValue(res.data.data.price);
-          setCurrentFileUrl(res.data.data.fileUrl);
+          const download = res.data.data;
+
+          setFirstInputValue(download.description);
+          setSecondInputValue(download.price);
+
+          setZipUrl(download.zipUrl);
+          setTxtUrl(download.txtUrl);
         });
     } catch (err) {
       toast.error(err);
@@ -97,13 +104,18 @@ const DownloadDashboard = () => {
 
   const addDownload = async (data) => {
     try {
-      const uploadResult = await uploadToCloudinary(data.file);
+      const zipUpload = await uploadToCloudinary(data.zipFile);
+      const txtUpload = await uploadToCloudinary(data.txtFile);
 
       await api.post("/download", {
         input1: data.input1,
         input2: data.input2,
-        fileUrl: uploadResult.secure_url,
-        publicId: uploadResult.public_id,
+
+        zipUrl: zipUpload.secure_url,
+        zipPublicId: zipUpload.public_id,
+
+        txtUrl: txtUpload.secure_url,
+        txtPublicId: txtUpload.public_id,
       });
 
       toast.success("Record Added Successfully");
@@ -185,6 +197,7 @@ const DownloadDashboard = () => {
           buttonName="Add Record"
           addFormData={addDownload}
           showFileInput={true}
+          fileRequired={true}
         />
       )}
 
@@ -197,7 +210,11 @@ const DownloadDashboard = () => {
           addFormData={updateDownload}
           firstValue={firstInputValue}
           secondValue={secondInputValue}
-          currentFileUrl={currentFileUrl}
+          fileRequired={false}
+          currentFileUrl={{
+            zipUrl,
+            txtUrl,
+          }}
           showFileInput={true}
         />
       )}

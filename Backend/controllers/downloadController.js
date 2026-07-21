@@ -24,8 +24,12 @@ export const addDownload = async (req, res) => {
     const data = await Download.create({
       description: req.body.input1,
       price: req.body.input2,
-      fileUrl: req.body.fileUrl,
-      publicId: req.body.publicId,
+
+      zipUrl: req.body.zipUrl,
+      zipPublicId: req.body.zipPublicId,
+
+      txtUrl: req.body.txtUrl,
+      txtPublicId: req.body.txtPublicId,
     });
 
     return res.status(201).json(data);
