@@ -121,6 +121,7 @@ export const addFamilies = async (req, res) => {
       price: req.body.input2,
       fileUrl: req.body.fileUrl,
       publicId: req.body.publicId,
+      resourceType: req.body.resourceType,
     });
 
     return res.status(201).json({

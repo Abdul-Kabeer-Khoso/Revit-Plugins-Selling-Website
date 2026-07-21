@@ -20,6 +20,10 @@ const familiesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  resourceType: {
+    type: String,
+  },
 });
 
 const Families = mongoose.model("Families", familiesSchema);
