@@ -262,9 +262,11 @@ export const updateFamily = async (req, res) => {
 
       if (oldPublicId) {
         try {
-          await cloudinary.uploader.destroy(oldPublicId, {
+          const result = await cloudinary.uploader.destroy(oldPublicId, {
             resource_type: oldResourceType,
           });
+
+          console.log("Delete Result:", result);
 
           console.log("Old file deleted successfully.");
         } catch (err) {
