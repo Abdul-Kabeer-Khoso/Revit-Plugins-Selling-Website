@@ -127,29 +127,30 @@ const DownloadDashboard = () => {
 
   const updateDownload = async (data) => {
     try {
-      let payload = {
+      const payload = {
         input1: data.input1,
         input2: data.input2,
       };
 
-      // Only upload a new file if admin selected one
-      if (data.file) {
-        const uploadResult = await uploadToCloudinary(data.file);
+      // Upload new ZIP only if selected
+      if (data.zipFile) {
+        const zipUpload = await uploadToCloudinary(data.zipFile);
 
-        payload.fileUrl = uploadResult.secure_url;
-        payload.publicId = uploadResult.public_id;
+        payload.zipUrl = zipUpload.secure_url;
+        payload.zipPublicId = zipUpload.public_id;
+      }
+
+      // Upload new TXT only if selected
+      if (data.txtFile) {
+        const txtUpload = await uploadToCloudinary(data.txtFile);
+
+        payload.txtUrl = txtUpload.secure_url;
+        payload.txtPublicId = txtUpload.public_id;
       }
 
       await api.put(`/download/${editId}`, payload);
 
       toast.success("Record Updated Successfully");
-
-      // Refresh records
-      const res = await api.get("/download");
-      setRevitData(res.data);
-
-      setShowRecords(true);
-      setEditRecord(false);
     } catch (err) {
       console.log(err);
       toast.error("Unable to update record");

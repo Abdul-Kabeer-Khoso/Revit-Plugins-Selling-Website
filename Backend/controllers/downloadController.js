@@ -86,34 +86,47 @@ export const editDownload = async (req, res) => {
       });
     }
 
-    // Prepare updated data
-    const updatedData = {
+    // Data that will be updated
+    const updateData = {
       description: req.body.input1,
       price: req.body.input2,
     };
 
-    // If a new file was uploaded
-    if (req.body.fileUrl && req.body.publicId) {
-      // Delete old file from Cloudinary
-      if (download.publicId) {
-        await cloudinary.uploader.destroy(download.publicId, {
+    // ================= ZIP =================
+
+    if (req.body.zipUrl && req.body.zipPublicId) {
+      // Delete old ZIP from Cloudinary
+      if (download.zipPublicId) {
+        await cloudinary.uploader.destroy(download.zipPublicId, {
           resource_type: "raw",
         });
       }
 
-      // Save new Cloudinary values
-      updatedData.fileUrl = req.body.fileUrl;
-      updatedData.publicId = req.body.publicId;
+      updateData.zipUrl = req.body.zipUrl;
+      updateData.zipPublicId = req.body.zipPublicId;
     }
 
-    // Update MongoDB
+    // ================= TXT =================
+
+    if (req.body.txtUrl && req.body.txtPublicId) {
+      // Delete old TXT from Cloudinary
+      if (download.txtPublicId) {
+        await cloudinary.uploader.destroy(download.txtPublicId, {
+          resource_type: "raw",
+        });
+      }
+
+      updateData.txtUrl = req.body.txtUrl;
+      updateData.txtPublicId = req.body.txtPublicId;
+    }
+
     const updatedDownload = await Download.findByIdAndUpdate(
       req.params.id,
-      updatedData,
+      updateData,
       { new: true },
     );
 
-    return res.status(200).json(updatedDownload);
+    return res.json(updatedDownload);
   } catch (err) {
     console.log(err);
 
