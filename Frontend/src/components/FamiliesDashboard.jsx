@@ -287,6 +287,31 @@ const FamiliesDashboard = () => {
   };
 
   // =============================
+  // DELETE
+  // =============================
+
+  const handleDelete = async (id) => {
+    try {
+      if (selectedType === "family") {
+        await api.delete(`/family/${id}`);
+
+        toast.success("Family deleted successfully");
+
+        fetchFamilies();
+      } else {
+        await api.delete(`/youtubetutorial/${id}`);
+
+        toast.success("Tutorial deleted successfully");
+
+        fetchYoutubeTutorials();
+      }
+    } catch (err) {
+      console.log(err);
+
+      toast.error(err.response?.data?.message || "Unable to delete record");
+    }
+  };
+  // =============================
   // JSX
   // =============================
 
@@ -337,6 +362,7 @@ const FamiliesDashboard = () => {
                   current={7}
                   setFunc={fetchFamilies}
                   handleEditRecord={handleEditRecord}
+                  handleDelete={handleDelete}
                 />
               ))
             : youtubeTutorials.map((item) => (
@@ -348,6 +374,7 @@ const FamiliesDashboard = () => {
                   current={8}
                   setFunc={fetchYoutubeTutorials}
                   handleEditRecord={handleEditRecord}
+                  handleDelete={handleDelete}
                 />
               ))}
         </div>

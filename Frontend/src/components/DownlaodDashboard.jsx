@@ -157,6 +157,21 @@ const DownloadDashboard = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`/download/${id}`);
+
+      toast.success("Record deleted successfully");
+
+      // Refresh the list
+      const res = await api.get("/download");
+      setRevitData(res.data);
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response?.data?.message || "Unable to delete record");
+    }
+  };
+
   return (
     <div>
       <div className="w-full h-auto p-2 rounded-md bg-amber-200 text-lg font-semibold flex justify-center items-center">
@@ -183,6 +198,7 @@ const DownloadDashboard = () => {
               description={elem.description}
               secondDisc={`$${elem.price}`}
               handleEditRecord={hanldeEditRecord}
+              handleDelete={handleDelete}
               current={current}
               setFunc={setRevitData}
             />

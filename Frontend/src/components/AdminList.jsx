@@ -10,6 +10,7 @@ const AdminList = ({
   current,
   setFunc,
   handleEditRecord,
+  handleDelete,
 }) => {
   return (
     <div className="w-full flex justify-between items-start px-4 py-3 rounded-lg border border-gray-400">
