@@ -198,6 +198,7 @@ const DownloadDashboard = () => {
           buttonName="Add Record"
           addFormData={addDownload}
           showFileInput={true}
+          fileMode="double"
           formMarginTop="mt-10"
           fileRequired={true}
         />
@@ -219,6 +220,7 @@ const DownloadDashboard = () => {
             txtUrl,
           }}
           showFileInput={true}
+          fileMode="double"
         />
       )}
     </div>
