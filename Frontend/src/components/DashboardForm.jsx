@@ -214,21 +214,11 @@ const DashboardForm = ({
 
             <input
               type="file"
-              accept=".txt"
               onChange={(e) => {
                 const file = e.target.files[0];
 
                 if (!file) {
                   setTxtFile(null);
-                  return;
-                }
-
-                if (!file.name.toLowerCase().endsWith(".txt")) {
-                  toast.error("Please select a TXT file.");
-
-                  e.target.value = "";
-                  setTxtFile(null);
-
                   return;
                 }
 
