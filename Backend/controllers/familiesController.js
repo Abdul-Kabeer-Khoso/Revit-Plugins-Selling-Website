@@ -246,11 +246,11 @@ export const updateFamily = async (req, res) => {
     // Admin uploaded a new file
     if (req.body.fileUrl && req.body.publicId) {
       // Delete old Cloudinary file
-      if (family.publicId) {
-        await cloudinary.uploader.destroy(family.publicId, {
-          resource_type: family.resourceType,
-        });
-      }
+      // if (family.publicId) {
+      //   await cloudinary.uploader.destroy(family.publicId, {
+      //     resource_type: family.resourceType,
+      //   });
+      // }
 
       // Save new Cloudinary details
       family.fileUrl = req.body.fileUrl;
