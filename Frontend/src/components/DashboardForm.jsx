@@ -209,19 +209,19 @@ const DashboardForm = ({
 
           <div>
             <label className="font-semibold text-gray-700">
-              {fileRequired
-                ? "Choose TXT File"
-                : "Choose New TXT File (Optional)"}
+              Choose TXT File (Optional)
             </label>
 
             <input
               type="file"
               accept=".txt"
-              required={fileRequired}
               onChange={(e) => {
                 const file = e.target.files[0];
 
-                if (!file) return;
+                if (!file) {
+                  setTxtFile(null);
+                  return;
+                }
 
                 if (!file.name.toLowerCase().endsWith(".txt")) {
                   toast.error("Please select a TXT file.");
