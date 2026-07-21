@@ -230,6 +230,7 @@ const FamiliesDashboard = () => {
         body.resourceType = uploadResult.resource_type;
       }
       console.log("Body:", body);
+      console.log("Edit ID:", editId);
 
       await api.put(`/family/${editId}`, body);
 

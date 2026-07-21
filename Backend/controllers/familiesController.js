@@ -260,8 +260,6 @@ export const updateFamily = async (req, res) => {
       family.publicId = req.body.publicId;
       family.resourceType = req.body.resourceType;
 
-      await family.save();
-
       if (oldPublicId) {
         try {
           await cloudinary.uploader.destroy(oldPublicId, {
@@ -274,6 +272,8 @@ export const updateFamily = async (req, res) => {
         }
       }
     }
+
+    await family.save();
 
     return res.status(200).json({
       success: true,
