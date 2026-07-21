@@ -266,7 +266,10 @@ export const updateFamily = async (req, res) => {
       family,
     });
   } catch (err) {
-    console.error("Error in updateFamily:", err);
+    console.error("========== UPDATE FAMILY ERROR ==========");
+    console.error(err);
+    console.error("Message:", err.message);
+    console.error("Stack:", err.stack);
 
     return res.status(500).json({
       success: false,
