@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const DashboardForm = ({
   title,
@@ -110,7 +111,22 @@ const DashboardForm = ({
               type="file"
               required={fileRequired}
               accept=".zip"
-              onChange={(e) => setZipFile(e.target.files[0])}
+              onChange={(e) => {
+                const file = e.target.files[0];
+
+                if (!file) return;
+
+                if (!file.name.toLowerCase().endsWith(".zip")) {
+                  toast.error("Please select a ZIP file.");
+
+                  e.target.value = "";
+                  setZipFile(null);
+
+                  return;
+                }
+
+                setZipFile(file);
+              }}
               className="w-full rounded-lg px-4 py-2 border border-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
             />
 
@@ -149,7 +165,22 @@ const DashboardForm = ({
               type="file"
               accept=".txt"
               required={fileRequired}
-              onChange={(e) => setTxtFile(e.target.files[0])}
+              onChange={(e) => {
+                const file = e.target.files[0];
+
+                if (!file) return;
+
+                if (!file.name.toLowerCase().endsWith(".txt")) {
+                  toast.error("Please select a TXT file.");
+
+                  e.target.value = "";
+                  setTxtFile(null);
+
+                  return;
+                }
+
+                setTxtFile(file);
+              }}
               className="w-full rounded-lg px-4 py-2 border border-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
             />
 
