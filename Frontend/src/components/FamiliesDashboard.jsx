@@ -79,6 +79,42 @@ const FamiliesDashboard = () => {
     }
   };
 
+  const uploadToCloudinary = async (file) => {
+    try {
+      // 1. Get signature from backend
+      const { data } = await api.get("/cloudinary/signature");
+
+      // 2. Prepare form data
+      const formData = new FormData();
+
+      formData.append("file", file);
+      formData.append("api_key", data.apiKey);
+      formData.append("timestamp", data.timestamp);
+      formData.append("signature", data.signature);
+
+      // Optional: organize uploads in a folder
+      formData.append("folder", "revit-downloads");
+
+      // 3. Upload directly to Cloudinary
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${data.cloudName}/auto/upload`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      const result = await response.json();
+
+      console.log("Cloudinary Response:", result);
+
+      return result;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
   // -----------------------------
   // ADD BUTTON
   // -----------------------------
@@ -150,7 +186,14 @@ const FamiliesDashboard = () => {
 
   const addFamily = async (data) => {
     try {
-      await api.post("/addFamilies", data);
+      const uploadResult = await uploadToCloudinary(data.file);
+
+      await api.post("/addFamilies", {
+        input1: data.input1,
+        input2: data.input2,
+        fileUrl: uploadResult.secure_url,
+        publicId: uploadResult.public_id,
+      });
 
       toast.success("Family Added Successfully");
 
@@ -310,6 +353,9 @@ const FamiliesDashboard = () => {
           addFormData={
             selectedType === "family" ? addFamily : addYoutubeTutorial
           }
+          showFileInput={selectedType === "family"}
+          fileMode="single"
+          fileRequired={selectedType === "family"}
         />
       )}
 

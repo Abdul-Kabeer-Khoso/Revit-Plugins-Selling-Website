@@ -1,15 +1,26 @@
 import mongoose from "mongoose";
 
 const familiesSchema = new mongoose.Schema({
-    family: {
-        type: String,
-        require: true,
-    },
-    price: {
-        type: String,
-        require: true,
-    }
-})
+  family: {
+    type: String,
+    required: true,
+  },
+
+  price: {
+    type: String,
+    required: true,
+  },
+
+  fileUrl: {
+    type: String,
+    required: true,
+  },
+
+  publicId: {
+    type: String,
+    required: true,
+  },
+});
 
 const Families = mongoose.model("Families", familiesSchema);
 

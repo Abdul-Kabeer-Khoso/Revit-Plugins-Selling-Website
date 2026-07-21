@@ -119,6 +119,8 @@ export const addFamilies = async (req, res) => {
     const family = await Families.create({
       family: req.body.input1,
       price: req.body.input2,
+      fileUrl: req.body.fileUrl,
+      publicId: req.body.publicId,
     });
 
     return res.status(201).json({

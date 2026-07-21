@@ -16,11 +16,13 @@ const DashboardForm = ({
   thirdPlaceholder = "Choose File",
   formMarginTop = "mt-20",
   fileRequired = false,
+  fileMode = "none",
 }) => {
   const navigate = useNavigate();
 
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
+  const [file, setFile] = useState(null);
   const [zipFile, setZipFile] = useState(null);
   const [txtFile, setTxtFile] = useState(null);
 
@@ -32,17 +34,28 @@ const DashboardForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = {
-      input1,
-      input2,
-      zipFile,
-      txtFile,
-    };
+    let data;
+
+    if (fileMode === "single") {
+      data = {
+        input1,
+        input2,
+        file,
+      };
+    } else {
+      data = {
+        input1,
+        input2,
+        zipFile,
+        txtFile,
+      };
+    }
 
     addFormData(data);
 
     setInput1("");
     setInput2("");
+    setFile(null);
     setZipFile(null);
     setTxtFile(null);
   };
@@ -81,7 +94,43 @@ const DashboardForm = ({
         placeholder={placeholder2}
       />
 
-      {showFileInput && (
+      {showFileInput && fileMode === "single" && (
+        <div className="w-120">
+          {currentFileUrl && (
+            <div className=" flex items-center gap-3">
+              <p className=" text-gray-500">Current File:</p>
+
+              <a
+                href={currentFileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
+                Download Current File
+              </a>
+            </div>
+          )}
+
+          <p className="font-semibold mb-2 text-gray-700">
+            Choose File {currentFileUrl ? "(Optional)" : ""}
+          </p>
+
+          <input
+            type="file"
+            required={fileRequired}
+            onChange={(e) => setFile(e.target.files[0])}
+            className="w-full rounded-lg px-4 py-2 border border-gray-400"
+          />
+
+          {file && (
+            <p className="mt-2 text-green-600 text-sm">
+              Selected File: {file.name}
+            </p>
+          )}
+        </div>
+      )}
+
+      {showFileInput && fileMode === "double" && (
         <div className="w-120 flex flex-col gap-3">
           {/* ================= ZIP ================= */}
 
