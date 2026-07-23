@@ -1,10 +1,9 @@
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+  host: "mail.privateemail.com",
   port: 465,
-  secure: true,
-  family: 4,
+  secure: true, // SSL
 
   auth: {
     user: process.env.EMAIL_USER,
@@ -13,6 +12,6 @@ const transporter = nodemailer.createTransport({
 
   logger: true,
   debug: true,
-  connectionTimeout: 10000,
 });
+
 export default transporter;
