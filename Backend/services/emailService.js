@@ -1,16 +1,20 @@
 import nodemailer from "nodemailer";
 import { purchaseEmailTemplate } from "../utils/emailTemplate.js";
+import transporter from "../config/mailer.js";
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+// const transporter = nodemailer.createTransport({
+//   host: "smtp.gmail.com",
+//   port: 587,
+//   secure: false,
+//   family: 4,
+//   auth: {
+//     user: process.env.EMAIL_USER,
+//     pass: process.env.EMAIL_PASS,
+//   },
 
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+//   logger: true,
+//   debug: true,
+// });
 
 export const sendPurchaseEmail = async (order, plugin, licenses) => {
   try {
@@ -22,18 +26,20 @@ export const sendPurchaseEmail = async (order, plugin, licenses) => {
       downloadLink: `${process.env.BACKEND_URL}/api/download/${plugin._id}`,
     });
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"Revit Plugins" <${process.env.EMAIL_USER}>`,
       to: order.customerEmail,
       subject: "Your Revit Plugin Purchase",
       html,
     });
 
-    console.log(
-      `✅ Purchase email sent to ${order.customerEmail} with ${licenses.length} license(s).`,
-    );
+    console.log("✅ Email Sent Successfully");
+    console.log(info);
   } catch (err) {
-    console.error("❌ Email Error:", err);
-    throw err;
+    console.log("❌ EMAIL FAILED");
+    console.log("Message:", err.message);
+    console.log("Code:", err.code);
+    console.log("Command:", err.command);
+    console.log("Response:", err.response);
   }
 };
