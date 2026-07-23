@@ -23,8 +23,6 @@ const DashboardForm = ({
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [file, setFile] = useState(null);
-  const [zipFile, setZipFile] = useState(null);
-  const [txtFile, setTxtFile] = useState(null);
 
   useEffect(() => {
     setInput1(firstValue || "");
@@ -34,22 +32,12 @@ const DashboardForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let data;
+    const data = {
+      input1,
+      input2,
+      file,
+    };
 
-    if (fileMode === "single") {
-      data = {
-        input1,
-        input2,
-        file,
-      };
-    } else {
-      data = {
-        input1,
-        input2,
-        zipFile,
-        txtFile,
-      };
-    }
     console.log("Submitting Data:", data);
 
     addFormData(data);
@@ -57,8 +45,6 @@ const DashboardForm = ({
     setInput1("");
     setInput2("");
     setFile(null);
-    setZipFile(null);
-    setTxtFile(null);
   };
 
   return (
@@ -131,108 +117,6 @@ const DashboardForm = ({
               Selected File: {file.name}
             </p>
           )}
-        </div>
-      )}
-
-      {showFileInput && fileMode === "double" && (
-        <div className="w-120 flex flex-col gap-3">
-          {/* ================= ZIP ================= */}
-
-          {currentFileUrl?.zipUrl && (
-            <div className="flex items-center gap-3">
-              <p className=" text-gray-500">Current Plugin ZIP</p>
-
-              <a
-                href={currentFileUrl.zipUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline hover:text-blue-800"
-              >
-                Download Current ZIP
-              </a>
-            </div>
-          )}
-
-          <div>
-            <label className="font-semibold text-gray-700">
-              {fileRequired
-                ? "Choose Plugin ZIP"
-                : "Choose New Plugin ZIP (Optional)"}
-            </label>
-
-            <input
-              type="file"
-              required={fileRequired}
-              accept=".zip"
-              onChange={(e) => {
-                const file = e.target.files[0];
-
-                if (!file) return;
-
-                if (!file.name.toLowerCase().endsWith(".zip")) {
-                  toast.error("Please select a ZIP file.");
-
-                  e.target.value = "";
-                  setZipFile(null);
-
-                  return;
-                }
-
-                setZipFile(file);
-              }}
-              className="w-full rounded-lg px-4 py-2 border border-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-            />
-
-            {zipFile && (
-              <p className="mt-2 text-green-600 text-sm">
-                Selected ZIP: {zipFile.name}
-              </p>
-            )}
-          </div>
-
-          {/* ================= TXT ================= */}
-
-          {currentFileUrl?.txtUrl && (
-            <div className="flex items-center gap-3">
-              <p className=" text-gray-500">Current Instruction TXT</p>
-
-              <a
-                href={currentFileUrl.txtUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline hover:text-blue-800"
-              >
-                Download Current TXT
-              </a>
-            </div>
-          )}
-
-          <div>
-            <label className="font-semibold text-gray-700">
-              Choose TXT File (Optional)
-            </label>
-
-            <input
-              type="file"
-              onChange={(e) => {
-                const file = e.target.files[0];
-
-                if (!file) {
-                  setTxtFile(null);
-                  return;
-                }
-
-                setTxtFile(file);
-              }}
-              className="w-full rounded-lg px-4 py-2 border border-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-            />
-
-            {txtFile && (
-              <p className="mt-2 text-green-600 text-sm">
-                Selected TXT: {txtFile.name}
-              </p>
-            )}
-          </div>
         </div>
       )}
 

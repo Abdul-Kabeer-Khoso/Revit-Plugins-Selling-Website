@@ -25,11 +25,9 @@ export const addDownload = async (req, res) => {
       description: req.body.input1,
       price: req.body.input2,
 
-      zipUrl: req.body.zipUrl,
-      zipPublicId: req.body.zipPublicId,
-
-      txtUrl: req.body.txtUrl,
-      txtPublicId: req.body.txtPublicId,
+      fileUrl: req.body.fileUrl,
+      publicId: req.body.publicId,
+      resourceType: req.body.resourceType,
     });
 
     return res.status(201).json(data);
@@ -99,32 +97,27 @@ export const editDownload = async (req, res) => {
       price: req.body.input2,
     };
 
-    // ================= ZIP =================
+    // ================= FILE =================
 
-    if (req.body.zipUrl && req.body.zipPublicId) {
-      // Delete old ZIP from Cloudinary
-      if (download.zipPublicId) {
-        await cloudinary.uploader.destroy(download.zipPublicId, {
-          resource_type: "raw",
-        });
+    if (req.body.fileUrl && req.body.publicId) {
+      const oldPublicId = download.publicId;
+      const oldResourceType = download.resourceType;
+
+      updateData.fileUrl = req.body.fileUrl;
+      updateData.publicId = req.body.publicId;
+      updateData.resourceType = req.body.resourceType;
+
+      if (oldPublicId) {
+        try {
+          const result = await cloudinary.uploader.destroy(oldPublicId, {
+            resource_type: oldResourceType,
+          });
+
+          console.log("Delete Result:", result);
+        } catch (err) {
+          console.error("Unable to delete old file:", err.message);
+        }
       }
-
-      updateData.zipUrl = req.body.zipUrl;
-      updateData.zipPublicId = req.body.zipPublicId;
-    }
-
-    // ================= TXT =================
-
-    if (req.body.txtUrl && req.body.txtPublicId) {
-      // Delete old TXT from Cloudinary
-      if (download.txtPublicId) {
-        await cloudinary.uploader.destroy(download.txtPublicId, {
-          resource_type: "raw",
-        });
-      }
-
-      updateData.txtUrl = req.body.txtUrl;
-      updateData.txtPublicId = req.body.txtPublicId;
     }
 
     const updatedDownload = await Download.findByIdAndUpdate(

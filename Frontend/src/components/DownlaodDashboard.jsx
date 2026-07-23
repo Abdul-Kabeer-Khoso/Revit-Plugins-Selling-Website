@@ -38,9 +38,7 @@ const DownloadDashboard = () => {
 
           setFirstInputValue(download.description);
           setSecondInputValue(download.price);
-
-          setZipUrl(download.zipUrl);
-          setTxtUrl(download.txtUrl);
+          setCurrentFileUrl(download.fileUrl);
         });
     } catch (err) {
       toast.error(err);
@@ -104,18 +102,15 @@ const DownloadDashboard = () => {
 
   const addDownload = async (data) => {
     try {
-      const zipUpload = await uploadToCloudinary(data.zipFile);
-      const txtUpload = await uploadToCloudinary(data.txtFile);
+      const uploadResult = await uploadToCloudinary(data.file);
 
       await api.post("/download", {
         input1: data.input1,
         input2: data.input2,
 
-        zipUrl: zipUpload.secure_url,
-        zipPublicId: zipUpload.public_id,
-
-        txtUrl: txtUpload.secure_url,
-        txtPublicId: txtUpload.public_id,
+        fileUrl: uploadResult.secure_url,
+        publicId: uploadResult.public_id,
+        resourceType: uploadResult.resource_type,
       });
 
       toast.success("Record Added Successfully");
@@ -132,25 +127,24 @@ const DownloadDashboard = () => {
         input2: data.input2,
       };
 
-      // Upload new ZIP only if selected
-      if (data.zipFile) {
-        const zipUpload = await uploadToCloudinary(data.zipFile);
+      // Upload new file only if selected
+      if (data.file) {
+        const uploadResult = await uploadToCloudinary(data.file);
 
-        payload.zipUrl = zipUpload.secure_url;
-        payload.zipPublicId = zipUpload.public_id;
-      }
-
-      // Upload new TXT only if selected
-      if (data.txtFile) {
-        const txtUpload = await uploadToCloudinary(data.txtFile);
-
-        payload.txtUrl = txtUpload.secure_url;
-        payload.txtPublicId = txtUpload.public_id;
+        payload.fileUrl = uploadResult.secure_url;
+        payload.publicId = uploadResult.public_id;
+        payload.resourceType = uploadResult.resource_type;
       }
 
       await api.put(`/download/${editId}`, payload);
 
       toast.success("Record Updated Successfully");
+
+      const res = await api.get("/download");
+      setRevitData(res.data);
+
+      setShowRecords(true);
+      setEditRecord(false);
     } catch (err) {
       console.log(err);
       toast.error("Unable to update record");
@@ -214,7 +208,7 @@ const DownloadDashboard = () => {
           buttonName="Add Record"
           addFormData={addDownload}
           showFileInput={true}
-          fileMode="double"
+          fileMode="single"
           formMarginTop="mt-10"
           fileRequired={true}
         />
@@ -231,12 +225,9 @@ const DownloadDashboard = () => {
           secondValue={secondInputValue}
           fileRequired={false}
           formMarginTop="mt-0"
-          currentFileUrl={{
-            zipUrl,
-            txtUrl,
-          }}
+          currentFileUrl={currentFileUrl}
           showFileInput={true}
-          fileMode="double"
+          fileMode="single"
         />
       )}
     </div>
