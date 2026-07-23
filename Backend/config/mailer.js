@@ -13,5 +13,6 @@ const transporter = nodemailer.createTransport({
 
   logger: true,
   debug: true,
+  connectionTimeout: 10000,
 });
 export default transporter;
