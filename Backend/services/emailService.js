@@ -17,7 +17,7 @@ export const sendPurchaseEmail = async (order, plugin, licenses) => {
       pluginName: plugin.description,
       price: plugin.price,
       licenses,
-      downloadLink: `http://localhost:5173/download/${plugin._id}`,
+      downloadLink: `${process.env.BACKEND_URL}/api/download/${plugin._id}`,
     });
 
     await transporter.sendMail({

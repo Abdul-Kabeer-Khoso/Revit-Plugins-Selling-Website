@@ -19,6 +19,26 @@ export const getDownload = async (req, res) => {
   }
 };
 
+export const downloadPlugin = async (req, res) => {
+  try {
+    const plugin = await Download.findById(req.params.id);
+
+    if (!plugin) {
+      return res.status(404).json({
+        message: "Plugin not found.",
+      });
+    }
+
+    return res.redirect(plugin.fileUrl);
+  } catch (err) {
+    console.error(err);
+
+    return res.status(500).json({
+      message: "Unable to download plugin.",
+    });
+  }
+};
+
 export const addDownload = async (req, res) => {
   try {
     const data = await Download.create({

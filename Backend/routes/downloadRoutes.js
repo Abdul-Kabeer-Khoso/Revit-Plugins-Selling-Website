@@ -5,12 +5,14 @@ import {
   deleteDownload,
   editDownload,
   getAllDownload,
+  downloadPlugin,
   getDownload,
 } from "../controllers/downloadController.js";
 const router = express.Router();
 
 router.get("/download", getAllDownload);
 router.get("/download/:id", getDownload);
+router.get("/download/file/:id", downloadPlugin);
 router.post("/download", addDownload);
 router.delete("/download/:id", deleteDownload);
 router.put("/download/:id", editDownload);

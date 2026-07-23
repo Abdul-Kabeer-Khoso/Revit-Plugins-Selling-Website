@@ -64,7 +64,7 @@ const DownloadDashboard = () => {
       });
   }, []);
 
-  const uploadToCloudinary = async (file) => {
+  const uploadToCloudinary = async (file, asAttachment = false) => {
     try {
       // 1. Get signature from backend
       const { data } = await api.get("/cloudinary/signature");
@@ -79,6 +79,9 @@ const DownloadDashboard = () => {
 
       // Optional: organize uploads in a folder
       formData.append("folder", "revit-downloads");
+      if (asAttachment) {
+        formData.append("flags", "attachment");
+      }
 
       // 3. Upload directly to Cloudinary
       const response = await fetch(
@@ -102,7 +105,7 @@ const DownloadDashboard = () => {
 
   const addDownload = async (data) => {
     try {
-      const uploadResult = await uploadToCloudinary(data.file);
+      const uploadResult = await uploadToCloudinary(data.file, true);
 
       await api.post("/download", {
         input1: data.input1,
@@ -129,7 +132,7 @@ const DownloadDashboard = () => {
 
       // Upload new file only if selected
       if (data.file) {
-        const uploadResult = await uploadToCloudinary(data.file);
+        const uploadResult = await uploadToCloudinary(data.file, true);
 
         payload.fileUrl = uploadResult.secure_url;
         payload.publicId = uploadResult.public_id;
