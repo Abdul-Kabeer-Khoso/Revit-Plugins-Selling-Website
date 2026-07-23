@@ -51,18 +51,17 @@ export const deleteDownload = async (req, res) => {
       });
     }
 
-    // Delete ZIP
-    if (download.zipPublicId) {
-      await cloudinary.uploader.destroy(download.zipPublicId, {
-        resource_type: "raw",
-      });
-    }
+    // Delete Cloudinary file
+    if (download.publicId) {
+      try {
+        const result = await cloudinary.uploader.destroy(download.publicId, {
+          resource_type: download.resourceType,
+        });
 
-    // Delete TXT
-    if (download.txtPublicId) {
-      await cloudinary.uploader.destroy(download.txtPublicId, {
-        resource_type: "raw",
-      });
+        console.log("Delete Result:", result);
+      } catch (err) {
+        console.error("Unable to delete file:", err.message);
+      }
     }
 
     // Delete MongoDB record

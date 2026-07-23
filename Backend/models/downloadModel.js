@@ -11,22 +11,17 @@ const downloadSchema = new mongoose.Schema({
     required: true,
   },
 
-  zipUrl: {
+  fileUrl: {
     type: String,
     required: true,
   },
 
-  zipPublicId: {
+  publicId: {
     type: String,
     required: true,
   },
 
-  txtUrl: {
-    type: String,
-    required: true,
-  },
-
-  txtPublicId: {
+  resourceType: {
     type: String,
     required: true,
   },
