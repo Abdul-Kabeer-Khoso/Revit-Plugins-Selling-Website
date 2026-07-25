@@ -36,7 +36,7 @@ app.get("/test-resend", async (req, res) => {
   try {
     const data = await resend.emails.send({
       from: "support@hamstruk.com",
-      to: "YOUR_GMAIL@gmail.com",
+      to: "abdulkabeerkhoso082@gmail.com",
       subject: "Resend Test Email",
       html: "<h2>Hello from Resend 🚀</h2><p>This is a test email.</p>",
     });
