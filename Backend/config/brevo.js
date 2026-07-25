@@ -1,10 +1,7 @@
-import { TransactionalEmailsApi, SendSmtpEmail } from "@getbrevo/brevo";
+import { BrevoClient } from "@getbrevo/brevo";
 
-const apiInstance = new TransactionalEmailsApi();
+const brevo = new BrevoClient({
+  apiKey: process.env.BREVO_API_KEY,
+});
 
-apiInstance.setApiKey(
-  TransactionalEmailsApi.ApiKeys.apiKey,
-  process.env.BREVO_API_KEY,
-);
-
-export { apiInstance, SendSmtpEmail };
+export default brevo;

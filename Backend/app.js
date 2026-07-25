@@ -14,7 +14,7 @@ import stripeRoutes from "./routes/stripeRoutes.js";
 import licenseRoutes from "./routes/licenseRoutes.js";
 import transporter from "./config/mailer.js";
 import { stripeWebhook } from "./controllers/stripeController.js";
-import { apiInstance, SendSmtpEmail } from "./config/brevo.js";
+import brevo from "./config/brevo.js";
 
 const app = express();
 
@@ -34,33 +34,31 @@ app.use(express.json());
 
 app.get("/test-brevo", async (req, res) => {
   try {
-    const sendSmtpEmail = new SendSmtpEmail();
-
-    sendSmtpEmail.sender = {
-      name: "Hamstruk",
-      email: "support@hamstruk.com",
-    };
-
-    sendSmtpEmail.to = [
-      {
-        email: "abdulkabeerkhoso082@gmail.com",
+    const result = await brevo.transactionalEmails.sendTransacEmail({
+      sender: {
+        name: "Hamstruk",
+        email: "support@hamstruk.com",
       },
-    ];
 
-    sendSmtpEmail.subject = "Brevo Test Email";
+      to: [
+        {
+          email: "abdulkabeerkhoso082@gmail.com",
+        },
+      ],
 
-    sendSmtpEmail.htmlContent = `
-      <h2>Hello 🎉</h2>
-      <p>This email is sent using Brevo API.</p>
-    `;
+      subject: "Brevo Test Email",
 
-    const result = await apiInstance.sendTransacEmail(sendSmtpEmail);
+      htmlContent: `
+        <h2>Hello 🎉</h2>
+        <p>This email is sent using Brevo API.</p>
+      `,
+    });
 
     console.log(result);
 
     res.json(result);
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json(error);
   }
