@@ -1,18 +1,5 @@
+import brevo from "../config/brevo.js";
 import { purchaseEmailTemplate } from "../utils/emailTemplate.js";
-
-// const transporter = nodemailer.createTransport({
-//   host: "smtp.gmail.com",
-//   port: 587,
-//   secure: false,
-//   family: 4,
-//   auth: {
-//     user: process.env.EMAIL_USER,
-//     pass: process.env.EMAIL_PASS,
-//   },
-
-//   logger: true,
-//   debug: true,
-// });
 
 export const sendPurchaseEmail = async (order, plugin, licenses) => {
   try {
@@ -24,20 +11,27 @@ export const sendPurchaseEmail = async (order, plugin, licenses) => {
       downloadLink: `${process.env.BACKEND_URL}/api/download/${plugin._id}`,
     });
 
-    const info = await transporter.sendMail({
-      from: `"Revit Plugins" <${process.env.EMAIL_USER}>`,
-      to: order.customerEmail,
+    const response = await brevo.transactionalEmails.sendTransacEmail({
+      sender: {
+        name: "Hamstruk",
+        email: "support@hamstruk.com",
+      },
+
+      to: [
+        {
+          email: order.customerEmail,
+        },
+      ],
+
       subject: "Your Revit Plugin Purchase",
-      html,
+
+      htmlContent: html,
     });
 
-    console.log("✅ Email Sent Successfully");
-    console.log(info);
+    console.log("✅ Purchase email sent successfully");
+    console.log(response);
   } catch (err) {
     console.log("❌ EMAIL FAILED");
-    console.log("Message:", err.message);
-    console.log("Code:", err.code);
-    console.log("Command:", err.command);
-    console.log("Response:", err.response);
+    console.log(err);
   }
 };
