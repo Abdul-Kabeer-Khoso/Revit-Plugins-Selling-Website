@@ -1,5 +1,4 @@
 import { purchaseEmailTemplate } from "../utils/emailTemplate.js";
-import transporter from "../config/mailer.js";
 
 // const transporter = nodemailer.createTransport({
 //   host: "smtp.gmail.com",
