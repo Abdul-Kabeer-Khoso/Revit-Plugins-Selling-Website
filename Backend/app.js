@@ -14,7 +14,7 @@ import stripeRoutes from "./routes/stripeRoutes.js";
 import licenseRoutes from "./routes/licenseRoutes.js";
 import transporter from "./config/mailer.js";
 import { stripeWebhook } from "./controllers/stripeController.js";
-import resend from "./config/resend.js";
+import apiInstance from "./config/brevo.js";
 
 const app = express();
 
@@ -32,20 +32,36 @@ app.post(
 // Parse JSON for every other route
 app.use(express.json());
 
-app.get("/test-resend", async (req, res) => {
+app.get("/test-brevo", async (req, res) => {
   try {
-    const data = await resend.emails.send({
-      from: "support@hamstruk.com",
-      to: "abdulkabeerkhoso082@gmail.com",
-      subject: "Resend Test Email",
-      html: "<h2>Hello from Resend 🚀</h2><p>This is a test email.</p>",
-    });
+    const sendSmtpEmail = {
+      sender: {
+        name: "Hamstruk",
+        email: "support@hamstruk.com",
+      },
 
-    console.log(data);
+      to: [
+        {
+          email: "abdulkabeerkhoso082@gmail.com",
+        },
+      ],
 
-    res.json(data);
+      subject: "Brevo Test Email",
+
+      htmlContent: `
+        <h2>Hello 🎉</h2>
+        <p>This email is sent using Brevo API.</p>
+      `,
+    };
+
+    const result = await apiInstance.sendTransacEmail(sendSmtpEmail);
+
+    console.log(result);
+
+    res.json(result);
   } catch (error) {
-    console.error(error);
+    console.log("BREVO ERROR");
+    console.log(error);
 
     res.status(500).json(error);
   }
