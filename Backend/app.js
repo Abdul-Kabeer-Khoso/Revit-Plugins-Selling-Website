@@ -32,27 +32,29 @@ app.post(
 // Parse JSON for every other route
 app.use(express.json());
 
+import { apiInstance, SendSmtpEmail } from "./config/brevo.js";
+
 app.get("/test-brevo", async (req, res) => {
   try {
-    const sendSmtpEmail = {
-      sender: {
-        name: "Hamstruk",
-        email: "support@hamstruk.com",
-      },
+    const sendSmtpEmail = new SendSmtpEmail();
 
-      to: [
-        {
-          email: "abdulkabeerkhoso082@gmail.com",
-        },
-      ],
-
-      subject: "Brevo Test Email",
-
-      htmlContent: `
-        <h2>Hello 🎉</h2>
-        <p>This email is sent using Brevo API.</p>
-      `,
+    sendSmtpEmail.sender = {
+      name: "Hamstruk",
+      email: "support@hamstruk.com",
     };
+
+    sendSmtpEmail.to = [
+      {
+        email: "abdulkabeerkhoso082@gmail.com",
+      },
+    ];
+
+    sendSmtpEmail.subject = "Brevo Test Email";
+
+    sendSmtpEmail.htmlContent = `
+      <h2>Hello 🎉</h2>
+      <p>This email is sent using Brevo API.</p>
+    `;
 
     const result = await apiInstance.sendTransacEmail(sendSmtpEmail);
 
@@ -60,7 +62,6 @@ app.get("/test-brevo", async (req, res) => {
 
     res.json(result);
   } catch (error) {
-    console.log("BREVO ERROR");
     console.log(error);
 
     res.status(500).json(error);

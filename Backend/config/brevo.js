@@ -1,10 +1,10 @@
-import * as brevo from "@getbrevo/brevo";
+import { TransactionalEmailsApi, SendSmtpEmail } from "@getbrevo/brevo";
 
-const apiInstance = new brevo.TransactionalEmailsApi();
+const apiInstance = new TransactionalEmailsApi();
 
 apiInstance.setApiKey(
-  brevo.TransactionalEmailsApiApiKeys.apiKey,
+  TransactionalEmailsApi.ApiKeys.apiKey,
   process.env.BREVO_API_KEY,
 );
 
-export default apiInstance;
+export { apiInstance, SendSmtpEmail };
