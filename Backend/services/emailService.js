@@ -8,7 +8,7 @@ export const sendPurchaseEmail = async (order, plugin, licenses) => {
       pluginName: plugin.description,
       price: plugin.price,
       licenses,
-      downloadLink: `${process.env.BACKEND_URL}/api/download/${plugin._id}`,
+      downloadLink: `${process.env.BACKEND_URL}/api/download/file/${plugin._id}`,
     });
 
     const response = await brevo.transactionalEmails.sendTransacEmail({
