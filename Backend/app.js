@@ -12,7 +12,6 @@ import adminRoutes from "./routes/adminRoutes.js";
 import cloudinaryRoutes from "./routes/cloudinaryRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
 import licenseRoutes from "./routes/licenseRoutes.js";
-import transporter from "./config/mailer.js";
 import { stripeWebhook } from "./controllers/stripeController.js";
 import brevo from "./config/brevo.js";
 
@@ -65,34 +64,34 @@ app.get("/test-brevo", async (req, res) => {
 });
 
 // Routes
-transporter.verify((error, success) => {
-  if (error) {
-    console.log("SMTP Connection Failed:");
-    console.log(error);
-  } else {
-    console.log("SMTP Server Ready:", success);
-  }
-});
+// transporter.verify((error, success) => {
+//   if (error) {
+//     console.log("SMTP Connection Failed:");
+//     console.log(error);
+//   } else {
+//     console.log("SMTP Server Ready:", success);
+//   }
+// });
 
-app.get("/test-email", async (req, res) => {
-  try {
-    const info = await transporter.sendMail({
-      from: `"Revit Plugins" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      subject: "Test Email",
-      text: "SMTP test successful",
-    });
+// app.get("/test-email", async (req, res) => {
+//   try {
+//     const info = await transporter.sendMail({
+//       from: `"Revit Plugins" <${process.env.EMAIL_USER}>`,
+//       to: process.env.EMAIL_USER,
+//       subject: "Test Email",
+//       text: "SMTP test successful",
+//     });
 
-    console.log(info);
+//     console.log(info);
 
-    res.send("Email sent successfully");
-  } catch (error) {
-    console.log("EMAIL FAILED");
-    console.log(error);
+//     res.send("Email sent successfully");
+//   } catch (error) {
+//     console.log("EMAIL FAILED");
+//     console.log(error);
 
-    res.status(500).send(error.message);
-  }
-});
+//     res.status(500).send(error.message);
+//   }
+// });
 
 app.use("/api", adminRoutes);
 app.use("/api", homeRoutes);

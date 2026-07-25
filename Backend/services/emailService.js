@@ -1,4 +1,3 @@
-import nodemailer from "nodemailer";
 import { purchaseEmailTemplate } from "../utils/emailTemplate.js";
 import transporter from "../config/mailer.js";
 
