@@ -14,7 +14,7 @@ import stripeRoutes from "./routes/stripeRoutes.js";
 import licenseRoutes from "./routes/licenseRoutes.js";
 import transporter from "./config/mailer.js";
 import { stripeWebhook } from "./controllers/stripeController.js";
-import apiInstance from "./config/brevo.js";
+import { apiInstance, SendSmtpEmail } from "./config/brevo.js";
 
 const app = express();
 
@@ -31,8 +31,6 @@ app.post(
 
 // Parse JSON for every other route
 app.use(express.json());
-
-import { apiInstance, SendSmtpEmail } from "./config/brevo.js";
 
 app.get("/test-brevo", async (req, res) => {
   try {
