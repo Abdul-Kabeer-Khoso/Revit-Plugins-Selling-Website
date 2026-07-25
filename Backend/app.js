@@ -14,6 +14,7 @@ import stripeRoutes from "./routes/stripeRoutes.js";
 import licenseRoutes from "./routes/licenseRoutes.js";
 import transporter from "./config/mailer.js";
 import { stripeWebhook } from "./controllers/stripeController.js";
+import resend from "./config/resend.js";
 
 const app = express();
 
@@ -30,6 +31,25 @@ app.post(
 
 // Parse JSON for every other route
 app.use(express.json());
+
+app.get("/test-resend", async (req, res) => {
+  try {
+    const data = await resend.emails.send({
+      from: "support@hamstruk.com",
+      to: "YOUR_GMAIL@gmail.com",
+      subject: "Resend Test Email",
+      html: "<h2>Hello from Resend 🚀</h2><p>This is a test email.</p>",
+    });
+
+    console.log(data);
+
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json(error);
+  }
+});
 
 // Routes
 transporter.verify((error, success) => {
