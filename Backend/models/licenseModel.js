@@ -2,56 +2,83 @@ import mongoose from "mongoose";
 
 const licenseSchema = new mongoose.Schema(
   {
-    licenseKey: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-
-    plugin: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Download",
-      required: true,
-    },
-
-    order: {
+    orderId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Order",
+      required: true,
+    },
+
+    pluginId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Download",
       required: true,
     },
 
     customerEmail: {
       type: String,
       required: true,
-      lowercase: true,
       trim: true,
+      lowercase: true,
+    },
+
+    customerName: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    licenseKey: {
+      type: String,
+      required: true,
+      unique: true,
       index: true,
+    },
+
+    pluginName: {
+      type: String,
+      required: true,
+    },
+
+    revitVersion: {
+      type: String,
+      required: true,
+    },
+
+    machineFingerprint: {
+      type: String,
+      default: "",
+      trim: true,
     },
 
     status: {
       type: String,
-      enum: ["inactive", "active", "expired", "revoked"],
-      default: "inactive",
+      enum: ["PENDING", "ACTIVE", "EXPIRED", "BLOCKED"],
+      default: "PENDING",
     },
 
-    hardwareFingerprint: {
-      type: String,
-      default: null,
-    },
-
-    activatedAt: {
+    activationDate: {
       type: Date,
       default: null,
     },
 
-    expiresAt: {
+    expiryDate: {
       type: Date,
-      default: null,
+      required: true,
     },
 
     lastValidation: {
       type: Date,
       default: null,
+    },
+
+    validationCount: {
+      type: Number,
+      default: 0,
+    },
+
+    activationCount: {
+      type: Number,
+      default: 0,
     },
   },
   {
@@ -59,4 +86,6 @@ const licenseSchema = new mongoose.Schema(
   },
 );
 
-export default mongoose.model("License", licenseSchema);
+const License = mongoose.model("License", licenseSchema);
+
+export default License;

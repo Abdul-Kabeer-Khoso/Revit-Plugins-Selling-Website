@@ -1,48 +1,103 @@
 import License from "../models/licenseModel.js";
 
+/**
+ * Activates a license on the customer's computer.
+ *
+ * Business Rules:
+ * 1. License must exist.
+ * 2. License must not be blocked.
+ * 3. License must not be expired.
+ * 4. Revit version must match.
+ * 5. First activation binds the license to one machine.
+ * 6. Same machine can activate again (Windows/Revit reinstall).
+ * 7. Different machine is rejected.
+ */
 export const activateLicense = async ({
   licenseKey,
-  email,
-  hardwareFingerprint,
+  machineFingerprint,
+  revitVersion,
 }) => {
-  const license = await License.findOne({
-    licenseKey,
-  });
-
-  console.log("License found:", license);
+  // -----------------------------
+  // Find License
+  // -----------------------------
+  const license = await License.findOne({ licenseKey });
 
   if (!license) {
-    throw new Error("License key not found.");
+    throw new Error("Invalid license key.");
   }
 
-  if (license.customerEmail !== email.toLowerCase()) {
-    throw new Error("Email does not match this license.");
+  // -----------------------------
+  // Blocked License
+  // -----------------------------
+  if (license.status === "BLOCKED") {
+    throw new Error("This license has been blocked. Please contact support.");
   }
 
-  if (license.status === "active") {
-    throw new Error("License is already activated.");
+  // -----------------------------
+  // Expired License
+  // -----------------------------
+  if (new Date() > license.expiryDate) {
+    if (license.status !== "EXPIRED") {
+      license.status = "EXPIRED";
+      await license.save();
+    }
+
+    throw new Error("This license has expired.");
   }
 
-  if (license.status === "revoked") {
-    throw new Error("License has been revoked.");
+  // -----------------------------
+  // Revit Version Check
+  // -----------------------------
+  if (license.revitVersion !== revitVersion) {
+    throw new Error(`This license is not valid for Revit ${revitVersion}.`);
   }
 
-  if (license.status === "expired") {
-    throw new Error("License has expired.");
+  // ==========================================================
+  // FIRST ACTIVATION
+  // ==========================================================
+  if (license.status === "PENDING") {
+    const now = new Date();
+
+    license.machineFingerprint = machineFingerprint;
+    license.activationDate = now;
+    license.lastValidation = now;
+    license.activationCount = 1;
+    license.validationCount = 1;
+    license.status = "ACTIVE";
+
+    await license.save();
+
+    return {
+      success: true,
+      firstActivation: true,
+      license,
+    };
   }
 
-  const activatedAt = new Date();
+  // ==========================================================
+  // ALREADY ACTIVE
+  // ==========================================================
+  if (license.status === "ACTIVE") {
+    // Same computer
+    if (license.machineFingerprint === machineFingerprint) {
+      license.lastValidation = new Date();
+      license.validationCount += 1;
 
-  const expiresAt = new Date(activatedAt);
+      await license.save();
 
-  expiresAt.setFullYear(expiresAt.getFullYear() + 1);
+      return {
+        success: true,
+        firstActivation: false,
+        license,
+      };
+    }
 
-  license.hardwareFingerprint = hardwareFingerprint;
-  license.activatedAt = activatedAt;
-  license.expiresAt = expiresAt;
-  license.status = "active";
+    // Different computer
+    throw new Error("This license is already activated on another computer.");
+  }
 
-  await license.save();
-
-  return license;
+  // -----------------------------
+  // Unknown Status
+  // -----------------------------
+  throw new Error("Invalid license status.");
 };

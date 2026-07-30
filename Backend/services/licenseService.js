@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import License from "../models/licenseModel.js";
+import Order from "../models/orderModel.js";
 
 const CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -25,7 +26,7 @@ const generateLicenseKey = () => {
 };
 
 /**
- * Ensures the generated license key does not already exist.
+ * Ensures the generated license key is unique.
  */
 const createUniqueLicenseKey = async () => {
   while (true) {
@@ -40,6 +41,24 @@ const createUniqueLicenseKey = async () => {
 };
 
 /**
+ * Calculates the license expiry date.
+ */
+const calculateExpiryDate = () => {
+  const now = new Date();
+
+  if (process.env.LICENSE_DURATION_HOURS) {
+    now.setHours(now.getHours() + Number(process.env.LICENSE_DURATION_HOURS));
+    return now;
+  }
+
+  const days = Number(process.env.LICENSE_DURATION_DAYS || 365);
+
+  now.setDate(now.getDate() + days);
+
+  return now;
+};
+
+/**
  * Generates and saves licenses after a successful purchase.
  */
 export const generateLicenses = async (quantity, order, plugin) => {
@@ -51,10 +70,40 @@ export const generateLicenses = async (quantity, order, plugin) => {
     const licenseKey = await createUniqueLicenseKey();
 
     const license = await License.create({
-      licenseKey,
-      plugin: plugin._id,
-      order: order._id,
+      orderId: order._id,
+
+      pluginId: plugin._id,
+
       customerEmail: order.customerEmail,
+
+      customerName: "",
+
+      licenseKey,
+
+      revitVersion: plugin.description,
+
+      machineId: "",
+
+      status: "PENDING",
+
+      activated: false,
+
+      activationDate: null,
+
+      expiryDate: calculateExpiryDate(),
+
+      lastValidation: null,
+
+      validationCount: 0,
+
+      activationCount: 0,
+
+      maxActivations: 1,
+    });
+
+    // Keep Order and License synchronized
+    await Order.findByIdAndUpdate(order._id, {
+      licenseKey,
     });
 
     licenses.push(license);
