@@ -69,6 +69,38 @@ export const generateLicenses = async (quantity, order, plugin) => {
   for (let i = 0; i < quantity; i++) {
     const licenseKey = await createUniqueLicenseKey();
 
+    // const license = await License.create({
+    //   orderId: order._id,
+
+    //   pluginId: plugin._id,
+
+    //   customerEmail: order.customerEmail,
+
+    //   customerName: "",
+
+    //   licenseKey,
+
+    //   revitVersion: plugin.description,
+
+    //   machineId: "",
+
+    //   status: "PENDING",
+
+    //   activated: false,
+
+    //   activationDate: null,
+
+    //   expiryDate: calculateExpiryDate(),
+
+    //   lastValidation: null,
+
+    //   validationCount: 0,
+
+    //   activationCount: 0,
+
+    //   maxActivations: 1,
+    // });
+
     const license = await License.create({
       orderId: order._id,
 
@@ -80,13 +112,16 @@ export const generateLicenses = async (quantity, order, plugin) => {
 
       licenseKey,
 
+      // Since you're currently selling only one plugin,
+      // this name is fixed.
+      pluginName: "HamstrUK Plugin",
+
+      // description stores only the year (e.g. "2025")
       revitVersion: plugin.description,
 
-      machineId: "",
+      machineFingerprint: "",
 
       status: "PENDING",
-
-      activated: false,
 
       activationDate: null,
 
@@ -97,8 +132,6 @@ export const generateLicenses = async (quantity, order, plugin) => {
       validationCount: 0,
 
       activationCount: 0,
-
-      maxActivations: 1,
     });
 
     // Keep Order and License synchronized
