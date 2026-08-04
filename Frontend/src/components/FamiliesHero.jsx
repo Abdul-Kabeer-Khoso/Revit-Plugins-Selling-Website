@@ -3,10 +3,13 @@ import search from "../assets/search.png";
 import Family from "./Family";
 import YoutubeTutorial from "./YoutubeTutorial";
 import api from "../api/axios";
+import SkeletonList from "./loader/SkeletonList";
 
 const FamiliesHero = () => {
   const [families, setFamilies] = useState([]);
   const [youtubeTutorials, setYoutubeTutorials] = useState([]);
+  const [loadingFirst, setLoadingFirst] = useState(true);
+  const [loadingSecond, setLoadingSecond] = useState(true);
 
   useEffect(() => {
     api
@@ -17,6 +20,9 @@ const FamiliesHero = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoadingFirst(false);
       });
 
     api
@@ -27,6 +33,9 @@ const FamiliesHero = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoadingSecond(false);
       });
   }, []);
 
@@ -63,7 +72,9 @@ const FamiliesHero = () => {
       <hr></hr>
 
       <div className="mt-10 mb-10">
-        {Array.isArray(families) && families.length > 0 ? (
+        {loadingFirst ? (
+          <SkeletonList count={1} />
+        ) : Array.isArray(families) && families.length > 0 ? (
           families.map((elem) => (
             <Family key={elem._id} name={elem.family} price={elem.price} />
           ))
@@ -93,8 +104,11 @@ const FamiliesHero = () => {
           />
         </div>
       </div>
+
       <div className="mt-10 mb-10">
-        {Array.isArray(youtubeTutorials) && youtubeTutorials.length > 0 ? (
+        {loadingSecond ? (
+          <SkeletonList count={1} />
+        ) : Array.isArray(youtubeTutorials) && youtubeTutorials.length > 0 ? (
           youtubeTutorials.map((elem) => (
             <YoutubeTutorial
               key={elem._id}

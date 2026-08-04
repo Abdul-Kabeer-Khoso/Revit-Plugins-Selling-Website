@@ -5,6 +5,7 @@ import COLUMNWALL from "../assets/COLUMN WALL.png";
 import EXCEL from "../assets/EXCEL.png";
 import INFO from "../assets/INFO.png";
 import ribbon from "../assets/ribbon.png";
+import RevitPluginSkeleton from "./loader/RevitPluginSkeleton";
 
 const RevitPluginUI = ({
   foundation,
@@ -13,6 +14,7 @@ const RevitPluginUI = ({
   beams,
   information,
   xl,
+  loading,
 }) => {
   return (
     <div className="flex-col">
@@ -33,23 +35,29 @@ const RevitPluginUI = ({
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
         <div className="w-[95%] sm:w-[65%] flex flex-row justify-between items-center">
           <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
-            {foundation.map((elem, idx) => (
-              <p key={idx}>{elem.description}</p>
-            ))}
+            {loading ? (
+              <RevitPluginSkeleton />
+            ) : foundation.length > 0 ? (
+              foundation.map((elem, idx) => <p key={idx}>{elem.description}</p>)
+            ) : (
+              <p className="text-gray-500">No Data</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-2 items-start text-sm sm:text-lg">
-            {foundation.map((elem) => (
-              <a
-                key={elem._id}
-                href={elem.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
-              >
-                ▶ Click to watch video
-              </a>
-            ))}
+            {!loading &&
+              foundation.length > 0 &&
+              foundation.map((elem) => (
+                <a
+                  key={elem._id}
+                  href={elem.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
+                >
+                  ▶ Click to watch video
+                </a>
+              ))}
           </div>
         </div>
 
@@ -78,23 +86,28 @@ const RevitPluginUI = ({
       </div>
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
         <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
-          {floor.map((elem, idx) => (
-            <p key={idx}>{elem.description}</p>
-          ))}
+          {loading ? (
+            <RevitPluginSkeleton />
+          ) : floor.length > 0 ? (
+            floor.map((elem, idx) => <p key={idx}>{elem.description}</p>)
+          ) : (
+            <p className="text-gray-500">No Data</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-2 items-start text-sm sm:text-lg">
-          {floor.map((elem) => (
-            <a
-              key={elem._id}
-              href={elem.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
-            >
-              ▶ Click to watch video
-            </a>
-          ))}
+          {!loading &&
+            floor.map((elem) => (
+              <a
+                key={elem._id}
+                href={elem.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
+              >
+                ▶ Click to watch video
+              </a>
+            ))}
         </div>
 
         <img
@@ -122,23 +135,28 @@ const RevitPluginUI = ({
       </div>
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
         <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
-          {beams.map((elem, idx) => (
-            <p key={idx}>{elem.description}</p>
-          ))}
+          {loading ? (
+            <RevitPluginSkeleton />
+          ) : beams.length > 0 ? (
+            beams.map((elem, idx) => <p key={idx}>{elem.description}</p>)
+          ) : (
+            <p className="text-gray-500">No Data</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-2 items-start text-sm sm:text-lg">
-          {beams.map((elem) => (
-            <a
-              key={elem._id}
-              href={elem.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
-            >
-              ▶ Click to watch video
-            </a>
-          ))}
+          {!loading &&
+            beams.map((elem) => (
+              <a
+                key={elem._id}
+                href={elem.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
+              >
+                ▶ Click to watch video
+              </a>
+            ))}
         </div>
 
         <img
@@ -166,23 +184,28 @@ const RevitPluginUI = ({
       </div>
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
         <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
-          {structural.map((elem, idx) => (
-            <p key={idx}>{elem.description}</p>
-          ))}
+          {loading ? (
+            <RevitPluginSkeleton />
+          ) : structural.length > 0 ? (
+            structural.map((elem, idx) => <p key={idx}>{elem.description}</p>)
+          ) : (
+            <p className="text-gray-500">No Data</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-2 items-start text-sm sm:text-lg">
-          {structural.map((elem) => (
-            <a
-              key={elem._id}
-              href={elem.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
-            >
-              ▶ Click to watch video
-            </a>
-          ))}
+          {!loading &&
+            structural.map((elem) => (
+              <a
+                key={elem._id}
+                href={elem.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
+              >
+                ▶ Click to watch video
+              </a>
+            ))}
         </div>
 
         <img
@@ -209,24 +232,29 @@ const RevitPluginUI = ({
         </h1>
       </div>
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
-        <div className="flex flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
-          {information.map((elem, idx) => (
-            <p key={idx}>{elem.description}</p>
-          ))}
+        <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
+          {loading ? (
+            <RevitPluginSkeleton />
+          ) : information.length > 0 ? (
+            information.map((elem, idx) => <p key={idx}>{elem.description}</p>)
+          ) : (
+            <p className="text-gray-500">No Data</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-2 items-start text-sm sm:text-lg">
-          {information.map((elem) => (
-            <a
-              key={elem._id}
-              href={elem.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
-            >
-              ▶ Click to watch video
-            </a>
-          ))}
+          {!loading &&
+            information.map((elem) => (
+              <a
+                key={elem._id}
+                href={elem.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
+              >
+                ▶ Click to watch video
+              </a>
+            ))}
         </div>
 
         <img
@@ -254,23 +282,28 @@ const RevitPluginUI = ({
       </div>
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
         <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
-          {xl.map((elem, idx) => (
-            <p key={idx}>{elem.description}</p>
-          ))}
+          {loading ? (
+            <RevitPluginSkeleton />
+          ) : xl.length > 0 ? (
+            xl.map((elem, idx) => <p key={idx}>{elem.description}</p>)
+          ) : (
+            <p className="text-gray-500">No Data</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-2 items-start text-sm sm:text-lg">
-          {xl.map((elem) => (
-            <a
-              key={elem._id}
-              href={elem.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
-            >
-              ▶ Click to watch video
-            </a>
-          ))}
+          {!loading &&
+            xl.map((elem) => (
+              <a
+                key={elem._id}
+                href={elem.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition-all"
+              >
+                ▶ Click to watch video
+              </a>
+            ))}
         </div>
 
         <img

@@ -3,19 +3,23 @@ import ribbon from "./../assets/ribbon.png";
 import Review from "./Review";
 import RevitPurchase from "./RevitPurchase";
 import api from "../api/axios";
+import SkeletonList from "./loader/SkeletonList";
 
 const DownloadHero = () => {
   const [revit, setRevit] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api
       .get(`${import.meta.env.VITE_API_URL}/api/download`)
       .then((res) => {
-        console.log(res.data);
         setRevit(res.data);
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -33,16 +37,18 @@ const DownloadHero = () => {
       <div className="my-13 shadow-2xl p-5">
         <img src={ribbon} alt="Ribbon Image" />
       </div>
-
-      {revit.map((elem, idx) => (
-        <RevitPurchase
-          key={idx}
-          id={elem._id}
-          description={elem.description}
-          price={elem.price}
-        />
-      ))}
-
+      {loading ? (
+        <SkeletonList count={2} />
+      ) : (
+        revit.map((elem, idx) => (
+          <RevitPurchase
+            key={idx}
+            id={elem._id}
+            description={elem.description}
+            price={elem.price}
+          />
+        ))
+      )}
       <div className="px-4 my-12 mx-5">
         <p className="text-xl font-semibold">
           INSTALLATION AND ACTIVATION INSTRUCTIONS:
@@ -92,9 +98,7 @@ const DownloadHero = () => {
           are sold separately for each Revit version.
         </p>
       </div>
-
       <hr></hr>
-
       <div className="my-12 mx-5 px-4">
         <p className="text-xl font-semibold">REVIEWS</p>
         <Review review="A must-have plugin for anyone working with structural elements in Revit." />

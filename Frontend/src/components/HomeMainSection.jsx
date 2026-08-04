@@ -12,6 +12,8 @@ const HomeMainSection = () => {
   const [information, setInformation] = useState([]);
   const [xl, setXl] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   const setData = (data) => {
     setFoundation(data.foundation);
     setStructural(data.structural);
@@ -31,6 +33,9 @@ const HomeMainSection = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -86,6 +91,7 @@ const HomeMainSection = () => {
         information={information}
         floor={floor}
         xl={xl}
+        loading={loading}
       />
     </div>
   );
