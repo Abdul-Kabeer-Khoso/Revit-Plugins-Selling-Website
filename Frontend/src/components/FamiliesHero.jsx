@@ -11,6 +11,10 @@ const FamiliesHero = () => {
   const [loadingFirst, setLoadingFirst] = useState(true);
   const [loadingSecond, setLoadingSecond] = useState(true);
 
+  // Search states
+  const [familySearch, setFamilySearch] = useState("");
+  const [tutorialSearch, setTutorialSearch] = useState("");
+
   useEffect(() => {
     api
       .get(`${import.meta.env.VITE_API_URL}/api/families`)
@@ -39,6 +43,16 @@ const FamiliesHero = () => {
       });
   }, []);
 
+  // Filtered Families
+  const filteredFamilies = families.filter((family) =>
+    family.family.toLowerCase().includes(familySearch.toLowerCase()),
+  );
+
+  // Filtered Tutorials
+  const filteredTutorials = youtubeTutorials.filter((tutorial) =>
+    tutorial.tutorial.toLowerCase().includes(tutorialSearch.toLowerCase()),
+  );
+
   return (
     <div>
       <div className="flex-col justify-center items-center mt-8 p-5">
@@ -51,56 +65,68 @@ const FamiliesHero = () => {
         </p>
       </div>
 
+      {/* Families Section */}
+
       <div className="px-4 mt-12 mb-6 mx-5">
         <div className="flex flex-col sm:flex-row justify-between items-center relative">
           <p className="text-xl font-semibold inline">DOWNLOAD FREE FAMILIES</p>
-          <form className=" mt-4 sm:mt-0">
+
+          <form className="mt-4 sm:mt-0" onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
               placeholder="Search Families"
-              className=" w-[83vw] sm:w-60 md:w-100 pl-12 pr-4 py-2 border border-gray-300 rounded-4xl"
+              value={familySearch}
+              onChange={(e) => setFamilySearch(e.target.value)}
+              className="w-[83vw] sm:w-60 md:w-100 pl-12 pr-4 py-2 border border-gray-300 rounded-4xl"
             />
           </form>
+
           <img
             src={search}
             alt="Search Icon"
-            className="w-5 absolute top-14 right-[73vw] min-[485px]:max-[640px]:right-[78vw]  sm:top-3 sm:right-50 md:right-90"
+            className="w-5 absolute top-14 right-[73vw] min-[485px]:max-[640px]:right-[78vw] sm:top-3 sm:right-50 md:right-90"
           />
         </div>
       </div>
 
-      <hr></hr>
+      <hr />
 
       <div className="mt-10 mb-10">
         {loadingFirst ? (
           <SkeletonList count={1} />
-        ) : Array.isArray(families) && families.length > 0 ? (
-          families.map((elem) => (
+        ) : filteredFamilies.length > 0 ? (
+          filteredFamilies.map((elem) => (
             <Family key={elem._id} name={elem.family} price={elem.price} />
           ))
         ) : (
-          <p className="text-center text-gray-500 text-lg">No family exists.</p>
+          <p className="text-center text-gray-500 text-lg">No family found.</p>
         )}
       </div>
 
-      <hr></hr>
+      <hr />
+
+      {/* Tutorials Section */}
 
       <div className="px-4 mt-12 mb-6 mx-5">
         <div className="flex flex-col sm:flex-row justify-between items-center relative">
           <p className="text-xl font-semibold inline">
             YouTube Tutorials Links
           </p>
-          <form className=" mt-4 sm:mt-0">
+
+          <form className="mt-4 sm:mt-0" onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
               placeholder="Search Tutorials"
-              className=" w-[83vw] sm:w-60 md:w-100 pl-12 pr-4 py-2 border border-gray-300 rounded-4xl"
+              value={tutorialSearch}
+              onChange={(e) => setTutorialSearch(e.target.value)}
+              className="w-[83vw] sm:w-60 md:w-100 pl-12 pr-4 py-2 border border-gray-300 rounded-4xl"
             />
           </form>
+
           <img
             src={search}
             alt="Search Icon"
-            className="w-5 absolute top-14 right-[73vw] min-[485px]:max-[640px]:right-[78vw]  sm:top-3 sm:right-50 md:right-90"
+            className="w-5 absolute top-14 right-[73vw] min-[485px]:max-[640px]:right-[78vw] sm:top-3 sm:right-50 md:right-90"
           />
         </div>
       </div>
@@ -108,8 +134,8 @@ const FamiliesHero = () => {
       <div className="mt-10 mb-10">
         {loadingSecond ? (
           <SkeletonList count={1} />
-        ) : Array.isArray(youtubeTutorials) && youtubeTutorials.length > 0 ? (
-          youtubeTutorials.map((elem) => (
+        ) : filteredTutorials.length > 0 ? (
+          filteredTutorials.map((elem) => (
             <YoutubeTutorial
               key={elem._id}
               name={elem.tutorial}
@@ -118,7 +144,7 @@ const FamiliesHero = () => {
           ))
         ) : (
           <p className="text-center text-gray-500 text-lg">
-            No YouTube Tutorials.
+            No tutorial found.
           </p>
         )}
       </div>
