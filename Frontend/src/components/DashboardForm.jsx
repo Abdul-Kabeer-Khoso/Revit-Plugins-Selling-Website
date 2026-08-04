@@ -56,7 +56,7 @@ const DashboardForm = ({
 
       <div
         onClick={() => (window.location.href = `/admindashboard`)}
-        className="absolute flex justify-center items-center p-2 rounded-lg bg-green-600 hover:cursor-pointer bottom-60 right-218"
+        className="absolute flex justify-center items-center p-2 rounded-lg bg-green-600 hover:cursor-pointer bottom-60 right-[91%]"
       >
         <FaLongArrowAltLeft size="20px" color="white" />
 
