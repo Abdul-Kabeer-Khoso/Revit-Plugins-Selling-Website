@@ -19,7 +19,16 @@ const app = express();
 
 connectDB();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://www.hamstruk.com",
+      "https://hamstruk.com",
+      "http://localhost:5173",
+    ],
+    credentials: true,
+  }),
+);
 
 // Stripe webhook MUST come before express.json()
 app.post(
