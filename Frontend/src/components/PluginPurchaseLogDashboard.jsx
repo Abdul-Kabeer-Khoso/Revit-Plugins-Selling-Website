@@ -1,69 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../api/axios";
 
 const PluginPurchaseLogDashboard = () => {
-  // Temporary data for frontend testing.
-  // Later this will come from your backend API.
-  const [purchaseLogs, setPurchaseLogs] = useState([
-    {
-      _id: "1",
-      customerEmail: "shahbaz.revitbim@gmail.com",
-      pluginName: "Revit 2025",
-      price: 20,
-      currency: "usd",
-      paymentStatus: "paid",
-      createdAt: "2025-01-10T08:30:00.000Z",
-    },
-    {
-      _id: "2",
-      customerEmail: "shaad2016dxb@gmail.com",
-      pluginName: "Revit 2025",
-      price: 20,
-      currency: "usd",
-      paymentStatus: "paid",
-      createdAt: "2025-02-15T11:45:00.000Z",
-    },
-    {
-      _id: "3",
-      customerEmail: "example@gmail.com",
-      pluginName: "Revit 2024",
-      price: 15,
-      currency: "usd",
-      paymentStatus: "paid",
-      createdAt: "2025-03-05T15:20:00.000Z",
-    },
-    {
-      _id: "3",
-      customerEmail: "example@gmail.com",
-      pluginName: "Revit 2024",
-      price: 15,
-      currency: "usd",
-      paymentStatus: "paid",
-      createdAt: "2025-03-05T15:20:00.000Z",
-    },
-    {
-      _id: "3",
-      customerEmail: "example@gmail.com",
-      pluginName: "Revit 2024",
-      price: 15,
-      currency: "usd",
-      paymentStatus: "paid",
-      createdAt: "2025-03-05T15:20:00.000Z",
-    },
-    {
-      _id: "3",
-      customerEmail: "example@gmail.com",
-      pluginName: "Revit 2024",
-      price: 15,
-      currency: "usd",
-      paymentStatus: "paid",
-      createdAt: "2025-03-05T15:20:00.000Z",
-    },
-  ]);
+  const [purchaseLogs, setPurchaseLogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Filter states
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
+
+  // Fetch purchase logs from backend
+  useEffect(() => {
+    const fetchPurchaseLogs = async () => {
+      try {
+        setLoading(true);
+
+        const res = await api.get(
+          `${import.meta.env.VITE_API_URL}/api/orders/purchase-logs`,
+        );
+
+        console.log("Purchase Logs:", res.data);
+
+        setPurchaseLogs(res.data);
+      } catch (err) {
+        console.log("Error fetching purchase logs:", err);
+        setPurchaseLogs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPurchaseLogs();
+  }, []);
 
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-US", {
@@ -111,7 +80,7 @@ const PluginPurchaseLogDashboard = () => {
   });
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       {/* Dashboard Header */}
       <div className="w-full h-auto p-2 rounded-md bg-amber-200 text-lg font-semibold flex justify-center items-center mb-4">
         PURCHASE LOG DASHBOARD
@@ -181,7 +150,7 @@ const PluginPurchaseLogDashboard = () => {
       {/* Purchase Records */}
       <div className="mt-8 bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
         {/* Loading */}
-        {false ? (
+        {loading ? (
           <div className="flex justify-center items-center py-20">
             <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
           </div>
@@ -193,7 +162,7 @@ const PluginPurchaseLogDashboard = () => {
         ) : (
           /* Table */
           <div className="max-h-[57vh] overflow-y-auto">
-            <table className="w-full ">
+            <table className="w-full">
               <thead>
                 <tr className="bg-gray-100 border-b border-gray-200">
                   <th className="px-5 py-4 text-left text-sm font-bold text-gray-700">
