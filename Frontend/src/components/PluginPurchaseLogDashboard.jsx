@@ -232,7 +232,11 @@ const PluginPurchaseLogDashboard = () => {
                     {/* Price */}
                     <td className="px-5 py-5">
                       <span className="font-bold text-gray-800">
-                        ${Number(purchase.price).toFixed(2)}
+                        AED{" "}
+                        {purchase.aedPrice !== null &&
+                        purchase.aedPrice !== undefined
+                          ? Number(purchase.aedPrice).toFixed(2)
+                          : "N/A"}
                       </span>
                     </td>
                   </tr>
