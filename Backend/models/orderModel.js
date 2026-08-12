@@ -28,6 +28,16 @@ const orderSchema = new mongoose.Schema(
       default: "usd",
     },
 
+    exchangeRate: {
+      type: Number,
+      default: null,
+    },
+
+    aedPrice: {
+      type: Number,
+      default: null,
+    },
+
     stripeSessionId: {
       type: String,
       required: true,
