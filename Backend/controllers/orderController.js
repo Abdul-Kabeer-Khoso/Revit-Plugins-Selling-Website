@@ -5,7 +5,9 @@ export const getAllPurchaseLogs = async (req, res) => {
     const purchaseLogs = await Order.find({
       paymentStatus: "paid",
     })
-      .select("customerEmail pluginName price currency paymentStatus createdAt")
+      .select(
+        "customerEmail pluginName price currency exchangeRate aedPrice paymentStatus createdAt",
+      )
       .sort({ createdAt: -1 });
 
     return res.status(200).json(purchaseLogs);
