@@ -17,7 +17,7 @@ const PluginPurchaseLogDashboard = () => {
         setLoading(true);
 
         const res = await api.get(
-          `${import.meta.env.VITE_API_URL}/api/orders/purchase-logs`,
+          `${import.meta.env.VITE_API_URL}/api/purchase-logs`,
         );
 
         console.log("Purchase Logs:", res.data);
