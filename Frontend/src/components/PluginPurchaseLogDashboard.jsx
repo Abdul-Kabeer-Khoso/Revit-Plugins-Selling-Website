@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import * as XLSX from "xlsx-js-style";
 import api from "../api/axios";
 
 const PluginPurchaseLogDashboard = () => {
@@ -79,6 +80,158 @@ const PluginPurchaseLogDashboard = () => {
     return true;
   });
 
+  const handleExport = () => {
+    // Convert only the currently filtered logs into Excel data
+    const excelData = filteredPurchaseLogs.map((purchase, index) => ({
+      "S.No": index + 1,
+      Email: purchase.customerEmail,
+      Plugin: purchase.pluginName,
+      "Purchase Date": formatDate(purchase.createdAt),
+      Price:
+        purchase.aedPrice !== null && purchase.aedPrice !== undefined
+          ? `AED ${Number(purchase.aedPrice).toFixed(2)}`
+          : "N/A",
+    }));
+
+    // Create worksheet
+    const worksheet = XLSX.utils.json_to_sheet(excelData);
+
+    // Style the header row
+    const headerStyle = {
+      font: {
+        bold: true,
+        color: { rgb: "FFFFFF" },
+      },
+      fill: {
+        fgColor: { rgb: "2563EB" },
+      },
+      alignment: {
+        horizontal: "center",
+        vertical: "center",
+      },
+      border: {
+        top: {
+          style: "thin",
+          color: { rgb: "1D4ED8" },
+        },
+        bottom: {
+          style: "thin",
+          color: { rgb: "1D4ED8" },
+        },
+        left: {
+          style: "thin",
+          color: { rgb: "1D4ED8" },
+        },
+        right: {
+          style: "thin",
+          color: { rgb: "1D4ED8" },
+        },
+      },
+    };
+
+    // Style the data rows
+    for (let row = 2; row <= excelData.length + 1; row++) {
+      // S.No
+      worksheet[`A${row}`].s = {
+        alignment: {
+          horizontal: "center",
+          vertical: "center",
+        },
+        border: {
+          bottom: {
+            style: "thin",
+            color: { rgb: "E5E7EB" },
+          },
+        },
+      };
+
+      // Email
+      worksheet[`B${row}`].s = {
+        alignment: {
+          vertical: "center",
+        },
+        border: {
+          bottom: {
+            style: "thin",
+            color: { rgb: "E5E7EB" },
+          },
+        },
+      };
+
+      // Plugin
+      worksheet[`C${row}`].s = {
+        alignment: {
+          vertical: "center",
+          horizontal: "center",
+        },
+        border: {
+          bottom: {
+            style: "thin",
+            color: { rgb: "E5E7EB" },
+          },
+        },
+      };
+
+      // Purchase Date
+      worksheet[`D${row}`].s = {
+        alignment: {
+          horizontal: "center",
+          vertical: "center",
+        },
+        border: {
+          bottom: {
+            style: "thin",
+            color: { rgb: "E5E7EB" },
+          },
+        },
+      };
+
+      // Price
+      worksheet[`E${row}`].s = {
+        font: {
+          bold: true,
+        },
+        alignment: {
+          horizontal: "center",
+          vertical: "center",
+        },
+        border: {
+          bottom: {
+            style: "thin",
+            color: { rgb: "E5E7EB" },
+          },
+        },
+      };
+    }
+
+    // Apply style to all header cells
+    ["A1", "B1", "C1", "D1", "E1"].forEach((cell) => {
+      worksheet[cell].s = headerStyle;
+    });
+
+    worksheet["!cols"] = [
+      { wch: 8 }, // S.No
+      { wch: 35 }, // Email
+      { wch: 20 }, // Plugin
+      { wch: 20 }, // Purchase Date
+      { wch: 18 }, // Price
+    ];
+
+    worksheet["!freeze"] = {
+      xSplit: 0,
+      ySplit: 1,
+    };
+
+    // Create workbook
+    const workbook = XLSX.utils.book_new();
+
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Purchase Logs");
+
+    // Download Excel file
+    XLSX.writeFile(workbook, "purchase-logs.xlsx");
+  };
+
   return (
     <div className="w-full">
       {/* Dashboard Header */}
@@ -137,9 +290,9 @@ const PluginPurchaseLogDashboard = () => {
             </select>
           </div>
 
-          {/* Export Button */}
           <button
             type="button"
+            onClick={handleExport}
             className="w-full lg:w-auto px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors"
           >
             Export
