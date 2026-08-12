@@ -2,9 +2,7 @@ import Order from "../models/orderModel.js";
 
 export const getAllPurchaseLogs = async (req, res) => {
   try {
-    const purchaseLogs = await Order.find({
-      paymentStatus: "paid",
-    })
+    const purchaseLogs = await Order.findAll()
       .select("customerEmail pluginName price currency paymentStatus createdAt")
       .sort({ createdAt: -1 });
 
