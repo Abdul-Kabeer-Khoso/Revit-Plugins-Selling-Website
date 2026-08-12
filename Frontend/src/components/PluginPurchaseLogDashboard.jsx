@@ -293,7 +293,7 @@ const PluginPurchaseLogDashboard = () => {
           <button
             type="button"
             onClick={handleExport}
-            className="w-full lg:w-auto px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors"
+            className="w-full lg:w-auto px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors hover:cursor-pointer"
           >
             Export
           </button>
