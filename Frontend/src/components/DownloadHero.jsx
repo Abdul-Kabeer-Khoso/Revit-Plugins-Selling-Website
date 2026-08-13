@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ribbon from "./../assets/ribbon.png";
+import ribbon from "./../assets/ribbon.jpeg";
 import Review from "./Review";
 import RevitPurchase from "./RevitPurchase";
 import api from "../api/axios";
@@ -34,7 +34,7 @@ const DownloadHero = () => {
           Made for engineers.
         </p>
       </div>
-      <div className="my-13 shadow-2xl p-5">
+      <div className="mb-13 mt-5 shadow-2xl p-5">
         <img src={ribbon} alt="Ribbon Image" />
       </div>
       {loading ? (
