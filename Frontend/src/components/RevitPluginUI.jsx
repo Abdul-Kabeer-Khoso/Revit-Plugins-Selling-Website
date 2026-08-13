@@ -4,7 +4,7 @@ import BEAMS from "../assets/BEAMS.png";
 import COLUMNWALL from "../assets/COLUMN WALL.png";
 import EXCEL from "../assets/EXCEL.png";
 import INFO from "../assets/INFO.png";
-import ribbon from "../assets/ribbon.jpeg";
+import ribbon from "../assets/ribbon.png";
 import RevitPluginSkeleton from "./loader/RevitPluginSkeleton";
 
 const RevitPluginUI = ({

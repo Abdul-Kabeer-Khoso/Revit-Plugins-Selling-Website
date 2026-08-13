@@ -1,4 +1,4 @@
-import ribbon from "./../assets/ribbon.jpeg";
+import ribbon from "./../assets/ribbon.png";
 
 const HomeHero = () => {
   return (

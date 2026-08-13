@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ribbon from "./../assets/ribbon.jpeg";
+import ribbon from "./../assets/ribbon.png";
 import Review from "./Review";
 import RevitPurchase from "./RevitPurchase";
 import api from "../api/axios";
