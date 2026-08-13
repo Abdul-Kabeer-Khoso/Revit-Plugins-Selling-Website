@@ -35,7 +35,7 @@ const DownloadHero = () => {
         </p>
       </div>
       <div className="mb-13 mt-5 shadow-2xl p-5">
-        <img src={ribbon} alt="Ribbon Image" />
+        <img src={ribbon} alt="Ribbon Image" className="w-[100%]" />
       </div>
       {loading ? (
         <SkeletonList count={2} />
