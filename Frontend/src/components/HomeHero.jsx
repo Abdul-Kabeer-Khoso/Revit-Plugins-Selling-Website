@@ -35,8 +35,8 @@ const HomeHero = () => {
           confidence.
         </p>
       </div>
-      <div className="my-13 shadow-2xl w-[100%]">
-        <img src={ribbon} alt="Ribbon Image" />
+      <div className="my-13 shadow-2xl ">
+        <img src={ribbon} alt="Ribbon Image" className="w-[100%]" />
       </div>
     </div>
   );
