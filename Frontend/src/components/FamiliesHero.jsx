@@ -11,9 +11,8 @@ const FamiliesHero = () => {
   const [loadingFirst, setLoadingFirst] = useState(true);
   const [loadingSecond, setLoadingSecond] = useState(true);
 
-  // Search states
-  const [familySearch, setFamilySearch] = useState("");
-  const [tutorialSearch, setTutorialSearch] = useState("");
+  // Single search state for both Families and YouTube Tutorials
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     api
@@ -43,111 +42,119 @@ const FamiliesHero = () => {
       });
   }, []);
 
-  // Filtered Families
+  // Single search applied to both Families and Tutorials
   const filteredFamilies = families.filter((family) =>
-    family.family.toLowerCase().includes(familySearch.toLowerCase()),
+    family.family.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  // Filtered Tutorials
   const filteredTutorials = youtubeTutorials.filter((tutorial) =>
-    tutorial.tutorial.toLowerCase().includes(tutorialSearch.toLowerCase()),
+    tutorial.tutorial.toLowerCase().includes(searchQuery.toLowerCase()),
   );
+
+  // Check if search is active
+  const isSearching = searchQuery.trim() !== "";
+
+  // Check whether anything was found in either section
+  const noSearchResults =
+    isSearching &&
+    !loadingFirst &&
+    !loadingSecond &&
+    filteredFamilies.length === 0 &&
+    filteredTutorials.length === 0;
 
   return (
     <div>
       <div className="flex-col justify-center items-center mt-8 p-5">
-        <p className="text-2xl md:text-4xl font-bold text-center uppercase ">
+        <p className="text-2xl md:text-4xl font-bold text-center uppercase">
           Smarter Revit Structural Design Starts Here.
         </p>
+
         <p className="mt-2 lg:mt-0 text-xl md:text-2xl font-semibold text-center">
           Built on 25 years of hands-on global project delivery. Made for Revit.
           Made for engineers.
         </p>
       </div>
 
-      {/* Families Section */}
-
+      {/* Single Search Section */}
       <div className="px-4 mt-12 mb-6 mx-5">
-        <div className="flex flex-col sm:flex-row justify-between items-center relative">
-          <p className="text-xl font-semibold inline">DOWNLOAD FREE FAMILIES</p>
-
-          <form className="mt-4 sm:mt-0" onSubmit={(e) => e.preventDefault()}>
+        <div className="flex justify-center items-center">
+          <form
+            className="w-full sm:w-80 md:w-100 relative"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <input
               type="text"
-              placeholder="Search Families"
-              value={familySearch}
-              onChange={(e) => setFamilySearch(e.target.value)}
-              className="w-[83vw] sm:w-60 md:w-100 pl-12 pr-4 py-2 border border-gray-300 rounded-4xl"
+              placeholder="Search Families or YouTube Tutorials"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-2 border border-gray-300 rounded-4xl"
+            />
+
+            <img
+              src={search}
+              alt="Search Icon"
+              className="w-5 absolute left-4 top-1/2 -translate-y-1/2"
             />
           </form>
-
-          <img
-            src={search}
-            alt="Search Icon"
-            className="w-5 absolute top-14 right-[73vw] min-[485px]:max-[640px]:right-[78vw] sm:top-3 sm:right-50 md:right-90"
-          />
         </div>
       </div>
 
-      <hr />
-
-      <div className="mt-10 mb-10">
-        {loadingFirst ? (
-          <SkeletonList count={1} />
-        ) : filteredFamilies.length > 0 ? (
-          filteredFamilies.map((elem) => (
-            <Family key={elem._id} name={elem.family} price={elem.price} />
-          ))
-        ) : (
-          <p className="text-center text-gray-500 text-lg">No family found.</p>
-        )}
-      </div>
-
-      <hr />
-
-      {/* Tutorials Section */}
-
-      <div className="px-4 mt-12 mb-6 mx-5">
-        <div className="flex flex-col sm:flex-row justify-between items-center relative">
-          <p className="text-xl font-semibold inline">
-            YouTube Tutorials Links
+      {/* No Results */}
+      {noSearchResults ? (
+        <div className="mt-16 mb-16">
+          <p className="text-center text-gray-500 text-lg font-medium">
+            No Family or Youtube Tutorial
           </p>
-
-          <form className="mt-4 sm:mt-0" onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="text"
-              placeholder="Search Tutorials"
-              value={tutorialSearch}
-              onChange={(e) => setTutorialSearch(e.target.value)}
-              className="w-[83vw] sm:w-60 md:w-100 pl-12 pr-4 py-2 border border-gray-300 rounded-4xl"
-            />
-          </form>
-
-          <img
-            src={search}
-            alt="Search Icon"
-            className="w-5 absolute top-14 right-[73vw] min-[485px]:max-[640px]:right-[78vw] sm:top-3 sm:right-50 md:right-90"
-          />
         </div>
-      </div>
+      ) : (
+        <>
+          {/* Families Section */}
+          <div className="px-4 mt-12 mb-6 mx-5">
+            <p className="text-xl font-semibold">DOWNLOAD FREE FAMILIES</p>
+          </div>
 
-      <div className="mt-10 mb-10">
-        {loadingSecond ? (
-          <SkeletonList count={1} />
-        ) : filteredTutorials.length > 0 ? (
-          filteredTutorials.map((elem) => (
-            <YoutubeTutorial
-              key={elem._id}
-              name={elem.tutorial}
-              link={elem.link}
-            />
-          ))
-        ) : (
-          <p className="text-center text-gray-500 text-lg">
-            No tutorial found.
-          </p>
-        )}
-      </div>
+          <hr />
+
+          <div className="mt-10 mb-10">
+            {loadingFirst ? (
+              <SkeletonList count={1} />
+            ) : filteredFamilies.length > 0 ? (
+              filteredFamilies.map((elem) => (
+                <Family key={elem._id} name={elem.family} price={elem.price} />
+              ))
+            ) : isSearching ? null : (
+              <p className="text-center text-gray-500 text-lg">
+                No family found.
+              </p>
+            )}
+          </div>
+
+          <hr />
+
+          {/* Tutorials Section */}
+          <div className="px-4 mt-12 mb-6 mx-5">
+            <p className="text-xl font-semibold">YouTube Tutorials Links</p>
+          </div>
+
+          <div className="mt-10 mb-10">
+            {loadingSecond ? (
+              <SkeletonList count={1} />
+            ) : filteredTutorials.length > 0 ? (
+              filteredTutorials.map((elem) => (
+                <YoutubeTutorial
+                  key={elem._id}
+                  name={elem.tutorial}
+                  link={elem.link}
+                />
+              ))
+            ) : isSearching ? null : (
+              <p className="text-center text-gray-500 text-lg">
+                No tutorial found.
+              </p>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };
