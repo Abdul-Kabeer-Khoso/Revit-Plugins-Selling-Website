@@ -120,7 +120,12 @@ const FamiliesHero = () => {
               <SkeletonList count={1} />
             ) : filteredFamilies.length > 0 ? (
               filteredFamilies.map((elem) => (
-                <Family key={elem._id} name={elem.family} price={elem.price} />
+                <Family
+                  key={elem._id}
+                  name={elem.family}
+                  price={elem.price}
+                  fileUrl={elem.fileUrl}
+                />
               ))
             ) : isSearching ? null : (
               <p className="text-center text-gray-500 text-lg">
