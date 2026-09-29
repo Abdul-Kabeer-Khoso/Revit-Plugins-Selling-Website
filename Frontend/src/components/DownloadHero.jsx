@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import RIBBON from "./../assets/RIBBON.png";
+import ribbon from "./../assets/ribbon.png";
 import Review from "./Review";
 import RevitPurchase from "./RevitPurchase";
 import api from "../api/axios";
@@ -35,7 +35,7 @@ const DownloadHero = () => {
         </p>
       </div>
       <div className="mb-13 mt-5 shadow-2xl p-5">
-        <img src={RIBBON} alt="Ribbon Image" className="w-[100%]" />
+        <img src={ribbon} alt="Ribbon Image" className="w-[100%]" />
       </div>
       {loading ? (
         <SkeletonList count={2} />

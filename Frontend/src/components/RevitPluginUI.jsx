@@ -3,8 +3,7 @@ import FLOORS from "../assets/FLOORS.png";
 import BEAMS from "../assets/BEAMS.png";
 import COLUMNWALL from "../assets/COLUMN WALL.png";
 import EXCEL from "../assets/EXCEL.png";
-import INFO from "../assets/INFO.png";
-import RIBBON from "../assets/RIBBON.png";
+import info from "../assets/info.png";
 import RevitPluginSkeleton from "./loader/RevitPluginSkeleton";
 import xlsxMaster from "../assets/xlsxMaster.png";
 
@@ -279,7 +278,7 @@ const RevitPluginUI = ({
         </div>
 
         <img
-          src={INFO}
+          src={info}
           alt="Revit Plugin Image"
           className="w-[40vw] sm:w-35 md:w-40 lg:w-50"
         />
