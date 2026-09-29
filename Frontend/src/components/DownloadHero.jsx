@@ -75,13 +75,6 @@ const DownloadHero = () => {
           of purchasing the plugin, please send a follow up email to
           support@hamstruk.com.
         </p>
-
-        <p className="mt-5 text-lg">
-          Note: All licenses are annual and apply only to the specific Revit
-          version purchased. Each version of Autodesk Revit requires its own
-          compatible version of the HamstrUK Plug-In. Licenses and installations
-          are sold separately for each Revit version.
-        </p>
       </div>
       <hr></hr>
       <div className="my-12 mx-5 px-4">
