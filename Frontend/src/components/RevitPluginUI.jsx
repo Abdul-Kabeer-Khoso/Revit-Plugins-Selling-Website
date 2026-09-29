@@ -4,8 +4,9 @@ import BEAMS from "../assets/BEAMS.png";
 import COLUMNWALL from "../assets/COLUMN WALL.png";
 import EXCEL from "../assets/EXCEL.png";
 import INFO from "../assets/INFO.png";
-import ribbon from "../assets/ribbon.png";
+import RIBBON from "../assets/RIBBON.png";
 import RevitPluginSkeleton from "./loader/RevitPluginSkeleton";
+import xlsxMaster from "../assets/xlsxMaster.png";
 
 const RevitPluginUI = ({
   foundation,
@@ -244,7 +245,7 @@ const RevitPluginUI = ({
 
         {/* text */}
         <h1 className="relative z-10 font-extrabold tracking-wide text-black drop-shadow-md text-base sm:text-lg md:text-2xl lg:text-3xl">
-          Information
+          Information & Useful
         </h1>
       </div>
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
@@ -278,7 +279,7 @@ const RevitPluginUI = ({
         </div>
 
         <img
-          src={FOUNDATION}
+          src={INFO}
           alt="Revit Plugin Image"
           className="w-[40vw] sm:w-35 md:w-40 lg:w-50"
         />
@@ -297,7 +298,7 @@ const RevitPluginUI = ({
 
         {/* text */}
         <h1 className="relative z-10 font-extrabold tracking-wide text-black drop-shadow-md text-base sm:text-lg md:text-2xl lg:text-3xl">
-          XL Master
+          Xlsx Master
         </h1>
       </div>
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
@@ -331,7 +332,7 @@ const RevitPluginUI = ({
         </div>
 
         <img
-          src={FOUNDATION}
+          src={xlsxMaster}
           alt="Revit Plugin Image"
           className="w-[40vw] sm:w-35 md:w-40 lg:w-50"
         />

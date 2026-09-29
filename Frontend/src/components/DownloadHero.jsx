@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ribbon from "./../assets/ribbon.png";
+import RIBBON from "./../assets/RIBBON.png";
 import Review from "./Review";
 import RevitPurchase from "./RevitPurchase";
 import api from "../api/axios";
@@ -35,7 +35,7 @@ const DownloadHero = () => {
         </p>
       </div>
       <div className="mb-13 mt-5 shadow-2xl p-5">
-        <img src={ribbon} alt="Ribbon Image" className="w-[100%]" />
+        <img src={RIBBON} alt="Ribbon Image" className="w-[100%]" />
       </div>
       {loading ? (
         <SkeletonList count={2} />
@@ -55,40 +55,25 @@ const DownloadHero = () => {
         </p>
         <br></br>
         <p className="text-lg">
-          The .exe installer is a per-user installer and does not require any
-          admin install privileges. Don't "Run as Admin" or it may not appear on
-          the current user's profile. <br></br>
-          The .msi installer is a per-machine installer and will require admin
-          install privileges.<br></br>
-          Both installers have a -quiet switch for silent installation by
-          deployment software.<br></br>
-          Single-User Licenses:<br></br>
-          Purchase<br></br>
-          Purchase the quantity of licenses needed for your team.<br></br>
-          All licenses purchased are attributed to the company email domain name
-          (unless using a personal email).<br></br>
-          Each single user license authorizes you to register two computers for
-          the same user. A unique registration code must be requested from each
-          computer. A separate license should be purchased for each user that
-          will use the tools. <br></br>
-          Notify Users<br></br>
-          You can immediately notify users that they can install and activate
-          the software.<br></br>
-          Each user license request will be counted toward the total number
-          purchased for the company on a first come, first served basis. If you
-          would like to submit a list of authorized users via email to control
-          who can request activations, that can be accommodated as well.{" "}
+          After purchase, you will receive an email containing your License Key
+          and the download link for the plugin. <br></br>
+          <br></br> 1. Install the plugin. <br></br>
+          <br></br>2. Open Autodesk Revit. <br></br>
+          <br></br>3. Go to the HamstrUK Plugin ribbon. <br></br>
+          <br></br>4. Click the Key command located at the top right corner.{" "}
           <br></br>
-          Click Activate<br></br>
-          Your user(s) can immediately install the tools and click the
-          Licensing/Activation button on the RF Tools ribbon in Revit. Use the
-          'Request individual user registration key' option to generate and send
-          in an activation request code. Check your spam folder or send a follow
-          up email if your registration key is not received within 24 hours of
-          sending your activation request email.<br></br>
-          As long as the user email address domain matches the purchasing
-          company email address domain, the activation will be attributed to the
-          purchase
+          <br></br>5. Enter the License Key you received via email. <br></br>
+          <br></br>6. Click Activate License. <br></br>
+          <br></br>Note: All licenses are annual per user and apply only to the
+          specific Revit version purchased. Each version of Autodesk Revit
+          requires its own compatible version of the HamstrUK Plug In. Licenses
+          and installations are sold separately for each Revit version.{" "}
+          <br></br>
+          <br></br> The purchase date will be considered the start date of your
+          license, and the annual period will be counted from that date.{" "}
+          <br></br>If you do not receive your registration key within 24 hours
+          of purchasing the plugin, please send a follow up email to
+          support@hamstruk.com.
         </p>
 
         <p className="mt-5 text-lg">

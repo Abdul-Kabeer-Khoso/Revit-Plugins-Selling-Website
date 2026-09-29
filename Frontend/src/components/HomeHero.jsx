@@ -1,4 +1,4 @@
-import ribbon from "./../assets/ribbon.png";
+import RIBBON from "./../assets/RIBBON.png";
 
 const HomeHero = () => {
   return (
@@ -36,7 +36,7 @@ const HomeHero = () => {
         </p>
       </div>
       <div className="my-13 shadow-2xl ">
-        <img src={ribbon} alt="Ribbon Image" className="w-[100%]" />
+        <img src={RIBBON} alt="Ribbon Image" className="w-[100%]" />
       </div>
     </div>
   );
