@@ -3,7 +3,7 @@ import FLOORS from "../assets/FLOORS.png";
 import BEAMS from "../assets/BEAMS.png";
 import COLUMNWALL from "../assets/COLUMN WALL.png";
 import EXCEL from "../assets/EXCEL.png";
-import info from "../assets/info.png";
+import info from "../assets/INFO.png";
 import RevitPluginSkeleton from "./loader/RevitPluginSkeleton";
 import xlsxMaster from "../assets/xlsxMaster.png";
 
