@@ -1,5 +1,7 @@
 import Download from "../models/downloadModel.js";
 import cloudinary from "../config/cloudinary.js";
+import { Readable } from "node:stream";
+import { pipeline } from "node:stream/promises";
 
 export const getAllDownload = async (req, res) => {
   try {
@@ -29,15 +31,85 @@ export const downloadPlugin = async (req, res) => {
       });
     }
 
-    return res.redirect(plugin.fileUrl);
+    if (!plugin.fileUrl) {
+      return res.status(404).json({
+        message: "Plugin file URL not found.",
+      });
+    }
+
+    // Generate a clean filename from the plugin description.
+    const baseName = String(plugin.description || "Plugin")
+      .trim()
+      .replace(/\.zip$/i, "")
+      .replace(/[^a-zA-Z0-9_-]+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    // Ensure the downloaded filename starts with "Revit".
+    const cleanName = baseName || "Plugin";
+
+    const filename = /^revit/i.test(cleanName)
+      ? `${cleanName}.zip`
+      : `Revit-${cleanName}.zip`;
+
+    // Retrieve the ZIP from Cloudinary.
+    const fileResponse = await fetch(plugin.fileUrl);
+
+    if (!fileResponse.ok || !fileResponse.body) {
+      console.error("Cloudinary download failed:", fileResponse.status);
+
+      return res.status(502).json({
+        message: "Unable to retrieve the plugin file.",
+      });
+    }
+
+    // Set the filename shown to the customer.
+    res.setHeader("Content-Type", "application/zip");
+
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+
+    const contentLength = fileResponse.headers.get("content-length");
+
+    if (contentLength) {
+      res.setHeader("Content-Length", contentLength);
+    }
+
+    // Stream the file through the backend without creating
+    // another ZIP archive or loading the entire file into memory.
+    await pipeline(Readable.fromWeb(fileResponse.body), res);
   } catch (err) {
-    console.error(err);
+    console.error("Unable to download plugin:", err);
+
+    if (res.headersSent) {
+      res.destroy(err);
+      return;
+    }
 
     return res.status(500).json({
       message: "Unable to download plugin.",
     });
   }
 };
+
+// export const downloadPlugin = async (req, res) => {
+//   try {
+//     const plugin = await Download.findById(req.params.id);
+
+//     if (!plugin) {
+//       return res.status(404).json({
+//         message: "Plugin not found.",
+//       });
+//     }
+
+//     return res.redirect(plugin.fileUrl);
+//   } catch (err) {
+//     console.error(err);
+
+//     return res.status(500).json({
+//       message: "Unable to download plugin.",
+//     });
+//   }
+// };
 
 export const addDownload = async (req, res) => {
   try {
