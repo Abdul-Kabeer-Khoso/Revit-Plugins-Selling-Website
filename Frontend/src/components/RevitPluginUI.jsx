@@ -33,37 +33,37 @@ const RevitPluginUI = ({
       </div>
 
       <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between items-center px-2 sm:px-10 md:px-15 py-5 text-lg">
-        <div className="w-[95%] sm:w-[65%] flex flex-row justify-between items-center">
-          <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
-            {loading ? (
-              <RevitPluginSkeleton />
-            ) : foundation.length > 0 ? (
-              foundation.map((elem, idx) => (
-                <p key={idx} className="mb-2">
-                  {elem.description}
-                </p>
-              ))
-            ) : (
-              <p className="text-gray-500">No Data</p>
-            )}
-          </div>
-
-          <div className="flex flex-col items-start text-sm sm:text-lg">
-            {!loading &&
-              foundation.length > 0 &&
-              foundation.map((elem) => (
-                <a
-                  key={elem._id}
-                  href={elem.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 mb-2 hover:text-blue-800 hover:underline font-semibold transition-all"
-                >
-                  ▶ Video
-                </a>
-              ))}
-          </div>
+        {/* <div className="w-[95%] sm:w-[65%] flex flex-row justify-between items-center"> */}
+        <div className="flex-col gap-0 sm:gap-1 items-start w-[65%] sm:w-[65%] md:w-[55%] lg:w-[30%]  text-sm sm:text-lg ">
+          {loading ? (
+            <RevitPluginSkeleton />
+          ) : foundation.length > 0 ? (
+            foundation.map((elem, idx) => (
+              <p key={idx} className="mb-2">
+                {elem.description}
+              </p>
+            ))
+          ) : (
+            <p className="text-gray-500">No Data</p>
+          )}
         </div>
+
+        <div className="flex flex-col items-start text-sm sm:text-lg">
+          {!loading &&
+            foundation.length > 0 &&
+            foundation.map((elem) => (
+              <a
+                key={elem._id}
+                href={elem.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 mb-2 hover:text-blue-800 hover:underline font-semibold transition-all"
+              >
+                ▶ Video
+              </a>
+            ))}
+        </div>
+        {/* </div> */}
 
         <img
           src={FOUNDATION}
