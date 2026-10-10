@@ -37,22 +37,22 @@ export const downloadPlugin = async (req, res) => {
       });
     }
 
-    // Generate a clean filename from the plugin description.
-    const baseName = String(plugin.description || "Plugin")
-      .trim()
-      .replace(/\.zip$/i, "")
-      .replace(/[^a-zA-Z0-9_-]+/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/^-+|-+$/g, "");
+    // Extract the Revit version from the plugin description.
+    // Supports descriptions such as "2024", "Revit 2024",
+    // and "Revit2024".
+    const description = String(plugin.description || "");
+    const versionMatch = description.match(/20\d{2}/);
 
-    // Ensure the downloaded filename starts with "Revit".
-    const cleanName = baseName || "Plugin";
+    if (!versionMatch) {
+      return res.status(400).json({
+        message: "Revit version not found in the plugin description.",
+      });
+    }
 
-    const filename = /^revit/i.test(cleanName)
-      ? `${cleanName}.zip`
-      : `Revit-${cleanName}.zip`;
+    // Generate the filename required by the client.
+    const filename = `HamstrUK-Revit-${versionMatch[0]}.zip`;
 
-    // Retrieve the ZIP from Cloudinary.
+    // Retrieve the ZIP file from Cloudinary.
     const fileResponse = await fetch(plugin.fileUrl);
 
     if (!fileResponse.ok || !fileResponse.body) {
@@ -63,7 +63,7 @@ export const downloadPlugin = async (req, res) => {
       });
     }
 
-    // Set the filename shown to the customer.
+    // Force the browser to download using the correct filename.
     res.setHeader("Content-Type", "application/zip");
 
     res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
@@ -74,8 +74,7 @@ export const downloadPlugin = async (req, res) => {
       res.setHeader("Content-Length", contentLength);
     }
 
-    // Stream the file through the backend without creating
-    // another ZIP archive or loading the entire file into memory.
+    // Stream the existing ZIP without creating another ZIP archive.
     await pipeline(Readable.fromWeb(fileResponse.body), res);
   } catch (err) {
     console.error("Unable to download plugin:", err);
