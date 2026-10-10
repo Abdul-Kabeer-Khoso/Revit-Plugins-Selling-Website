@@ -99,19 +99,7 @@ Download Plugin
 
 <hr style="margin-top:35px;">
 
-<h3 style="color:#1976d2;">
-Installation Instructions
-</h3>
 
-<ul>
-<li>The <strong>.exe</strong> installer is a per-user installer. Do <strong>NOT</strong> run it as Administrator.</li>
-
-<li>The <strong>.msi</strong> installer is a per-machine installer and requires Administrator privileges.</li>
-
-<li>Both installers support the <strong>-quiet</strong> switch for silent installation.</li>
-</ul>
-
-<hr>
 
 <h3 style="color:#1976d2;">
 Activation Instructions
@@ -126,8 +114,6 @@ Activation Instructions
 <li>Open the plugin ribbon.</li>
 
 <li>Click <strong>Licensing / Activation</strong>.</li>
-
-<li>Enter your Email Address.</li>
 
 <li>Enter one of the License Keys above.</li>
 
