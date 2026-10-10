@@ -17,7 +17,7 @@ const YoutubeTutorial = ({ name, link }) => {
         className="pr-2 sm:pr-6 flex items-center justify-end gap-2 font-semibold text-sm sm:text-lg text-blue-600 hover:text-blue-800  cursor-pointer transition-colors"
       >
         <span className="text-xl sm:text-2xl">▶</span>
-        <span>Click to watch video</span>
+        <span>Video</span>
       </button>
     </div>
   );

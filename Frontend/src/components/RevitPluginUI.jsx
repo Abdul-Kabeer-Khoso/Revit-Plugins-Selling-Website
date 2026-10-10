@@ -59,7 +59,7 @@ const RevitPluginUI = ({
                   rel="noopener noreferrer"
                   className="text-blue-600 mb-2 hover:text-blue-800 hover:underline font-semibold transition-all"
                 >
-                  ▶ Click to watch video
+                  ▶ Video
                 </a>
               ))}
           </div>
@@ -113,7 +113,7 @@ const RevitPluginUI = ({
                 rel="noopener noreferrer"
                 className="text-blue-600 mb-2  hover:text-blue-800 hover:underline font-semibold transition-all"
               >
-                ▶ Click to watch video
+                ▶ Video
               </a>
             ))}
         </div>
@@ -166,7 +166,7 @@ const RevitPluginUI = ({
                 rel="noopener noreferrer"
                 className="text-blue-600 mb-2  hover:text-blue-800 hover:underline font-semibold transition-all"
               >
-                ▶ Click to watch video
+                ▶ Video
               </a>
             ))}
         </div>
@@ -219,7 +219,7 @@ const RevitPluginUI = ({
                 rel="noopener noreferrer"
                 className="text-blue-600 mb-2  hover:text-blue-800 hover:underline font-semibold transition-all"
               >
-                ▶ Click to watch video
+                ▶ Video
               </a>
             ))}
         </div>
@@ -272,7 +272,7 @@ const RevitPluginUI = ({
                 rel="noopener noreferrer"
                 className="text-blue-600 mb-2  hover:text-blue-800 hover:underline font-semibold transition-all"
               >
-                ▶ Click to watch video
+                ▶ Video
               </a>
             ))}
         </div>
@@ -325,7 +325,7 @@ const RevitPluginUI = ({
                 rel="noopener noreferrer"
                 className="text-blue-600 mb-2  hover:text-blue-800 hover:underline font-semibold transition-all"
               >
-                ▶ Click to watch video
+                ▶ Video
               </a>
             ))}
         </div>
