@@ -28,10 +28,10 @@ const Review = ({ review, onDelete }) => {
       <button
         type="button"
         onClick={() => onDelete(review._id)}
-        className="text-red-600 hover:text-red-800 transition hover:cursor-pointer"
+        className="text-red-600 hover:text-red-800 transition"
         title="Delete review"
       >
-        <FaTrash />
+        <FaTrash className="hover:cursor-pointer" />
       </button>
     </div>
   );
