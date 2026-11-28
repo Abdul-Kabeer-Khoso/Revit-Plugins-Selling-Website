@@ -2,7 +2,7 @@ import { FaTrash } from "react-icons/fa";
 
 const Review = ({ review, onDelete }) => {
   return (
-    <div className="w-full flex flex-col sm:flex-row justify-between items-start gap-3 px-4 py-4 rounded-lg border border-gray-300 bg-white shadow-sm hover:cursor-pointer">
+    <div className="w-full flex flex-col sm:flex-row justify-between items-start gap-3 px-4 py-4 rounded-lg border border-gray-300 bg-white shadow-sm">
       {/* Client Name */}
       <div className="w-full sm:w-[20%] break-words">
         <p className="font-semibold text-gray-800">{review.customerName}</p>
@@ -28,7 +28,7 @@ const Review = ({ review, onDelete }) => {
       <button
         type="button"
         onClick={() => onDelete(review._id)}
-        className="text-red-600 hover:text-red-800 transition"
+        className="text-red-600 hover:text-red-800 transition hover:cursor-pointer"
         title="Delete review"
       >
         <FaTrash />
