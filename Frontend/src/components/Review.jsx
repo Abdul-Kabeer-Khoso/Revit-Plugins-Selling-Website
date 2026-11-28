@@ -1,23 +1,38 @@
 import { FaTrash } from "react-icons/fa";
-const Review = () => {
+
+const Review = ({ review, onDelete }) => {
   return (
-    <div className="w-full flex justify-between items-start px-4 py-3 rounded-lg border border-gray-400">
-      <p className="w-[20%]   break-words">Client Name</p>
+    <div className="w-full flex flex-col sm:flex-row justify-between items-start gap-3 px-4 py-4 rounded-lg border border-gray-300 bg-white shadow-sm">
+      {/* Client Name */}
+      <div className="w-full sm:w-[20%] break-words">
+        <p className="font-semibold text-gray-800">{review.customerName}</p>
 
-      <p className="w-[45%]  text-sm break-all whitespace-normal">
-        This Revit plugin has significantly improved our structural modeling
-        flow
+        {/* Star Rating */}
+        <p className="text-yellow-500 text-sm mt-1">
+          {"★".repeat(review.rating)}
+          <span className="text-gray-300">{"★".repeat(5 - review.rating)}</span>
+        </p>
+      </div>
+
+      {/* Review Text */}
+      <p className="w-full sm:w-[45%] text-sm text-gray-700 break-words whitespace-normal">
+        {review.reviewText}
       </p>
 
-      <p className="w-[25%] text-sm break-all whitespace-normal">
-        Company Name
+      {/* Company Name */}
+      <p className="w-full sm:w-[25%] text-sm text-gray-700 break-words">
+        {review.companyName || "Not provided"}
       </p>
 
-      <FaTrash
-        onClick={() => handleDelete(id)}
-        className="hover:cursor-pointer"
-        color="red"
-      />
+      {/* Delete Button */}
+      <button
+        type="button"
+        onClick={() => onDelete(review._id)}
+        className="text-red-600 hover:text-red-800 transition"
+        title="Delete review"
+      >
+        <FaTrash />
+      </button>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import Review from "../models/reviewModel.js";
+import cloudinary from "../config/cloudinary.js";
 
 export const addReview = async (req, res) => {
   try {
@@ -92,6 +93,56 @@ export const getAllReviews = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Unable to fetch reviews.",
+    });
+  }
+};
+
+// Delete review and its Cloudinary images
+export const deleteReview = async (req, res) => {
+  try {
+    const review = await Review.findById(req.params.id);
+
+    if (!review) {
+      return res.status(404).json({
+        success: false,
+        message: "Review not found.",
+      });
+    }
+
+    // Delete review from MongoDB
+    await Review.findByIdAndDelete(req.params.id);
+
+    // Collect Cloudinary image public IDs
+    const publicIds = [
+      review.customerPhoto?.publicId,
+      review.companyLogo?.publicId,
+    ].filter(Boolean);
+
+    // Delete images from Cloudinary
+    const results = await Promise.allSettled(
+      publicIds.map((publicId) =>
+        cloudinary.uploader.destroy(publicId, {
+          resource_type: "image",
+        }),
+      ),
+    );
+
+    results.forEach((result) => {
+      if (result.status === "rejected") {
+        console.error("Cloudinary Image Deletion Error:", result.reason);
+      }
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Review deleted successfully.",
+    });
+  } catch (err) {
+    console.error("Delete Review Error:", err);
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to delete review.",
     });
   }
 };
