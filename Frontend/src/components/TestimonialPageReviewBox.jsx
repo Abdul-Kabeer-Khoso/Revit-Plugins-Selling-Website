@@ -19,11 +19,20 @@ const TestimonialPageReviewBox = ({ review }) => {
         shadow-sm hover:shadow-md transition-shadow"
       >
         {/* Customer Photo */}
-        <img
-          src={customerPhoto}
-          alt={customerName}
-          className="w-28 h-28 object-cover rounded-lg shrink-0"
-        />
+        {customerPhoto?.url ? (
+          <img
+            src={customerPhoto.url}
+            alt={customerName}
+            className="w-28 h-28 object-cover rounded-lg shrink-0"
+          />
+        ) : (
+          <div
+            className="w-28 h-28 rounded-lg shrink-0 bg-gray-100
+            flex items-center justify-center text-gray-500 text-3xl font-semibold"
+          >
+            {customerName?.charAt(0)?.toUpperCase() || "?"}
+          </div>
+        )}
 
         {/* Review Details */}
         <div className="flex-1">
@@ -32,7 +41,8 @@ const TestimonialPageReviewBox = ({ review }) => {
           </h3>
 
           <p className="text-sm text-gray-500 mt-1">
-            {designation} | {companyName}
+            {designation}
+            {companyName ? ` | ${companyName}` : ""}
           </p>
 
           {/* Star Rating */}
@@ -70,15 +80,15 @@ const TestimonialPageReviewBox = ({ review }) => {
         border border-gray-200 rounded-xl p-5 bg-white
         shadow-sm hover:shadow-md transition-shadow min-h-40"
       >
-        {companyLogo ? (
+        {companyLogo?.url ? (
           <img
-            src={companyLogo}
-            alt={`${companyName} logo`}
+            src={companyLogo.url}
+            alt={`${companyName || "Company"} logo`}
             className="max-w-full max-h-32 object-contain"
           />
         ) : (
           <span className="text-xl font-bold text-gray-700 text-center">
-            {companyName}
+            {companyName || " "}
           </span>
         )}
       </div>

@@ -76,3 +76,22 @@ export const addReview = async (req, res) => {
     });
   }
 };
+
+// Get all reviews (newest first)
+export const getAllReviews = async (req, res) => {
+  try {
+    const reviews = await Review.find().sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      reviews,
+    });
+  } catch (err) {
+    console.error("Get Reviews Error:", err);
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to fetch reviews.",
+    });
+  }
+};

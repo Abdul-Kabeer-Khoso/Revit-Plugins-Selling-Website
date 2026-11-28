@@ -1,13 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ReviewBox from "../components/TestimonialPageReviewBox";
-import reviews from "../data/reviews";
+import api from "../api/axios";
 
 const REVIEWS_PER_PAGE = 7;
 
 const Testimonials = () => {
+  const [reviews, setReviews] = useState([]);
   const [visibleReviews, setVisibleReviews] = useState(REVIEWS_PER_PAGE);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // Fetch reviews from the backend
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await api.get("/reviews");
+
+        setReviews(response.data.reviews || []);
+      } catch (err) {
+        console.error("Fetch Reviews Error:", err);
+
+        setError("Unable to load reviews. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, []);
 
   // Get only the reviews that should be displayed
   const displayedReviews = reviews.slice(0, visibleReviews);
@@ -22,9 +44,10 @@ const Testimonials = () => {
       <Navbar />
 
       <div className="flex-col justify-center items-center mt-8 p-5">
-        <p className="text-2xl md:text-4xl font-bold text-center uppercase ">
+        <p className="text-2xl md:text-4xl font-bold text-center uppercase">
           Smarter Revit Structural Design Starts Here.
         </p>
+
         <p className="mt-2 lg:mt-0 text-xl md:text-2xl font-semibold text-center">
           Built on 25 years of hands-on global project delivery. Made for Revit.
           Made for engineers.
@@ -50,8 +73,15 @@ const Testimonials = () => {
 
         {/* Review List */}
         <div className="max-w-7xl mx-auto">
-          {reviews.length === 0 ? (
-            /* No Reviews Available */
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-gray-500 text-lg">Loading reviews...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-16">
+              <p className="text-red-600 text-lg">{error}</p>
+            </div>
+          ) : reviews.length === 0 ? (
             <div className="text-center py-16">
               <h2 className="text-2xl font-semibold text-gray-800">
                 No Reviews Yet
@@ -65,7 +95,7 @@ const Testimonials = () => {
             <>
               {/* Display Reviews */}
               {displayedReviews.map((review) => (
-                <ReviewBox key={review.id} review={review} />
+                <ReviewBox key={review._id} review={review} />
               ))}
 
               {/* Load More Button */}
