@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Review from "./Review";
 import api from "../api/axios";
 
@@ -26,26 +29,29 @@ const ReviewsDashboard = () => {
 
   // Delete review
   const handleDelete = async (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this review?",
-    );
-
-    if (!confirmed) return;
-
     try {
       await api.delete(`/reviews/${id}`);
 
       setReviews((prevReviews) =>
         prevReviews.filter((review) => review._id !== id),
       );
+
+      toast.success("Review deleted successfully!");
     } catch (err) {
       console.error("Delete Review Error:", err);
-      alert("Unable to delete review. Please try again.");
+      toast.error("Unable to delete review. Please try again.");
     }
   };
 
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        theme="light"
+        newestOnTop
+      />
+
       <div className="w-full h-auto p-2 rounded-md bg-amber-200 text-lg font-semibold flex justify-center items-center">
         REVIEWS DASHBOARD
       </div>
