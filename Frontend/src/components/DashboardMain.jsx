@@ -2,6 +2,7 @@ import DownloadDashboard from "./DownlaodDashboard";
 import FamiliesDashboard from "./FamiliesDashboard";
 import HomeDashboard from "./HomeDashboard";
 import PluginPurchaseLogDashboard from "./PluginPurchaseLogDashboard";
+import ReviewsDashboard from "./ReviewsDashboard";
 
 const DashboardMain = ({ activeDashboard }) => {
   return (
@@ -10,6 +11,7 @@ const DashboardMain = ({ activeDashboard }) => {
       {activeDashboard == "Downloads" && <DownloadDashboard />}
       {activeDashboard == "Families" && <FamiliesDashboard />}
       {activeDashboard == "Plugin" && <PluginPurchaseLogDashboard />}
+      {activeDashboard == "Reviews" && <ReviewsDashboard />}
     </div>
   );
 };

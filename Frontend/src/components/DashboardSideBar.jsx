@@ -53,6 +53,15 @@ const DashboardSideBar = ({ setActiveDashboard, activeDashboard }) => {
         >
           Plugin Purchase Log
         </div>
+
+        <div
+          onClick={() => setActiveDashboard("Reviews")}
+          className={`w-full h-auto p-2 font-bold rounded-lg mb-4 flex justify-center items-center hover:cursor-pointer
+                    ${activeDashboard == "Reviews" ? "bg-teal-600 text-white" : "bg-gray-200 text-black "}
+                `}
+        >
+          Reviews
+        </div>
       </div>
 
       <div className="w-full">

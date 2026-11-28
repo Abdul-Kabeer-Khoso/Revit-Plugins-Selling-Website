@@ -13,6 +13,7 @@ import cloudinaryRoutes from "./routes/cloudinaryRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
 import licenseRoutes from "./routes/licenseRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
 import { stripeWebhook } from "./controllers/stripeController.js";
 import brevo from "./config/brevo.js";
 
@@ -83,6 +84,7 @@ app.use("/api", cloudinaryRoutes);
 app.use("/api", stripeRoutes);
 app.use("/api", licenseRoutes);
 app.use("/api", orderRoutes);
+app.use("/api", reviewRoutes);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

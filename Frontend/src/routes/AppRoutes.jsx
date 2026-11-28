@@ -7,6 +7,8 @@ import PageNotFound from "../components/PageNotFound";
 import AdminLogin from "../pages/AdminLogin";
 import AdminDashboard from "../pages/AdminDashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
+import Testimonials from "../pages/Testimonials";
+import ReviewSubmission from "../pages/ReviewSubmission";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
   {
     path: "/families",
     element: <Families />,
+  },
+  {
+    path: "/testimonials",
+    element: <Testimonials />,
+  },
+  {
+    path: "/add-review",
+    element: <ReviewSubmission />,
   },
   {
     path: "/adminlogin",
